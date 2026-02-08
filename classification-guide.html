@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Classification Guide</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weapons Classification Guide</title>
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -11,7 +11,7 @@
 </head>
 <body>
   <div id="root"></div>
-  
+
   <script type="text/babel">
     const { useState } = React;
 
@@ -20,39 +20,212 @@
       const [result, setResult] = useState(null);
 
       const tree = {
-  "label": "Handguns",
-  "image": "",
-  "question": "Handguns - Which bore type best fits?",
+  "question": "Which Small Arms group best fits?",
   "options": [
     {
-      "label": "Rifled",
+      "label": "Handguns",
       "image": "",
       "next": {
-        "question": "Which rifled type?",
+        "question": "Handguns - Which bore type best fits?",
         "options": [
           {
-            "label": "Self-loading",
+            "label": "Rifled",
             "image": "",
-            "result": "Self-loading"
+            "next": {
+              "question": "Rifled",
+              "options": [
+                {
+                  "label": "Self-loading Pistols",
+                  "image": "",
+                  "result": "Self-loading Pistols"
+                },
+                {
+                  "label": "Revolvers",
+                  "image": "",
+                  "result": "Revolvers"
+                }
+              ]
+            }
           },
           {
-            "label": "Revolvers",
+            "label": "Smooth-bore",
             "image": "",
-            "result": "Revolvers"
+            "next": {
+              "question": "Smooth-bore",
+              "options": [
+                {
+                  "label": "Other handguns",
+                  "image": "",
+                  "result": "Other handguns"
+                }
+              ]
+            }
           }
         ]
       }
     },
     {
-      "label": "Smooth-bore",
+      "label": "Long Guns",
       "image": "",
       "next": {
-        "question": "Which smooth-bore type?",
+        "question": "Long Guns - Which bore type best fits?",
         "options": [
           {
-            "label": "Other handguns",
+            "label": "Rifled",
             "image": "",
-            "result": "Other handguns"
+            "next": {
+              "question": "Rifled",
+              "options": [
+                {
+                  "label": "Sub-machine guns",
+                  "image": "",
+                  "result": "Sub-machine guns"
+                },
+                {
+                  "label": "Man-portable machine guns",
+                  "image": "",
+                  "result": "Man-portable machine guns"
+                },
+                {
+                  "label": "Rifles",
+                  "image": "",
+                  "next": {
+                    "question": "Rifles: Which sub-type matches best?",
+                    "options": [
+                      {
+                        "label": "Self-loading Rifles",
+                        "image": "",
+                        "next": {
+                          "question": "Self-loading Rifles",
+                          "options": [
+                            {
+                              "label": "Automatic Rifles",
+                              "image": "",
+                              "result": "Automatic Rifles"
+                            },
+                            {
+                              "label": "Semi-automatic Rifles",
+                              "image": "",
+                              "result": "Semi-automatic Rifles"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "label": "Manually Operated Rifles",
+                        "image": "",
+                        "next": {
+                          "question": "Manually Operated Rifles",
+                          "options": [
+                            {
+                              "label": "Break-action Rifles",
+                              "image": "",
+                              "result": "Break-action Rifles"
+                            },
+                            {
+                              "label": "Bolt-action Rifles",
+                              "image": "",
+                              "result": "Bolt-action Rifles"
+                            },
+                            {
+                              "label": "Lever-action Rifles",
+                              "image": "",
+                              "result": "Lever-action Rifles"
+                            },
+                            {
+                              "label": "Pump-action Rifles",
+                              "image": "",
+                              "result": "Pump-action Rifles"
+                            },
+                            {
+                              "label": "Other Manually Operated Rifles",
+                              "image": "",
+                              "result": "Other Manually Operated Rifles"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "label": "Smooth-bore",
+            "image": "",
+            "next": {
+              "question": "Smooth-bore",
+              "options": [
+                {
+                  "label": "Shotguns",
+                  "image": "",
+                  "next": {
+                    "question": "Shotguns",
+                    "options": [
+                      {
+                        "label": "Self-loading Shotguns",
+                        "image": "",
+                        "next": {
+                          "question": "Self-loading Shotguns",
+                          "options": [
+                            {
+                              "label": "Automatic Shotguns",
+                              "image": "",
+                              "result": "Automatic Shotguns"
+                            },
+                            {
+                              "label": "Semi-automatic Shotguns",
+                              "image": "",
+                              "result": "Semi-automatic Shotguns"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "label": "Manually Operated Shotguns",
+                        "image": "",
+                        "next": {
+                          "question": "Manually Operated Shotguns",
+                          "options": [
+                            {
+                              "label": "Break-action Shotguns",
+                              "image": "",
+                              "result": "Break-action Shotguns"
+                            },
+                            {
+                              "label": "Bolt-action Shotguns",
+                              "image": "",
+                              "result": "Bolt-action Shotguns"
+                            },
+                            {
+                              "label": "Lever-action Shotguns",
+                              "image": "",
+                              "result": "Lever-action Shotguns"
+                            },
+                            {
+                              "label": "Pump-action Shotguns",
+                              "image": "",
+                              "result": "Pump-action Shotguns"
+                            },
+                            {
+                              "label": "Other Manually Operated Shotguns",
+                              "image": "",
+                              "result": "Other Manually Operated Shotguns"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Other smooth-bore long guns",
+                  "image": "",
+                  "result": "Other smooth-bore long guns"
+                }
+              ]
+            }
           }
         ]
       }
@@ -62,29 +235,27 @@
 
       const getCurrentNode = () => {
         let node = tree;
-        for (const choice of path) {
-          node = node.options[choice].next;
+        for (const choiceIndex of path) {
+          const option = node?.options?.[choiceIndex];
+          if (!option) return null;
+          if (option.next) node = option.next;
+          else return null;
         }
         return node;
       };
 
       const handleChoice = (index) => {
         const currentNode = getCurrentNode();
-        const choice = currentNode.options[index];
-        
-        if (choice.result) {
-          setResult(choice.result);
-        } else {
-          setPath([...path, index]);
-        }
+        const choice = currentNode?.options?.[index];
+        if (!choice) return;
+
+        if (choice.result) setResult(choice.result);
+        else if (choice.next) setPath([...path, index]);
       };
 
       const goBack = () => {
-        if (result) {
-          setResult(null);
-        } else if (path.length > 0) {
-          setPath(path.slice(0, -1));
-        }
+        if (result) setResult(null);
+        else if (path.length > 0) setPath(path.slice(0, -1));
       };
 
       const reset = () => {
@@ -98,13 +269,11 @@
         <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
           <div className="max-w-2xl mx-auto">
             <div className="bg-white rounded-lg shadow-lg p-8">
-              <h1 className="text-3xl font-bold text-slate-800 mb-6 text-center">
-                Classification Guide
-              </h1>
+              <h1 className="text-3xl font-bold text-slate-800 mb-6 text-center">Weapons Classification Guide</h1>
 
               {path.length > 0 && !result && (
                 <div className="mb-6 text-sm text-slate-600">
-                  Step {path.length + 1} of classification
+                  Step {path.length + 1}
                 </div>
               )}
 
@@ -121,7 +290,7 @@
                   </div>
                   <button
                     onClick={reset}
-                    className="mt-6 bg-slate-600 text-white px-6 py-3 rounded-lg hover:bg-slate-700 transition-colors inline-flex items-center gap-2"
+                    className="mt-6 bg-slate-600 text-white px-6 py-3 rounded-lg hover:bg-slate-700 transition-colors"
                   >
                     ↻ Start Over
                   </button>
@@ -158,18 +327,12 @@
                   </div>
 
                   <div className="mt-8 flex gap-3">
-                    {path.length > 0 && (
-                      <button
-                        onClick={goBack}
-                        className="flex items-center gap-2 px-4 py-2 text-slate-600 hover:text-slate-800 transition-colors"
-                      >
+                    {(path.length > 0 || result) && (
+                      <button onClick={goBack} className="px-4 py-2 text-slate-600 hover:text-slate-800">
                         ← Back
                       </button>
                     )}
-                    <button
-                      onClick={reset}
-                      className="ml-auto px-4 py-2 text-slate-600 hover:text-slate-800 transition-colors"
-                    >
+                    <button onClick={reset} className="ml-auto px-4 py-2 text-slate-600 hover:text-slate-800">
                       Start Over
                     </button>
                   </div>
@@ -181,7 +344,7 @@
       );
     };
 
-    const root = ReactDOM.createRoot(document.getElementById('root'));
+    const root = ReactDOM.createRoot(document.getElementById("root"));
     root.render(<ClassificationGuide />);
   </script>
 </body>
