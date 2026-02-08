@@ -37,28 +37,27 @@ flowchart TB
   LongGuns_Rifled --> |Man-portable Machine Guns| Rifled_ManPortableMachineGuns
   LongGuns_Rifled --> Rifles
 
-  LongGuns_SmoothBore --> Shotguns
-  LongGuns_SmoothBore --> OtherSmoothBoreLongGuns
+  LongGuns_SmoothBore --> |Shotguns| Shotguns
+  LongGuns_SmoothBore --> |OtherSmoothBoreLongGuns| OtherSmoothBoreLongGuns
 
   Rifles["Rifles: Which **sub-type** of **rifled long guns** matches best?<br/><img src='' width='56' height='56'/>"]
   
   Rifles --> |Self-Loading| SelfLoadingRifles
   Rifles --> |Manually-Loaded| ManuallyOperatedRifles
 
-  Shotguns["Shotguns<br/><img src='' width='56' height='56'/>"]
+  Shotguns["How is amunition loaded into the shotgun?<br/><img src='' width='56' height='56'/>"]
   OtherSmoothBoreLongGuns["Other smooth-bore<br/>long guns<br/><img src='' width='56' height='56'/>"]
 
   %% Rifles split
   SelfLoadingRifles["Which operation method of **self-loading rifled long gun** best fits?<br/><img src='' width='56' height='56'/>"]
   ManuallyOperatedRifles["Which operation method **manually-loading rifled long gun** best fits?<br/><img src='' width='56' height='56'/>"]
 
-
   %% Self-loading rifles leaves
   AutomaticRifles["Automatic Rifles<br/><img src='' width='56' height='56'/>"]
   SemiAutomaticRifles["Semi-automatic<br/>Rifles<br/><img src='' width='56' height='56'/>"]
 
-  SelfLoadingRifles --> |AutomaticRifles| AutomaticRifles
-  SelfLoadingRifles --> |SemiAutomaticRifles| SemiAutomaticRifles
+  SelfLoadingRifles --> |Automatic Rifles| AutomaticRifles
+  SelfLoadingRifles --> |SemiAutomatic Rifles| SemiAutomaticRifles
 
   %% Manually operated rifles leaves
   BreakActionRifles["Break-action<br/>Rifles<br/><img src='' width='56' height='56'/>"]
@@ -74,18 +73,18 @@ flowchart TB
   ManuallyOperatedRifles --> |OtherManuallyOperatedRifles| OtherManuallyOperatedRifles
 
   %% Shotguns split (matches reference structure)
-  SelfLoadingShotguns["Self-loading<br/>Shotguns<br/><img src='' width='56' height='56'/>"]
-  ManuallyOperatedShotguns["Manually<br/>Operated Shotguns<br/><img src='' width='56' height='56'/>"]
+  SelfLoadingShotguns["Self-loading Shotguns<br/><img src='' width='56' height='56'/>"]
+  ManuallyOperatedShotguns["Manually Operated Shotguns<br/><img src='' width='56' height='56'/>"]
 
-  Shotguns --> |SelfLoadingShotguns| SelfLoadingShotguns
-  Shotguns --> |ManuallyOperatedShotguns| ManuallyOperatedShotguns
+  Shotguns --> |Self-Loading| SelfLoadingShotguns
+  Shotguns --> |Manually| ManuallyOperatedShotguns
 
   %% Self-loading shotguns leaves
   AutomaticShotguns["Automatic Shotguns<br/><img src='' width='56' height='56'/>"]
   SemiAutomaticShotguns["Semi-automatic<br/>Shotguns<br/><img src='' width='56' height='56'/>"]
 
-  SelfLoadingShotguns --> AutomaticShotguns
-  SelfLoadingShotguns --> SemiAutomaticShotguns
+  SelfLoadingShotguns --> |AutomaticShotguns| AutomaticShotguns
+  SelfLoadingShotguns --> |SemiAutomaticShotguns| SemiAutomaticShotguns
 
   %% Manually operated shotguns leaves
   BreakActionShotguns["Break-action<br/>Shotguns<br/><img src='' width='56' height='56'/>"]
@@ -94,9 +93,8 @@ flowchart TB
   PumpActionShotguns["Pump-action<br/>Shotguns<br/><img src='' width='56' height='56'/>"]
   OtherManuallyOperatedShotguns["Other Manually<br/>Operated Shotguns<br/><img src='' width='56' height='56'/>"]
 
-  ManuallyOperatedShotguns --> BreakActionShotguns
-  ManuallyOperatedShotguns --> BoltActionShotguns
-  ManuallyOperatedShotguns --> LeverActionShotguns
-  ManuallyOperatedShotguns --> PumpActionShotguns
-  ManuallyOperatedShotguns --> OtherManuallyOperatedShotguns
-
+  ManuallyOperatedShotguns --> |BreakActionShotguns| BreakActionShotguns
+  ManuallyOperatedShotguns --> |BoltActionShotguns| BoltActionShotguns
+  ManuallyOperatedShotguns --> |LeverActionShotguns| LeverActionShotguns
+  ManuallyOperatedShotguns --> |PumpActionShotguns| PumpActionShotguns
+  ManuallyOperatedShotguns --> |OtherManuallyOperatedShotguns| OtherManuallyOperatedShotguns
