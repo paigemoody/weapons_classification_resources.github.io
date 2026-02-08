@@ -1,263 +1,89 @@
-import React, { useState } from 'react';
-import { ChevronLeft, RotateCcw } from 'lucide-react';
+<div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
+    <div className="max-w-2xl mx-auto">
+      <div className="bg-white rounded-lg shadow-lg p-8">
+        <h1 className="text-3xl font-bold text-slate-800 mb-6 text-center">
+          Small Arms Classification Guide
+        </h1>
 
-const ClassificationGuide = () => {
-  const [path, setPath] = useState([]);
-  const [result, setResult] = useState(null);
+        {/* Breadcrumb */}
+        {path.length > 0 && !result && (
+          <div className="mb-6 text-sm text-slate-600">
+            Step {path.length + 1} of classification
+          </div>
+        )}
 
-  const tree = {
-    question: "Which small arms group best fits?",
-    options: [
-      {
-        label: "Handguns",
-        image: "", // Add image URL here
-        next: {
-          question: "Which bore type best fits?",
-          options: [
-            {
-              label: "Rifled",
-              image: "", // Add image URL here
-              next: {
-                question: "Which type of rifled handgun?",
-                options: [
-                  { label: "Self-loading Pistols", image: "", result: "Self-loading Pistols" },
-                  { label: "Revolvers", image: "", result: "Revolvers" }
-                ]
-              }
-            },
-            {
-              label: "Smooth-bore",
-              image: "", // Add image URL here
-              result: "Other Handguns"
-            }
-          ]
-        }
-      },
-      {
-        label: "Long Guns",
-        image: "", // Add image URL here
-        next: {
-          question: "Which bore type best fits?",
-          options: [
-            {
-              label: "Rifled",
-              image: "", // Add image URL here
-              next: {
-                question: "Which type of rifled long gun?",
-                options: [
-                  { label: "Sub-machine guns", image: "", result: "Sub-machine guns" },
-                  { label: "Man-portable machine guns", image: "", result: "Man-portable machine guns" },
-                  {
-                    label: "Rifles",
-                    image: "", // Add image URL here
-                    next: {
-                      question: "Which rifle sub-type matches best?",
-                      options: [
-                        {
-                          label: "Self-loading Rifles",
-                          image: "", // Add image URL here
-                          next: {
-                            question: "Which type of self-loading rifle?",
-                            options: [
-                              { label: "Automatic Rifles", image: "", result: "Automatic Rifles" },
-                              { label: "Semi-automatic Rifles", image: "", result: "Semi-automatic Rifles" }
-                            ]
-                          }
-                        },
-                        {
-                          label: "Manually Operated Rifles",
-                          image: "", // Add image URL here
-                          next: {
-                            question: "Which type of manually operated rifle?",
-                            options: [
-                              { label: "Break-action Rifles", image: "", result: "Break-action Rifles" },
-                              { label: "Bolt-action Rifles", image: "", result: "Bolt-action Rifles" },
-                              { label: "Lever-action Rifles", image: "", result: "Lever-action Rifles" },
-                              { label: "Pump-action Rifles", image: "", result: "Pump-action Rifles" },
-                              { label: "Other Manually Operated Rifles", image: "", result: "Other Manually Operated Rifles" }
-                            ]
-                          }
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              label: "Smooth-bore",
-              image: "", // Add image URL here
-              next: {
-                question: "Which type of smooth-bore long gun?",
-                options: [
-                  {
-                    label: "Shotguns",
-                    image: "", // Add image URL here
-                    next: {
-                      question: "Which shotgun sub-type matches best?",
-                      options: [
-                        {
-                          label: "Self-loading Shotguns",
-                          image: "", // Add image URL here
-                          next: {
-                            question: "Which type of self-loading shotgun?",
-                            options: [
-                              { label: "Automatic Shotguns", image: "", result: "Automatic Shotguns" },
-                              { label: "Semi-automatic Shotguns", image: "", result: "Semi-automatic Shotguns" }
-                            ]
-                          }
-                        },
-                        {
-                          label: "Manually Operated Shotguns",
-                          image: "", // Add image URL here
-                          next: {
-                            question: "Which type of manually operated shotgun?",
-                            options: [
-                              { label: "Break-action Shotguns", image: "", result: "Break-action Shotguns" },
-                              { label: "Bolt-action Shotguns", image: "", result: "Bolt-action Shotguns" },
-                              { label: "Lever-action Shotguns", image: "", result: "Lever-action Shotguns" },
-                              { label: "Pump-action Shotguns", image: "", result: "Pump-action Shotguns" },
-                              { label: "Other Manually Operated Shotguns", image: "", result: "Other Manually Operated Shotguns" }
-                            ]
-                          }
-                        }
-                      ]
-                    }
-                  },
-                  { label: "Other smooth-bore long guns", image: "", result: "Other smooth-bore long guns" }
-                ]
-              }
-            }
-          ]
-        }
-      }
-    ]
-  };
-
-  const getCurrentNode = () => {
-    let node = tree;
-    for (const choice of path) {
-      node = node.options[choice].next;
-    }
-    return node;
-  };
-
-  const handleChoice = (index) => {
-    const currentNode = getCurrentNode();
-    const choice = currentNode.options[index];
-    
-    if (choice.result) {
-      setResult(choice.result);
-    } else {
-      setPath([...path, index]);
-    }
-  };
-
-  const goBack = () => {
-    if (result) {
-      setResult(null);
-    } else if (path.length > 0) {
-      setPath(path.slice(0, -1));
-    }
-  };
-
-  const reset = () => {
-    setPath([]);
-    setResult(null);
-  };
-
-  const currentNode = result ? null : getCurrentNode();
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
-      <div className="max-w-2xl mx-auto">
-        <div className="bg-white rounded-lg shadow-lg p-8">
-          <h1 className="text-3xl font-bold text-slate-800 mb-6 text-center">
-            Small Arms Classification Guide
-          </h1>
-
-          {/* Breadcrumb */}
-          {path.length > 0 && !result && (
-            <div className="mb-6 text-sm text-slate-600">
-              Step {path.length + 1} of classification
-            </div>
-          )}
-
-          {/* Result Screen */}
-          {result && (
-            <div className="text-center">
-              <div className="mb-6">
-                <div className="w-32 h-32 mx-auto bg-slate-200 rounded-lg flex items-center justify-center mb-4">
-                  <span className="text-slate-400 text-sm">Image placeholder</span>
-                </div>
-                <h2 className="text-2xl font-bold text-slate-800 mb-2">Classification Complete</h2>
-                <div className="inline-block bg-blue-100 text-blue-800 px-6 py-3 rounded-lg text-xl font-semibold">
-                  {result}
-                </div>
+        {/* Result Screen */}
+        {result && (
+          <div className="text-center">
+            <div className="mb-6">
+              <div className="w-32 h-32 mx-auto bg-slate-200 rounded-lg flex items-center justify-center mb-4">
+                <span className="text-slate-400 text-sm">Image placeholder</span>
               </div>
+              <h2 className="text-2xl font-bold text-slate-800 mb-2">Classification Complete</h2>
+              <div className="inline-block bg-blue-100 text-blue-800 px-6 py-3 rounded-lg text-xl font-semibold">
+                {result}
+              </div>
+            </div>
+            <button
+              onClick={reset}
+              className="mt-6 bg-slate-600 text-white px-6 py-3 rounded-lg hover:bg-slate-700 transition-colors inline-flex items-center gap-2"
+            >
+              <RotateCcw size={20} />
+              Start Over
+            </button>
+          </div>
+        )}
+
+        {/* Question Screen */}
+        {!result && currentNode && (
+          <div>
+            <h2 className="text-xl font-semibold text-slate-700 mb-6 text-center">
+              {currentNode.question}
+            </h2>
+
+            <div className="space-y-3">
+              {currentNode.options.map((option, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleChoice(index)}
+                  className="w-full bg-white border-2 border-slate-300 rounded-lg p-4 hover:border-blue-500 hover:bg-blue-50 transition-all text-left group"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 bg-slate-100 rounded flex-shrink-0 flex items-center justify-center overflow-hidden">
+                      {option.image ? (
+                        <img src={option.image} alt={option.label} className="w-full h-full object-cover" />
+                      ) : (
+                        <span className="text-slate-400 text-xs">Image</span>
+                      )}
+                    </div>
+                    <div className="text-lg font-medium text-slate-800 group-hover:text-blue-700">
+                      {option.label}
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+
+            {/* Navigation */}
+            <div className="mt-8 flex gap-3">
+              {path.length > 0 && (
+                <button
+                  onClick={goBack}
+                  className="flex items-center gap-2 px-4 py-2 text-slate-600 hover:text-slate-800 transition-colors"
+                >
+                  <ChevronLeft size={20} />
+                  Back
+                </button>
+              )}
               <button
                 onClick={reset}
-                className="mt-6 bg-slate-600 text-white px-6 py-3 rounded-lg hover:bg-slate-700 transition-colors inline-flex items-center gap-2"
+                className="ml-auto px-4 py-2 text-slate-600 hover:text-slate-800 transition-colors"
               >
-                <RotateCcw size={20} />
                 Start Over
               </button>
             </div>
-          )}
-
-          {/* Question Screen */}
-          {!result && currentNode && (
-            <div>
-              <h2 className="text-xl font-semibold text-slate-700 mb-6 text-center">
-                {currentNode.question}
-              </h2>
-
-              <div className="space-y-3">
-                {currentNode.options.map((option, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleChoice(index)}
-                    className="w-full bg-white border-2 border-slate-300 rounded-lg p-4 hover:border-blue-500 hover:bg-blue-50 transition-all text-left group"
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="w-16 h-16 bg-slate-100 rounded flex-shrink-0 flex items-center justify-center overflow-hidden">
-                        {option.image ? (
-                          <img src={option.image} alt={option.label} className="w-full h-full object-cover" />
-                        ) : (
-                          <span className="text-slate-400 text-xs">Image</span>
-                        )}
-                      </div>
-                      <div className="text-lg font-medium text-slate-800 group-hover:text-blue-700">
-                        {option.label}
-                      </div>
-                    </div>
-                  </button>
-                ))}
-              </div>
-
-              {/* Navigation */}
-              <div className="mt-8 flex gap-3">
-                {path.length > 0 && (
-                  <button
-                    onClick={goBack}
-                    className="flex items-center gap-2 px-4 py-2 text-slate-600 hover:text-slate-800 transition-colors"
-                  >
-                    <ChevronLeft size={20} />
-                    Back
-                  </button>
-                )}
-                <button
-                  onClick={reset}
-                  className="ml-auto px-4 py-2 text-slate-600 hover:text-slate-800 transition-colors"
-                >
-                  Start Over
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
-  )};
-
-export default ClassificationGuide;
+  </div>
