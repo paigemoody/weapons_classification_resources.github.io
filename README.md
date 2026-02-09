@@ -54,19 +54,19 @@ http://localhost:8000/classification-guide.html
 
 http://localhost:8000/mermaid.html
 
-Deploy / hosted site behavior
+### Deploy / hosted site behavior
 
 Committing to the main branch triggers the GitHub Action workflow, which updates the hosted GitHub Pages site.
 
-Published URLs:
+#### Published URLs:
 
 https://paigemoody.github.io/weapons_classification_resources.github.io/classification-guide.html
 
 https://paigemoody.github.io/weapons_classification_resources.github.io/mermaid.html
 
-Suggested workflow
+## Suggested workflow
 
-Edit weapons-classification-flowchart.mmd (optionally in Mermaid Live).
+Edit weapons-classification-flowchart.mmd (optionally by copy pasting into [Mermaid Live editor](https://mermaid.live/)).
 
 Regenerate classification-guide.html with the Python script.
 
@@ -74,7 +74,7 @@ Run a local server and verify both pages.
 
 Commit to main to publish.
 
-Notes
+## Notes
 
 The click-through experience is derived from Mermaid node/edge structure.
 
