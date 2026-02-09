@@ -5,14 +5,14 @@ flowchart TB
   SmallArms --> |Handguns| Handguns
   SmallArms --> |Long Guns| LongGuns
 
-  Handguns["Which **barrel type** best fits?<br/><img src='' width='56' height='56'/>"]
+  Handguns["Which **barrel type** best fits?"]
 
   %% Bore-type breaks
   Handguns --> |Rifled| Handguns_Rifled
   Handguns --> |Smooth Bore| SmoothBore_OtherHandguns
 
   %% Handguns details
-  Handguns_Rifled["Which type of rifiled handgun best matches?<br/><img src='' width='56' height='56'/>"]
+  Handguns_Rifled["Which type of rifiled handgun best matches?"]
   Handguns_Rifled --> |Self Loading Pistols| Rifled_SelfLoadingPistols
   Handguns_Rifled --> |Revolvers| Rifled_Revolvers
 
@@ -73,8 +73,8 @@ flowchart TB
   ManuallyOperatedRifles --> |Other Manually Operated Rifles| OtherManuallyOperatedRifles
 
   %% Shotguns split (matches reference structure)
-  SelfLoadingShotguns["Self-loading Shotguns<br/><img src='' width='56' height='56'/>"]
-  ManuallyOperatedShotguns["Manually Operated Shotguns<br/><img src='' width='56' height='56'/>"]
+  SelfLoadingShotguns["Which self-loading shotgun matches best?"]
+  ManuallyOperatedShotguns["Which manually operated shotguns matches best?"]
 
   Shotguns --> |Self-Loading| SelfLoadingShotguns
   Shotguns --> |Manually| ManuallyOperatedShotguns
