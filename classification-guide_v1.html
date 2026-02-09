@@ -14,6 +14,7 @@
 
   <script type="text/babel">
     const { useMemo, useState } = React;
+
     const APP_NAME = "[DEMO] Weapons Classification Guide";
     const TREE = {
   "nodeId": "SmallArms",
@@ -21,23 +22,19 @@
   "questionText": "Which Small Arms group best fits?",
   "options": [
     {
-      "label": "Handgun",
-      "titleHtml": "Handgun",
-      "contextHtml": "<p>a firearm which is grasped by placing both the control hand and support hand around the pistol grip, and which may be readily fired with one hand (ARES p37)</p>",
+      "label": "\"<h1>Handgun</h1> <p>a firearm which is grasped by placing both the control hand and support hand around the pistol grip, and which may be readily fired with one hand (ARES p37)</p>\"",
       "nextNodeId": "Handguns",
-      "imageTag": "<img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true\n' width='56' height='56'/>",
-      "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true",
+      "imageHtml": "",
+      "imageSrc": "",
       "next": {
         "nodeId": "Handguns",
-        "questionHtml": "Which <strong>barrel type</strong> best fits?<br/><img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true\n' width='56' height='56'/>",
-        "questionText": "Which barrel type best fits?",
+        "questionHtml": "Handguns",
+        "questionText": "Handguns",
         "options": [
           {
             "label": "Rifled",
-            "titleHtml": "Rifled",
-            "contextHtml": "",
             "nextNodeId": "Handguns_Rifled",
-            "imageTag": "",
+            "imageHtml": "",
             "imageSrc": "",
             "next": {
               "nodeId": "Handguns_Rifled",
@@ -46,20 +43,16 @@
               "options": [
                 {
                   "label": "Self Loading Pistols",
-                  "titleHtml": "Self Loading Pistols",
-                  "contextHtml": "",
                   "nextNodeId": "Rifled_SelfLoadingPistols",
-                  "imageTag": "<img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/ARES_arms_munitions_classification_system/visuals/Figure2.13_SelfLoading_Pistols.png?raw=true' width='56' height='56'/>",
+                  "imageHtml": "<img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/ARES_arms_munitions_classification_system/visuals/Figure2.13_SelfLoading_Pistols.png?raw=true' width='56' height='56'/>",
                   "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/ARES_arms_munitions_classification_system/visuals/Figure2.13_SelfLoading_Pistols.png?raw=true",
                   "resultHtml": "Self-loading<br/>Pistols<br/><img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/ARES_arms_munitions_classification_system/visuals/Figure2.13_SelfLoading_Pistols.png?raw=true' width='56' height='56'/>",
                   "resultText": "Self-loading Pistols"
                 },
                 {
                   "label": "Revolvers",
-                  "titleHtml": "Revolvers",
-                  "contextHtml": "",
                   "nextNodeId": "Rifled_Revolvers",
-                  "imageTag": "<img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/ARES_arms_munitions_classification_system/visuals/Figure2.12_Revolvers.png?raw=true' width='56' height='56'/>",
+                  "imageHtml": "<img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/ARES_arms_munitions_classification_system/visuals/Figure2.12_Revolvers.png?raw=true' width='56' height='56'/>",
                   "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/ARES_arms_munitions_classification_system/visuals/Figure2.12_Revolvers.png?raw=true",
                   "resultHtml": "Revolvers<br/><img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/ARES_arms_munitions_classification_system/visuals/Figure2.12_Revolvers.png?raw=true' width='56' height='56'/>",
                   "resultText": "Revolvers"
@@ -69,10 +62,8 @@
           },
           {
             "label": "Smooth Bore",
-            "titleHtml": "Smooth Bore",
-            "contextHtml": "",
             "nextNodeId": "SmoothBore_OtherHandguns",
-            "imageTag": "<img src='' width='56' height='56'/>",
+            "imageHtml": "<img src='' width='56' height='56'/>",
             "imageSrc": "",
             "resultHtml": "Other handguns<br/><img src='' width='56' height='56'/>",
             "resultText": "Other handguns"
@@ -82,10 +73,8 @@
     },
     {
       "label": "Long Gun",
-      "titleHtml": "Long Gun",
-      "contextHtml": "",
       "nextNodeId": "LongGuns",
-      "imageTag": "",
+      "imageHtml": "",
       "imageSrc": "",
       "next": {
         "nodeId": "LongGuns",
@@ -94,10 +83,8 @@
         "options": [
           {
             "label": "Rifled",
-            "titleHtml": "Rifled",
-            "contextHtml": "",
             "nextNodeId": "LongGuns_Rifled",
-            "imageTag": "",
+            "imageHtml": "",
             "imageSrc": "",
             "next": {
               "nodeId": "LongGuns_Rifled",
@@ -106,30 +93,24 @@
               "options": [
                 {
                   "label": "Sub-machine Guns",
-                  "titleHtml": "Sub-machine Guns",
-                  "contextHtml": "",
                   "nextNodeId": "Rifled_SubMachineGuns",
-                  "imageTag": "<img src='' width='56' height='56'/>",
+                  "imageHtml": "<img src='' width='56' height='56'/>",
                   "imageSrc": "",
                   "resultHtml": "Sub-machine<br/>guns<br/><img src='' width='56' height='56'/>",
                   "resultText": "Sub-machine guns"
                 },
                 {
                   "label": "Man-portable Machine Guns",
-                  "titleHtml": "Man-portable Machine Guns",
-                  "contextHtml": "",
                   "nextNodeId": "Rifled_ManPortableMachineGuns",
-                  "imageTag": "<img src='' width='56' height='56'/>",
+                  "imageHtml": "<img src='' width='56' height='56'/>",
                   "imageSrc": "",
                   "resultHtml": "Man-portable<br/>machine guns<br/><img src='' width='56' height='56'/>",
                   "resultText": "Man-portable machine guns"
                 },
                 {
                   "label": "Other",
-                  "titleHtml": "Other",
-                  "contextHtml": "",
                   "nextNodeId": "Rifles",
-                  "imageTag": "",
+                  "imageHtml": "",
                   "imageSrc": "",
                   "next": {
                     "nodeId": "Rifles",
@@ -138,10 +119,8 @@
                     "options": [
                       {
                         "label": "Self-Loading",
-                        "titleHtml": "Self-Loading",
-                        "contextHtml": "",
                         "nextNodeId": "SelfLoadingRifles",
-                        "imageTag": "",
+                        "imageHtml": "",
                         "imageSrc": "",
                         "next": {
                           "nodeId": "SelfLoadingRifles",
@@ -150,20 +129,16 @@
                           "options": [
                             {
                               "label": "Automatic Rifles",
-                              "titleHtml": "Automatic Rifles",
-                              "contextHtml": "",
                               "nextNodeId": "AutomaticRifles",
-                              "imageTag": "<img src='' width='56' height='56'/>",
+                              "imageHtml": "<img src='' width='56' height='56'/>",
                               "imageSrc": "",
                               "resultHtml": "Automatic Rifles<br/><img src='' width='56' height='56'/>",
                               "resultText": "Automatic Rifles"
                             },
                             {
                               "label": "Semi-automatic Rifles",
-                              "titleHtml": "Semi-automatic Rifles",
-                              "contextHtml": "",
                               "nextNodeId": "SemiAutomaticRifles",
-                              "imageTag": "<img src='' width='56' height='56'/>",
+                              "imageHtml": "<img src='' width='56' height='56'/>",
                               "imageSrc": "",
                               "resultHtml": "Semi-automatic<br/>Rifles<br/><img src='' width='56' height='56'/>",
                               "resultText": "Semi-automatic Rifles"
@@ -173,10 +148,8 @@
                       },
                       {
                         "label": "Manually-Loaded",
-                        "titleHtml": "Manually-Loaded",
-                        "contextHtml": "",
                         "nextNodeId": "ManuallyOperatedRifles",
-                        "imageTag": "",
+                        "imageHtml": "",
                         "imageSrc": "",
                         "next": {
                           "nodeId": "ManuallyOperatedRifles",
@@ -185,50 +158,40 @@
                           "options": [
                             {
                               "label": "Break Action Rifles",
-                              "titleHtml": "Break Action Rifles",
-                              "contextHtml": "",
                               "nextNodeId": "BreakActionRifles",
-                              "imageTag": "<img src='' width='56' height='56'/>",
+                              "imageHtml": "<img src='' width='56' height='56'/>",
                               "imageSrc": "",
                               "resultHtml": "Break-action<br/>Rifles<br/><img src='' width='56' height='56'/>",
                               "resultText": "Break-action Rifles"
                             },
                             {
                               "label": "Bolt Action Rifles",
-                              "titleHtml": "Bolt Action Rifles",
-                              "contextHtml": "",
                               "nextNodeId": "BoltActionRifles",
-                              "imageTag": "<img src='' width='56' height='56'/>",
+                              "imageHtml": "<img src='' width='56' height='56'/>",
                               "imageSrc": "",
                               "resultHtml": "Bolt-action<br/>Rifles<br/><img src='' width='56' height='56'/>",
                               "resultText": "Bolt-action Rifles"
                             },
                             {
                               "label": "Lever Action Rifles",
-                              "titleHtml": "Lever Action Rifles",
-                              "contextHtml": "",
                               "nextNodeId": "LeverActionRifles",
-                              "imageTag": "<img src='' width='56' height='56'/>",
+                              "imageHtml": "<img src='' width='56' height='56'/>",
                               "imageSrc": "",
                               "resultHtml": "Lever-action<br/>Rifles<br/><img src='' width='56' height='56'/>",
                               "resultText": "Lever-action Rifles"
                             },
                             {
                               "label": "Pump Action Rifles",
-                              "titleHtml": "Pump Action Rifles",
-                              "contextHtml": "",
                               "nextNodeId": "PumpActionRifles",
-                              "imageTag": "<img src='' width='56' height='56'/>",
+                              "imageHtml": "<img src='' width='56' height='56'/>",
                               "imageSrc": "",
                               "resultHtml": "Pump-action<br/>Rifles<br/><img src='' width='56' height='56'/>",
                               "resultText": "Pump-action Rifles"
                             },
                             {
                               "label": "Other Manually Operated Rifles",
-                              "titleHtml": "Other Manually Operated Rifles",
-                              "contextHtml": "",
                               "nextNodeId": "OtherManuallyOperatedRifles",
-                              "imageTag": "<img src='' width='56' height='56'/>",
+                              "imageHtml": "<img src='' width='56' height='56'/>",
                               "imageSrc": "",
                               "resultHtml": "Other Manually<br/>Operated Rifles<br/><img src='' width='56' height='56'/>",
                               "resultText": "Other Manually Operated Rifles"
@@ -244,10 +207,8 @@
           },
           {
             "label": "Smooth Bore",
-            "titleHtml": "Smooth Bore",
-            "contextHtml": "",
             "nextNodeId": "LongGuns_SmoothBore",
-            "imageTag": "<img src='' width='56' height='56'/>",
+            "imageHtml": "<img src='' width='56' height='56'/>",
             "imageSrc": "",
             "next": {
               "nodeId": "LongGuns_SmoothBore",
@@ -256,10 +217,8 @@
               "options": [
                 {
                   "label": "Shotguns",
-                  "titleHtml": "Shotguns",
-                  "contextHtml": "",
                   "nextNodeId": "Shotguns",
-                  "imageTag": "",
+                  "imageHtml": "",
                   "imageSrc": "",
                   "next": {
                     "nodeId": "Shotguns",
@@ -268,10 +227,8 @@
                     "options": [
                       {
                         "label": "Self-Loading",
-                        "titleHtml": "Self-Loading",
-                        "contextHtml": "",
                         "nextNodeId": "SelfLoadingShotguns",
-                        "imageTag": "",
+                        "imageHtml": "",
                         "imageSrc": "",
                         "next": {
                           "nodeId": "SelfLoadingShotguns",
@@ -280,20 +237,16 @@
                           "options": [
                             {
                               "label": "Automatic Shotguns",
-                              "titleHtml": "Automatic Shotguns",
-                              "contextHtml": "",
                               "nextNodeId": "AutomaticShotguns",
-                              "imageTag": "<img src='' width='56' height='56'/>",
+                              "imageHtml": "<img src='' width='56' height='56'/>",
                               "imageSrc": "",
                               "resultHtml": "Automatic Shotguns<br/><img src='' width='56' height='56'/>",
                               "resultText": "Automatic Shotguns"
                             },
                             {
                               "label": "Semi-Automatic Shotguns",
-                              "titleHtml": "Semi-Automatic Shotguns",
-                              "contextHtml": "",
                               "nextNodeId": "SemiAutomaticShotguns",
-                              "imageTag": "<img src='' width='56' height='56'/>",
+                              "imageHtml": "<img src='' width='56' height='56'/>",
                               "imageSrc": "",
                               "resultHtml": "Semi-automatic<br/>Shotguns<br/><img src='' width='56' height='56'/>",
                               "resultText": "Semi-automatic Shotguns"
@@ -303,10 +256,8 @@
                       },
                       {
                         "label": "Manually",
-                        "titleHtml": "Manually",
-                        "contextHtml": "",
                         "nextNodeId": "ManuallyOperatedShotguns",
-                        "imageTag": "",
+                        "imageHtml": "",
                         "imageSrc": "",
                         "next": {
                           "nodeId": "ManuallyOperatedShotguns",
@@ -315,50 +266,40 @@
                           "options": [
                             {
                               "label": "Break Action Shotguns",
-                              "titleHtml": "Break Action Shotguns",
-                              "contextHtml": "",
                               "nextNodeId": "BreakActionShotguns",
-                              "imageTag": "<img src='' width='56' height='56'/>",
+                              "imageHtml": "<img src='' width='56' height='56'/>",
                               "imageSrc": "",
                               "resultHtml": "Break-action<br/>Shotguns<br/><img src='' width='56' height='56'/>",
                               "resultText": "Break-action Shotguns"
                             },
                             {
                               "label": "Bolt Action Shotguns",
-                              "titleHtml": "Bolt Action Shotguns",
-                              "contextHtml": "",
                               "nextNodeId": "BoltActionShotguns",
-                              "imageTag": "<img src='' width='56' height='56'/>",
+                              "imageHtml": "<img src='' width='56' height='56'/>",
                               "imageSrc": "",
                               "resultHtml": "Bolt-action<br/>Shotguns<br/><img src='' width='56' height='56'/>",
                               "resultText": "Bolt-action Shotguns"
                             },
                             {
                               "label": "Lever Action Shotguns",
-                              "titleHtml": "Lever Action Shotguns",
-                              "contextHtml": "",
                               "nextNodeId": "LeverActionShotguns",
-                              "imageTag": "<img src='' width='56' height='56'/>",
+                              "imageHtml": "<img src='' width='56' height='56'/>",
                               "imageSrc": "",
                               "resultHtml": "Lever-action<br/>Shotguns<br/><img src='' width='56' height='56'/>",
                               "resultText": "Lever-action Shotguns"
                             },
                             {
                               "label": "Pump Action Shotguns",
-                              "titleHtml": "Pump Action Shotguns",
-                              "contextHtml": "",
                               "nextNodeId": "PumpActionShotguns",
-                              "imageTag": "<img src='' width='56' height='56'/>",
+                              "imageHtml": "<img src='' width='56' height='56'/>",
                               "imageSrc": "",
                               "resultHtml": "Pump-action<br/>Shotguns<br/><img src='' width='56' height='56'/>",
                               "resultText": "Pump-action Shotguns"
                             },
                             {
                               "label": "Other Manually Operated Shotguns",
-                              "titleHtml": "Other Manually Operated Shotguns",
-                              "contextHtml": "",
                               "nextNodeId": "OtherManuallyOperatedShotguns",
-                              "imageTag": "<img src='' width='56' height='56'/>",
+                              "imageHtml": "<img src='' width='56' height='56'/>",
                               "imageSrc": "",
                               "resultHtml": "Other Manually<br/>Operated Shotguns<br/><img src='' width='56' height='56'/>",
                               "resultText": "Other Manually Operated Shotguns"
@@ -371,10 +312,8 @@
                 },
                 {
                   "label": "Other Smooth Bore Long Guns",
-                  "titleHtml": "Other Smooth Bore Long Guns",
-                  "contextHtml": "",
                   "nextNodeId": "OtherSmoothBoreLongGuns",
-                  "imageTag": "<img src='' width='56' height='56'/>",
+                  "imageHtml": "<img src='' width='56' height='56'/>",
                   "imageSrc": "",
                   "resultHtml": "Other smooth-bore<br/>long guns<br/><img src='' width='56' height='56'/>",
                   "resultText": "Other smooth-bore long guns"
@@ -389,19 +328,19 @@
 };
 
     function ClassificationGuide() {
-      const [path, setPath] = useState([]);
-      const [result, setResult] = useState(null);
+      const [path, setPath] = useState([]); // each item: { optionIndex, optionLabel, nodeQuestionText }
+      const [result, setResult] = useState(null); // { text, html }
 
       const getCurrentNode = () => {
         let node = TREE;
         for (const step of path) {
-          const opt = node?.options?.[step.optionIndex];
-          if (!opt) return node;
-          if (opt.next) node = opt.next;
-          else return node;
+            const opt = node?.options?.[step.optionIndex];
+            if (!opt) return node;          // fallback to last valid node
+            if (opt.next) node = opt.next;  // continue forward
+            else return node;               // terminal choice: stay on parent question
         }
         return node;
-      };
+        };
 
       const currentNode = result ? null : getCurrentNode();
 
@@ -415,15 +354,16 @@
           ...path,
           {
             optionIndex: idx,
-            optionLabel: opt.label || "Option"
+            optionLabel: opt.label,
+            nodeQuestionText: node.questionText || "Step"
           }
         ];
 
         if (opt.resultHtml || opt.resultText) {
           setPath(nextPath);
           setResult({
-            html: opt.resultHtml || opt.resultText || "",
-            text: opt.resultText || ""
+            text: opt.resultText || "",
+            html: opt.resultHtml || opt.resultText || ""
           });
         } else if (opt.next) {
           setPath(nextPath);
@@ -431,13 +371,16 @@
       };
 
       const goToStep = (stepIndex) => {
+        // -1 means reset to start
         if (stepIndex < 0) {
           setPath([]);
           setResult(null);
           return;
         }
-        setPath(path.slice(0, stepIndex + 1));
+
+        const newPath = path.slice(0, stepIndex + 1);
         setResult(null);
+        setPath(newPath);
       };
 
       const backOne = () => {
@@ -445,7 +388,9 @@
           setResult(null);
           return;
         }
-        if (path.length > 0) setPath(path.slice(0, -1));
+        if (path.length > 0) {
+          setPath(path.slice(0, -1));
+        }
       };
 
       const reset = () => {
@@ -454,15 +399,19 @@
       };
 
       const breadcrumbItems = useMemo(() => {
-        return path.map((p, i) => ({ label: p.optionLabel, stepIndex: i }));
+        return path.map((p, i) => ({
+          label: p.optionLabel,
+          stepIndex: i
+        }));
       }, [path]);
 
       return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-3xl mx-auto">
             <div className="bg-white rounded-lg shadow-lg p-8">
               <h1 className="text-3xl font-bold text-slate-800 mb-4 text-center">{APP_NAME}</h1>
 
+              {/* Breadcrumb path */}
               <div className="mb-6">
                 <div className="text-xs uppercase tracking-wide text-slate-500 mb-2">Path</div>
                 <div className="flex flex-wrap items-center gap-2 text-sm">
@@ -478,6 +427,7 @@
                       <button
                         onClick={() => goToStep(i)}
                         className="px-2 py-1 rounded bg-blue-50 hover:bg-blue-100 text-blue-800"
+                        title={`Go back to step ${i + 1}`}
                       >
                         {b.label}
                       </button>
@@ -494,10 +444,16 @@
                     dangerouslySetInnerHTML={{ __html: result.html }}
                   />
                   <div className="mt-8 flex gap-3 justify-center">
-                    <button onClick={backOne} className="px-4 py-2 text-slate-700 hover:text-slate-900">
+                    <button
+                      onClick={backOne}
+                      className="px-4 py-2 text-slate-700 hover:text-slate-900"
+                    >
                       ← Back
                     </button>
-                    <button onClick={reset} className="px-4 py-2 rounded bg-slate-700 text-white hover:bg-slate-800">
+                    <button
+                      onClick={reset}
+                      className="px-4 py-2 rounded bg-slate-700 text-white hover:bg-slate-800"
+                    >
                       Start Over
                     </button>
                   </div>
@@ -512,42 +468,34 @@
                   />
 
                   <div className="space-y-3">
-                    {currentNode.options.map((opt, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => choose(idx)}
-                        className="w-full bg-white border-2 border-slate-300 rounded-lg p-4 hover:border-blue-500 hover:bg-blue-50 transition-all text-left"
-                      >
-                        <div className="flex items-start gap-4">
-                          <div className="w-24 h-24 bg-slate-100 rounded flex-shrink-0 flex items-center justify-center overflow-hidden">
-                            {opt.imageSrc ? (
-                              <img src={opt.imageSrc} alt={opt.label} className="w-full h-full object-contain" />
-                            ) : opt.imageTag ? (
-                              <span
-                                className="w-full h-full flex items-center justify-center"
-                                dangerouslySetInnerHTML={{ __html: opt.imageTag }}
-                              />
-                            ) : (
-                              <span className="text-slate-400 text-xs">No image</span>
-                            )}
-                          </div>
-
-                          <div className="min-w-0">
-                            <div
-                              className="text-lg font-semibold text-slate-800"
-                              dangerouslySetInnerHTML={{ __html: opt.titleHtml || opt.label }}
-                            />
-                            {opt.contextHtml && (
-                              <div
-                                className="mt-1 text-sm text-slate-600"
-                                dangerouslySetInnerHTML={{ __html: opt.contextHtml }}
-                              />
-                            )}
-                          </div>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
+  {currentNode.options.map((opt, idx) => (
+    <button
+      key={idx}
+      onClick={() => choose(idx)}
+      className="w-full bg-white border-2 border-slate-300 rounded-lg p-4 hover:border-blue-500 hover:bg-blue-50 transition-all text-left"
+    >
+      <div className="flex items-center gap-4">
+        <div className="w-16 h-16 bg-slate-100 rounded flex-shrink-0 flex items-center justify-center overflow-hidden">
+          {opt.imageSrc ? (
+            <img
+              src={opt.imageSrc}
+              alt={opt.label}
+              className="w-full h-full object-cover"
+            />
+          ) : opt.imageHtml ? (
+            <span
+              className="w-full h-full flex items-center justify-center"
+              dangerouslySetInnerHTML={{ __html: opt.imageHtml }}
+            />
+          ) : (
+            <span className="text-slate-400 text-xs">Image</span>
+          )}
+        </div>
+        <div className="text-lg font-medium text-slate-800">{opt.label}</div>
+      </div>
+    </button>
+  ))}
+</div>
 
                   <div className="mt-8 flex gap-3">
                     <button
@@ -557,7 +505,10 @@
                     >
                       ← Back
                     </button>
-                    <button onClick={reset} className="ml-auto px-4 py-2 text-slate-700 hover:text-slate-900">
+                    <button
+                      onClick={reset}
+                      className="ml-auto px-4 py-2 text-slate-700 hover:text-slate-900"
+                    >
                       Start Over
                     </button>
                   </div>
@@ -565,12 +516,8 @@
               )}
 
               {!result && !currentNode && (
-                <div className="text-center">
-                  <div className="text-red-600 mb-4">Could not render this step.</div>
-                  <div className="flex gap-3 justify-center">
-                    <button onClick={backOne} className="px-4 py-2 text-slate-700 hover:text-slate-900">← Back</button>
-                    <button onClick={reset} className="px-4 py-2 rounded bg-slate-700 text-white hover:bg-slate-800">Start Over</button>
-                  </div>
+                <div className="text-center text-red-600">
+                  Could not render this step. Try Start Over.
                 </div>
               )}
             </div>
@@ -579,7 +526,8 @@
       );
     }
 
-    ReactDOM.createRoot(document.getElementById("root")).render(<ClassificationGuide />);
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<ClassificationGuide />);
   </script>
 </body>
 </html>

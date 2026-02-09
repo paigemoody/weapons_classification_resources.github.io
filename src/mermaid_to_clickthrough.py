@@ -1,26 +1,14 @@
 #!/usr/bin/env python3
 """
-mermaid_to_clickthrough.py
+Convert Mermaid flowchart (.mmd/.mermaid) to interactive click-through HTML.
 
-Convert a Mermaid flowchart into an interactive click-through HTML guide.
-
-Features
---------
-- Input: .mmd or .mermaid
-- Output: standalone .html
-- Auto-root detection (in-degree 0 nodes)
-- Synthetic start question when multiple roots exist
-- Option labels prefer edge labels (`A --> |Label| B`)
-- Cycle detection with clear error/warning and exit
-- Preserves HTML/markdown-ish label formatting (including <img>)
-- Breadcrumb path shown; click any breadcrumb to jump back
-
-Usage
------
-python3 src/mermaid_to_clickthrough.py \
-  --input-mmd weapons-classification-flowchart-v2.mmd \
-  --output-html classification-guide.html \
-  --app-name "[DEMO] Weapons Classification Guide"
+Enhancements:
+- Robust multiline parsing for node and edge labels
+- Edge label supports rich HTML (title + context)
+- Option image comes from destination node's <img src='...'>
+- Preserves HTML in node questions and result screens
+- Auto root detection; synthetic start if multiple top nodes
+- Cycle detection with explicit abort
 """
 
 from __future__ import annotations
@@ -29,120 +17,176 @@ import argparse
 import json
 import re
 import sys
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, List, Tuple, Optional, Set
+from typing import Dict, List, Optional, Tuple
 
 
-# Edge formats supported:
-#   A --> B
-#   A --> |Label| B
-EDGE_RE = re.compile(
-    r"""^\s*([A-Za-z0-9_]+)\s*-->\s*(?:\|([^|]+)\|\s*)?([A-Za-z0-9_]+)\s*$"""
+# ---------- Parsing regex ----------
+# Node: NodeId["..."]
+NODE_BLOCK_RE = re.compile(
+    r'([A-Za-z0-9_]+)\s*\[\s*"((?:[^"\\]|\\.|"(?=\s*\]))*?)"\s*\]',
+    re.DOTALL
 )
 
-# Node format:
-#   NodeId["Some <br/> Label"]
-NODE_RE = re.compile(r'^\s*([A-Za-z0-9_]+)\s*\[\s*"([\s\S]*?)"\s*\]\s*$')
+# Edge with optional rich label:
+# A --> B
+# A --> |Label| B
+# A --> |"Label with <h1> and <p>"| B
+EDGE_BLOCK_RE = re.compile(
+    r'([A-Za-z0-9_]+)\s*-->\s*(?:\|\s*(?:"((?:[^"\\]|\\.)*)"|([^|]*?))\s*\|\s*)?([A-Za-z0-9_]+)',
+    re.DOTALL
+)
 
-IMG_TAG_RE = re.compile(r"<img\b[^>]*>", re.IGNORECASE)
-SRC_RE = re.compile(r'''src\s*=\s*(['"])(.*?)\1''', re.IGNORECASE)
+IMG_TAG_RE = re.compile(r"<img\b[^>]*>", re.IGNORECASE | re.DOTALL)
+SRC_RE = re.compile(r"""src\s*=\s*(['"])(.*?)\1""", re.IGNORECASE | re.DOTALL)
+H1_RE = re.compile(r"<h1[^>]*>(.*?)</h1>", re.IGNORECASE | re.DOTALL)
+P_RE = re.compile(r"<p[^>]*>(.*?)</p>", re.IGNORECASE | re.DOTALL)
 
-def extract_first_img_tag(html: str) -> Optional[str]:
-    m = IMG_TAG_RE.search(html or "")
-    return m.group(0) if m else None
 
-def extract_img_src(img_tag: str) -> str:
-    m = SRC_RE.search(img_tag or "")
-    return m.group(2).strip() if m else ""
+@dataclass
+class EdgeData:
+    src: str
+    dst: str
+    raw_label_html: str  # raw edge label HTML (if any)
 
-def mmd_label_to_html(raw: str) -> str:
-    """
-    Keep HTML formatting and basic markdown-bold conversion.
-    - Converts '**x**' -> '<strong>x</strong>'
-    - Leaves <img>, <br>, and other HTML intact
-    """
-    txt = raw.strip()
-    txt = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", txt)
+
+class Graph:
+    def __init__(self) -> None:
+        self.node_html: Dict[str, str] = {}
+        self.children: Dict[str, List[str]] = {}
+        self.indegree: Dict[str, int] = {}
+        self.edge_html: Dict[Tuple[str, str], str] = {}
+        self.nodes_in_order: List[str] = []
+
+    def ensure_node(self, nid: str) -> None:
+        if nid not in self.node_html:
+            self.node_html[nid] = nid.replace("_", " ")
+        if nid not in self.children:
+            self.children[nid] = []
+        if nid not in self.indegree:
+            self.indegree[nid] = 0
+        if nid not in self.nodes_in_order:
+            self.nodes_in_order.append(nid)
+
+    def add_node(self, nid: str, raw_html: str) -> None:
+        self.ensure_node(nid)
+        self.node_html[nid] = normalize_mermaid_label_html(raw_html)
+
+    def add_edge(self, src: str, dst: str, edge_html: str) -> None:
+        self.ensure_node(src)
+        self.ensure_node(dst)
+        self.children[src].append(dst)
+        self.indegree[dst] += 1
+        self.edge_html[(src, dst)] = edge_html.strip() if edge_html else ""
+
+
+def normalize_mermaid_label_html(raw: str) -> str:
+    """Keep HTML and transform **bold** -> <strong>bold</strong>."""
+    txt = (raw or "").strip()
+    txt = txt.replace('\\"', '"')
+    txt = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", txt, flags=re.DOTALL)
     return txt
 
 
-def strip_html_for_plain(text: str) -> str:
-    """Create plain text fallback from html-ish label."""
-    t = re.sub(r"<br\s*/?>", " ", text, flags=re.IGNORECASE)
+def strip_html(text: str) -> str:
+    t = re.sub(r"<br\s*/?>", " ", text or "", flags=re.IGNORECASE)
     t = re.sub(r"<[^>]+>", "", t)
     t = re.sub(r"\s+", " ", t).strip()
     return t
 
 
-def fallback_label(node_id: str) -> str:
-    return node_id.replace("_", " ")
+def extract_first_img_tag(html: str) -> str:
+    m = IMG_TAG_RE.search(html or "")
+    return m.group(0).strip() if m else ""
 
 
-class Graph:
-    def __init__(self) -> None:
-        self.node_html: Dict[str, str] = {}             # node_id -> html label
-        self.children: Dict[str, List[str]] = {}        # node_id -> [child_ids in file order]
-        self.edge_label: Dict[Tuple[str, str], str] = {}  # (src,dst) -> label
-        self.indegree: Dict[str, int] = {}
-        self.nodes_in_order: List[str] = []             # first-seen order
+def extract_img_src(img_tag: str) -> str:
+    if not img_tag:
+        return ""
+    m = SRC_RE.search(img_tag)
+    if not m:
+        return ""
+    return m.group(2).strip()
 
-    def ensure_node(self, nid: str) -> None:
-        if nid not in self.children:
-            self.children[nid] = []
-        if nid not in self.indegree:
-            self.indegree[nid] = 0
-        if nid not in self.node_html:
-            self.node_html[nid] = fallback_label(nid)
-        if nid not in self.nodes_in_order:
-            self.nodes_in_order.append(nid)
 
-    def add_node_label(self, nid: str, raw_label: str) -> None:
-        self.ensure_node(nid)
-        self.node_html[nid] = mmd_label_to_html(raw_label)
+def parse_edge_label(edge_html: str, fallback_text: str) -> Dict[str, str]:
+    """
+    Parse edge label into:
+      - titleHtml
+      - contextHtml
+      - plainLabel
+    Rules:
+      - If <h1> exists, title = first h1 innerHTML
+      - If <p> exists, context = concatenated paragraphs
+      - Else title = entire edge_html
+      - plainLabel used for breadcrumbs/accessibility
+    """
+    html = normalize_mermaid_label_html(edge_html or "")
 
-    def add_edge(self, src: str, dst: str, lbl: Optional[str]) -> None:
-        self.ensure_node(src)
-        self.ensure_node(dst)
-        self.children[src].append(dst)
-        self.indegree[dst] += 1
-        if lbl is not None:
-            self.edge_label[(src, dst)] = lbl.strip()
+    if not html:
+        plain = strip_html(fallback_text) or fallback_text
+        return {
+            "titleHtml": plain,
+            "contextHtml": "",
+            "plainLabel": plain,
+        }
+
+    h1_match = H1_RE.search(html)
+    p_matches = P_RE.findall(html)
+
+    if h1_match:
+        title_html = h1_match.group(1).strip()
+    else:
+        title_html = html.strip()
+
+    context_html = ""
+    if p_matches:
+        context_html = "".join(f"<p>{p.strip()}</p>" for p in p_matches)
+
+    plain = strip_html(title_html) or strip_html(html) or fallback_text
+
+    return {
+        "titleHtml": title_html,
+        "contextHtml": context_html,
+        "plainLabel": plain,
+    }
 
 
 def parse_mermaid(text: str) -> Graph:
     g = Graph()
+
+    # Remove comment-only lines and flowchart declaration lines for cleaner parsing
+    cleaned_lines = []
     for line in text.splitlines():
-        s = line.rstrip()
+        s = line.strip()
+        if s.startswith("%%"):
+            continue
+        if s.startswith("flowchart"):
+            continue
+        cleaned_lines.append(line)
+    content = "\n".join(cleaned_lines)
 
-        if not s.strip():
-            continue
-        if s.strip().startswith("%%"):
-            continue
-        if s.strip().startswith("flowchart"):
-            continue
+    # Parse nodes first
+    for m in NODE_BLOCK_RE.finditer(content):
+        nid, raw_html = m.group(1), m.group(2)
+        g.add_node(nid, raw_html)
 
-        m_node = NODE_RE.match(s)
-        if m_node:
-            nid, raw = m_node.groups()
-            g.add_node_label(nid, raw)
-            continue
-
-        m_edge = EDGE_RE.match(s)
-        if m_edge:
-            src, edge_lbl, dst = m_edge.groups()
-            g.add_edge(src, dst, edge_lbl)
-            continue
+    # Parse edges
+    for m in EDGE_BLOCK_RE.finditer(content):
+        src = m.group(1)
+        quoted_lbl = m.group(2)  # from |"..."|
+        unquoted_lbl = m.group(3)  # from |...|
+        dst = m.group(4)
+        raw_edge_label = quoted_lbl if quoted_lbl is not None else (unquoted_lbl or "")
+        g.add_edge(src, dst, normalize_mermaid_label_html(raw_edge_label))
 
     return g
 
 
 def detect_cycle(g: Graph) -> Optional[List[str]]:
-    """
-    DFS cycle detection.
-    Returns one cycle path if found, else None.
-    """
     WHITE, GRAY, BLACK = 0, 1, 2
-    color: Dict[str, int] = {n: WHITE for n in g.children}
+    color = {n: WHITE for n in g.children}
     parent: Dict[str, Optional[str]] = {n: None for n in g.children}
 
     def dfs(u: str) -> Optional[List[str]]:
@@ -154,7 +198,6 @@ def detect_cycle(g: Graph) -> Optional[List[str]]:
                 if found:
                     return found
             elif color[v] == GRAY:
-                # Reconstruct cycle u -> ... -> v
                 cycle = [v]
                 cur = u
                 while cur is not None and cur != v:
@@ -175,81 +218,87 @@ def detect_cycle(g: Graph) -> Optional[List[str]]:
 
 
 def top_nodes(g: Graph) -> List[str]:
-    roots = [n for n in g.nodes_in_order if g.indegree.get(n, 0) == 0]
-    return roots
+    return [n for n in g.nodes_in_order if g.indegree.get(n, 0) == 0]
 
-
-def option_label(g: Graph, src: str, dst: str) -> str:
-    # Prefer edge label
-    edge_lbl = g.edge_label.get((src, dst))
-    if edge_lbl:
-        return edge_lbl
-
-    # Fallback to child plain label
-    child_html = g.node_html.get(dst, fallback_label(dst))
-    plain = strip_html_for_plain(child_html)
-    return plain or fallback_label(dst)
 
 def build_node(g: Graph, node_id: str) -> dict:
+    question_html = g.node_html.get(node_id, node_id.replace("_", " "))
     kids = g.children.get(node_id, [])
-    question_html = g.node_html.get(node_id, fallback_label(node_id))
 
     node_obj = {
         "nodeId": node_id,
         "questionHtml": question_html,
-        "questionText": strip_html_for_plain(question_html),
-        "options": []
+        "questionText": strip_html(question_html),
+        "options": [],
     }
 
     for child in kids:
+        child_html = g.node_html.get(child, child.replace("_", " "))
         child_kids = g.children.get(child, [])
-        child_html = g.node_html.get(child, fallback_label(child))
+
+        # Option label/context from edge
+        edge_html = g.edge_html.get((node_id, child), "")
+        fallback = strip_html(child_html)
+        edge_parts = parse_edge_label(edge_html, fallback)
+
+        # Option image from destination node
         img_tag = extract_first_img_tag(child_html)
-        img_src = extract_img_src(img_tag) if img_tag else ""
+        img_src = extract_img_src(img_tag)
 
         opt = {
-            "label": option_label(g, node_id, child),  # edge label preferred
+            "label": edge_parts["plainLabel"],            # simple text for breadcrumb/button fallback
+            "titleHtml": edge_parts["titleHtml"],         # rich title
+            "contextHtml": edge_parts["contextHtml"],     # optional supporting paragraph(s)
             "nextNodeId": child,
-            "imageHtml": img_tag or "",
-            "imageSrc": img_src
+            "imageTag": img_tag,
+            "imageSrc": img_src,
         }
 
         if child_kids:
             opt["next"] = build_node(g, child)
         else:
             opt["resultHtml"] = child_html
-            opt["resultText"] = strip_html_for_plain(child_html)
+            opt["resultText"] = strip_html(child_html)
 
         node_obj["options"].append(opt)
 
     return node_obj
 
 
-
 def build_tree(g: Graph) -> dict:
     roots = top_nodes(g)
     if not roots:
-        raise ValueError("No top-level node detected (no in-degree-0 nodes found).")
+        raise ValueError("No top-level node found (in-degree = 0).")
 
     if len(roots) == 1:
         return build_node(g, roots[0])
 
-    # Synthetic start when multiple top roots
+    # Synthetic root if multiple tops
     synthetic = {
         "nodeId": "__synthetic_start__",
         "questionHtml": "Where do you want to start?",
         "questionText": "Where do you want to start?",
-        "options": []
+        "options": [],
     }
+
     for r in roots:
-        opt = {
-            "label": strip_html_for_plain(g.node_html.get(r, fallback_label(r))) or fallback_label(r),
+        r_html = g.node_html.get(r, r.replace("_", " "))
+        img_tag = extract_first_img_tag(r_html)
+        img_src = extract_img_src(img_tag)
+        plain = strip_html(r_html) or r.replace("_", " ")
+
+        synthetic["options"].append({
+            "label": plain,
+            "titleHtml": plain,
+            "contextHtml": "",
             "nextNodeId": r,
-            "next": build_node(g, r)
-        }
-        synthetic["options"].append(opt)
+            "imageTag": img_tag,
+            "imageSrc": img_src,
+            "next": build_node(g, r),
+        })
 
     return synthetic
+
 
 def make_html(tree: dict, app_name: str) -> str:
     tree_json = json.dumps(tree, ensure_ascii=False, indent=2)
@@ -270,24 +319,23 @@ def make_html(tree: dict, app_name: str) -> str:
 
   <script type="text/babel">
     const { useMemo, useState } = React;
-
     const APP_NAME = __APP_NAME_JSON__;
     const TREE = __TREE_JSON__;
 
     function ClassificationGuide() {
-      const [path, setPath] = useState([]); // each item: { optionIndex, optionLabel, nodeQuestionText }
-      const [result, setResult] = useState(null); // { text, html }
+      const [path, setPath] = useState([]);
+      const [result, setResult] = useState(null);
 
       const getCurrentNode = () => {
         let node = TREE;
         for (const step of path) {
-            const opt = node?.options?.[step.optionIndex];
-            if (!opt) return node;          // fallback to last valid node
-            if (opt.next) node = opt.next;  // continue forward
-            else return node;               // terminal choice: stay on parent question
+          const opt = node?.options?.[step.optionIndex];
+          if (!opt) return node;
+          if (opt.next) node = opt.next;
+          else return node;
         }
         return node;
-        };
+      };
 
       const currentNode = result ? null : getCurrentNode();
 
@@ -301,16 +349,15 @@ def make_html(tree: dict, app_name: str) -> str:
           ...path,
           {
             optionIndex: idx,
-            optionLabel: opt.label,
-            nodeQuestionText: node.questionText || "Step"
+            optionLabel: opt.label || "Option"
           }
         ];
 
         if (opt.resultHtml || opt.resultText) {
           setPath(nextPath);
           setResult({
-            text: opt.resultText || "",
-            html: opt.resultHtml || opt.resultText || ""
+            html: opt.resultHtml || opt.resultText || "",
+            text: opt.resultText || ""
           });
         } else if (opt.next) {
           setPath(nextPath);
@@ -318,16 +365,13 @@ def make_html(tree: dict, app_name: str) -> str:
       };
 
       const goToStep = (stepIndex) => {
-        // -1 means reset to start
         if (stepIndex < 0) {
           setPath([]);
           setResult(null);
           return;
         }
-
-        const newPath = path.slice(0, stepIndex + 1);
+        setPath(path.slice(0, stepIndex + 1));
         setResult(null);
-        setPath(newPath);
       };
 
       const backOne = () => {
@@ -335,9 +379,7 @@ def make_html(tree: dict, app_name: str) -> str:
           setResult(null);
           return;
         }
-        if (path.length > 0) {
-          setPath(path.slice(0, -1));
-        }
+        if (path.length > 0) setPath(path.slice(0, -1));
       };
 
       const reset = () => {
@@ -346,19 +388,15 @@ def make_html(tree: dict, app_name: str) -> str:
       };
 
       const breadcrumbItems = useMemo(() => {
-        return path.map((p, i) => ({
-          label: p.optionLabel,
-          stepIndex: i
-        }));
+        return path.map((p, i) => ({ label: p.optionLabel, stepIndex: i }));
       }, [path]);
 
       return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-4xl mx-auto">
             <div className="bg-white rounded-lg shadow-lg p-8">
               <h1 className="text-3xl font-bold text-slate-800 mb-4 text-center">{APP_NAME}</h1>
 
-              {/* Breadcrumb path */}
               <div className="mb-6">
                 <div className="text-xs uppercase tracking-wide text-slate-500 mb-2">Path</div>
                 <div className="flex flex-wrap items-center gap-2 text-sm">
@@ -374,7 +412,6 @@ def make_html(tree: dict, app_name: str) -> str:
                       <button
                         onClick={() => goToStep(i)}
                         className="px-2 py-1 rounded bg-blue-50 hover:bg-blue-100 text-blue-800"
-                        title={`Go back to step ${i + 1}`}
                       >
                         {b.label}
                       </button>
@@ -391,16 +428,10 @@ def make_html(tree: dict, app_name: str) -> str:
                     dangerouslySetInnerHTML={{ __html: result.html }}
                   />
                   <div className="mt-8 flex gap-3 justify-center">
-                    <button
-                      onClick={backOne}
-                      className="px-4 py-2 text-slate-700 hover:text-slate-900"
-                    >
+                    <button onClick={backOne} className="px-4 py-2 text-slate-700 hover:text-slate-900">
                       ← Back
                     </button>
-                    <button
-                      onClick={reset}
-                      className="px-4 py-2 rounded bg-slate-700 text-white hover:bg-slate-800"
-                    >
+                    <button onClick={reset} className="px-4 py-2 rounded bg-slate-700 text-white hover:bg-slate-800">
                       Start Over
                     </button>
                   </div>
@@ -415,34 +446,42 @@ def make_html(tree: dict, app_name: str) -> str:
                   />
 
                   <div className="space-y-3">
-  {currentNode.options.map((opt, idx) => (
-    <button
-      key={idx}
-      onClick={() => choose(idx)}
-      className="w-full bg-white border-2 border-slate-300 rounded-lg p-4 hover:border-blue-500 hover:bg-blue-50 transition-all text-left"
-    >
-      <div className="flex items-center gap-4">
-        <div className="w-16 h-16 bg-slate-100 rounded flex-shrink-0 flex items-center justify-center overflow-hidden">
-          {opt.imageSrc ? (
-            <img
-              src={opt.imageSrc}
-              alt={opt.label}
-              className="w-full h-full object-cover"
-            />
-          ) : opt.imageHtml ? (
-            <span
-              className="w-full h-full flex items-center justify-center"
-              dangerouslySetInnerHTML={{ __html: opt.imageHtml }}
-            />
-          ) : (
-            <span className="text-slate-400 text-xs">Image</span>
-          )}
-        </div>
-        <div className="text-lg font-medium text-slate-800">{opt.label}</div>
-      </div>
-    </button>
-  ))}
-</div>
+                    {currentNode.options.map((opt, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => choose(idx)}
+                        className="w-full bg-white border-2 border-slate-300 rounded-lg p-4 hover:border-blue-500 hover:bg-blue-50 transition-all text-left"
+                      >
+                        <div className="flex items-start gap-4">
+                          <div className="w-24 h-24 bg-slate-100 rounded flex-shrink-0 flex items-center justify-center overflow-hidden">
+                            {opt.imageSrc ? (
+                              <img src={opt.imageSrc} alt={opt.label} className="w-full h-full object-contain" />
+                            ) : opt.imageTag ? (
+                              <span
+                                className="w-full h-full flex items-center justify-center"
+                                dangerouslySetInnerHTML={{ __html: opt.imageTag }}
+                              />
+                            ) : (
+                              <span className="text-slate-400 text-xs">No image</span>
+                            )}
+                          </div>
+
+                          <div className="min-w-0">
+                            <div
+                              className="text-lg font-semibold text-slate-800"
+                              dangerouslySetInnerHTML={{ __html: opt.titleHtml || opt.label }}
+                            />
+                            {opt.contextHtml && (
+                              <div
+                                className="mt-1 text-sm text-slate-600"
+                                dangerouslySetInnerHTML={{ __html: opt.contextHtml }}
+                              />
+                            )}
+                          </div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
 
                   <div className="mt-8 flex gap-3">
                     <button
@@ -452,10 +491,7 @@ def make_html(tree: dict, app_name: str) -> str:
                     >
                       ← Back
                     </button>
-                    <button
-                      onClick={reset}
-                      className="ml-auto px-4 py-2 text-slate-700 hover:text-slate-900"
-                    >
+                    <button onClick={reset} className="ml-auto px-4 py-2 text-slate-700 hover:text-slate-900">
                       Start Over
                     </button>
                   </div>
@@ -463,8 +499,12 @@ def make_html(tree: dict, app_name: str) -> str:
               )}
 
               {!result && !currentNode && (
-                <div className="text-center text-red-600">
-                  Could not render this step. Try Start Over.
+                <div className="text-center">
+                  <div className="text-red-600 mb-4">Could not render this step.</div>
+                  <div className="flex gap-3 justify-center">
+                    <button onClick={backOne} className="px-4 py-2 text-slate-700 hover:text-slate-900">← Back</button>
+                    <button onClick={reset} className="px-4 py-2 rounded bg-slate-700 text-white hover:bg-slate-800">Start Over</button>
+                  </div>
                 </div>
               )}
             </div>
@@ -473,8 +513,7 @@ def make_html(tree: dict, app_name: str) -> str:
       );
     }
 
-    const root = ReactDOM.createRoot(document.getElementById("root"));
-    root.render(<ClassificationGuide />);
+    ReactDOM.createRoot(document.getElementById("root")).render(<ClassificationGuide />);
   </script>
 </body>
 </html>
@@ -487,61 +526,58 @@ def make_html(tree: dict, app_name: str) -> str:
     )
 
 
+def validate_input(path_str: str) -> Path:
+    p = Path(path_str).expanduser().resolve()
+    if not p.exists():
+        raise FileNotFoundError(f"Input file not found: {p}")
+    if p.suffix.lower() not in {".mmd", ".mermaid"}:
+        raise ValueError("Input must be .mmd or .mermaid")
+    return p
 
-def ensure_output_html(path_str: str) -> Path:
-    p = Path(path_str)
+
+def normalize_output(path_str: str) -> Path:
+    p = Path(path_str).expanduser().resolve()
     if p.suffix.lower() != ".html":
         p = p.with_suffix(".html")
     return p
 
 
-def validate_input_path(path_str: str) -> Path:
-    p = Path(path_str)
-    if not p.exists():
-        raise FileNotFoundError(f"Input file not found: {p}")
-    if p.suffix.lower() not in {".mmd", ".mermaid"}:
-        raise ValueError("Input must be a .mmd or .mermaid file")
-    return p
-
-
 def main() -> None:
     parser = argparse.ArgumentParser(description="Convert Mermaid flowchart to click-through HTML.")
-    parser.add_argument("--input-mmd", required=True, help="Path to .mmd or .mermaid file")
-    parser.add_argument("--output-html", required=True, help="Output HTML path")
+    parser.add_argument("--input-mmd", required=True, help="Path to .mmd/.mermaid")
+    parser.add_argument("--output-html", required=True, help="Output .html")
     parser.add_argument("--app-name", default="Classification Guide", help="UI title")
     args = parser.parse_args()
 
     try:
-        in_path = validate_input_path(args.input_mmd)
-        out_path = ensure_output_html(args.output_html)
+        in_path = validate_input(args.input_mmd)
+        out_path = normalize_output(args.output_html)
 
         text = in_path.read_text(encoding="utf-8")
         g = parse_mermaid(text)
 
         if not g.nodes_in_order:
-            raise ValueError("No Mermaid nodes were parsed from input file.")
+            raise ValueError("No nodes parsed from Mermaid file.")
 
         cycle = detect_cycle(g)
         if cycle:
-            cycle_str = " -> ".join(cycle)
-            print(f"⚠️  Cycle detected in Mermaid chart: {cycle_str}", file=sys.stderr)
-            print("⚠️  Aborting. Click-through UI requires an acyclic decision flow.", file=sys.stderr)
+            print("⚠️ Cycle detected: " + " -> ".join(cycle), file=sys.stderr)
+            print("⚠️ Aborting. Click-through requires an acyclic decision graph.", file=sys.stderr)
             sys.exit(1)
 
         tree = build_tree(g)
         html = make_html(tree, args.app_name)
-
         out_path.write_text(html, encoding="utf-8")
-        print(f"✅ Wrote: {out_path}")
 
         roots = top_nodes(g)
-        if len(roots) > 1:
-            print(f"ℹ️  Multiple top nodes detected ({len(roots)}). Used synthetic start question.")
+        print(f"✅ Wrote: {out_path}")
+        if len(roots) == 1:
+            print(f"ℹ️ Root: {roots[0]}")
         else:
-            print(f"ℹ️  Root detected: {roots[0]}")
+            print(f"ℹ️ Multiple roots ({len(roots)}): synthetic start used.")
 
-    except Exception as exc:
-        print(f"❌ Error: {exc}", file=sys.stderr)
+    except Exception as e:
+        print(f"❌ Error: {e}", file=sys.stderr)
         sys.exit(1)
 
 
