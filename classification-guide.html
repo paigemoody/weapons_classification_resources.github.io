@@ -14,6 +14,7 @@
 
   <script type="text/babel">
     const { useMemo, useState } = React;
+
     const APP_NAME = "[DEMO] Weapons Classification Guide";
     const TREE = {
   "nodeId": "SmallArms",
@@ -24,12 +25,12 @@
       "label": "Handgun",
       "titleHtml": "Handgun",
       "contextHtml": "<p>a firearm which is grasped by placing both the control hand and support hand around the pistol grip, and which may be readily fired with one hand (ARES p37)</p>",
-      "nextNodeId": "Handguns",
-      "imageTag": "<img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true\n' width='56' height='56'/>",
-      "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true",
+      "nextNodeId": "Handguns_BarrelType",
+      "imageTag": "<img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/ARES_arms_munitions_classification_system/visuals/Figure2.8_2.9_2.10_Handguns.png?raw=true'</>",
+      "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/ARES_arms_munitions_classification_system/visuals/Figure2.8_2.9_2.10_Handguns.png?raw=true",
       "next": {
-        "nodeId": "Handguns",
-        "questionHtml": "Which <strong>barrel type</strong> best fits?<br/><img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true\n' width='56' height='56'/>",
+        "nodeId": "Handguns_BarrelType",
+        "questionHtml": "<h1>Which barrel type best fits?</h1> <img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true' />",
         "questionText": "Which barrel type best fits?",
         "options": [
           {
@@ -49,9 +50,9 @@
                   "titleHtml": "Self Loading Pistols",
                   "contextHtml": "",
                   "nextNodeId": "Rifled_SelfLoadingPistols",
-                  "imageTag": "<img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/ARES_arms_munitions_classification_system/visuals/Figure2.13_SelfLoading_Pistols.png?raw=true' width='56' height='56'/>",
+                  "imageTag": "<img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/ARES_arms_munitions_classification_system/visuals/Figure2.13_SelfLoading_Pistols.png?raw=true' />",
                   "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/ARES_arms_munitions_classification_system/visuals/Figure2.13_SelfLoading_Pistols.png?raw=true",
-                  "resultHtml": "Self-loading<br/>Pistols<br/><img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/ARES_arms_munitions_classification_system/visuals/Figure2.13_SelfLoading_Pistols.png?raw=true' width='56' height='56'/>",
+                  "resultHtml": "Self-loading<br/>Pistols<br/><img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/ARES_arms_munitions_classification_system/visuals/Figure2.13_SelfLoading_Pistols.png?raw=true' />",
                   "resultText": "Self-loading Pistols"
                 },
                 {
@@ -83,7 +84,7 @@
     {
       "label": "Long Gun",
       "titleHtml": "Long Gun",
-      "contextHtml": "",
+      "contextHtml": "<p></p>",
       "nextNodeId": "LongGuns",
       "imageTag": "",
       "imageSrc": "",
@@ -389,8 +390,8 @@
 };
 
     function ClassificationGuide() {
-      const [path, setPath] = useState([]);
-      const [result, setResult] = useState(null);
+      const [path, setPath] = useState([]); // each item: { optionIndex, optionLabel, nodeQuestionText }
+      const [result, setResult] = useState(null); // { text, html }
 
       const getCurrentNode = () => {
         let node = TREE;
@@ -415,15 +416,16 @@
           ...path,
           {
             optionIndex: idx,
-            optionLabel: opt.label || "Option"
+            optionLabel: opt.label || "Option",
+            nodeQuestionText: node.questionText || "Step"
           }
         ];
 
         if (opt.resultHtml || opt.resultText) {
           setPath(nextPath);
           setResult({
-            html: opt.resultHtml || opt.resultText || "",
-            text: opt.resultText || ""
+            text: opt.resultText || "",
+            html: opt.resultHtml || opt.resultText || ""
           });
         } else if (opt.next) {
           setPath(nextPath);
@@ -436,8 +438,10 @@
           setResult(null);
           return;
         }
-        setPath(path.slice(0, stepIndex + 1));
+
+        const newPath = path.slice(0, stepIndex + 1);
         setResult(null);
+        setPath(newPath);
       };
 
       const backOne = () => {
@@ -445,7 +449,9 @@
           setResult(null);
           return;
         }
-        if (path.length > 0) setPath(path.slice(0, -1));
+        if (path.length > 0) {
+          setPath(path.slice(0, -1));
+        }
       };
 
       const reset = () => {
@@ -454,7 +460,10 @@
       };
 
       const breadcrumbItems = useMemo(() => {
-        return path.map((p, i) => ({ label: p.optionLabel, stepIndex: i }));
+        return path.map((p, i) => ({
+          label: p.optionLabel,
+          stepIndex: i
+        }));
       }, [path]);
 
       return (
@@ -478,6 +487,7 @@
                       <button
                         onClick={() => goToStep(i)}
                         className="px-2 py-1 rounded bg-blue-50 hover:bg-blue-100 text-blue-800"
+                        title={`Go back to step ${i + 1}`}
                       >
                         {b.label}
                       </button>
@@ -494,10 +504,16 @@
                     dangerouslySetInnerHTML={{ __html: result.html }}
                   />
                   <div className="mt-8 flex gap-3 justify-center">
-                    <button onClick={backOne} className="px-4 py-2 text-slate-700 hover:text-slate-900">
+                    <button
+                      onClick={backOne}
+                      className="px-4 py-2 text-slate-700 hover:text-slate-900"
+                    >
                       ← Back
                     </button>
-                    <button onClick={reset} className="px-4 py-2 rounded bg-slate-700 text-white hover:bg-slate-800">
+                    <button
+                      onClick={reset}
+                      className="px-4 py-2 rounded bg-slate-700 text-white hover:bg-slate-800"
+                    >
                       Start Over
                     </button>
                   </div>
@@ -521,7 +537,11 @@
                         <div className="flex items-start gap-4">
                           <div className="w-24 h-24 bg-slate-100 rounded flex-shrink-0 flex items-center justify-center overflow-hidden">
                             {opt.imageSrc ? (
-                              <img src={opt.imageSrc} alt={opt.label} className="w-full h-full object-contain" />
+                              <img
+                                src={opt.imageSrc}
+                                alt={opt.label}
+                                className="w-full h-full object-contain"
+                              />
                             ) : opt.imageTag ? (
                               <span
                                 className="w-full h-full flex items-center justify-center"
@@ -557,7 +577,10 @@
                     >
                       ← Back
                     </button>
-                    <button onClick={reset} className="ml-auto px-4 py-2 text-slate-700 hover:text-slate-900">
+                    <button
+                      onClick={reset}
+                      className="ml-auto px-4 py-2 text-slate-700 hover:text-slate-900"
+                    >
                       Start Over
                     </button>
                   </div>
@@ -566,10 +589,16 @@
 
               {!result && !currentNode && (
                 <div className="text-center">
-                  <div className="text-red-600 mb-4">Could not render this step.</div>
+                  <div className="text-red-600 mb-4">
+                    Could not render this step.
+                  </div>
                   <div className="flex gap-3 justify-center">
-                    <button onClick={backOne} className="px-4 py-2 text-slate-700 hover:text-slate-900">← Back</button>
-                    <button onClick={reset} className="px-4 py-2 rounded bg-slate-700 text-white hover:bg-slate-800">Start Over</button>
+                    <button onClick={backOne} className="px-4 py-2 text-slate-700 hover:text-slate-900">
+                      ← Back
+                    </button>
+                    <button onClick={reset} className="px-4 py-2 rounded bg-slate-700 text-white hover:bg-slate-800">
+                      Start Over
+                    </button>
                   </div>
                 </div>
               )}
@@ -579,7 +608,8 @@
       );
     }
 
-    ReactDOM.createRoot(document.getElementById("root")).render(<ClassificationGuide />);
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<ClassificationGuide />);
   </script>
 </body>
 </html>

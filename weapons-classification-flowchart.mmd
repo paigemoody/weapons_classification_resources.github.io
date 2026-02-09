@@ -2,16 +2,15 @@ flowchart TB
   %% Top level
   SmallArms["Which Small Arms **group** best fits?"]
 
-  SmallArms --> |"<h1>Handgun</h1> <p>a firearm which is grasped by placing both the control hand and support hand around the pistol grip, and which may be readily fired with one hand (ARES p37)</p>"| Handguns
-  SmallArms --> |Long Gun| LongGuns
+  SmallArms --> |"<h1>Handgun</h1> <p>a firearm which is grasped by placing both the control hand and support hand around the pistol grip, and which may be readily fired with one hand (ARES p37)</p><img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/ARES_arms_munitions_classification_system/visuals/Figure2.8_2.9_2.10_Handguns.png?raw=true'</>"| Handguns_BarrelType
+  SmallArms --> |"<h1>Long Gun</h1> <p></p>"| LongGuns
 
-  Handguns["Which **barrel type** best fits?<br/><img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true
-' width='56' height='56'/>"]
+  Handguns_BarrelType["<h1>Which barrel type best fits?</h1> <img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true' />"]
 
 
   %% Bore-type breaks
-  Handguns --> |Rifled| Handguns_Rifled
-  Handguns --> |Smooth Bore| SmoothBore_OtherHandguns
+  Handguns_BarrelType --> |Rifled| Handguns_Rifled
+  Handguns_BarrelType --> |Smooth Bore| SmoothBore_OtherHandguns
 
   %% Handguns details
   Handguns_Rifled["Which type of rifiled handgun best matches?"]
@@ -26,7 +25,7 @@ flowchart TB
   LongGuns --> |Rifled| LongGuns_Rifled
   LongGuns --> |Smooth Bore| LongGuns_SmoothBore
 
-  Rifled_SelfLoadingPistols["Self-loading<br/>Pistols<br/><img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/ARES_arms_munitions_classification_system/visuals/Figure2.13_SelfLoading_Pistols.png?raw=true' width='56' height='56'/>"]
+  Rifled_SelfLoadingPistols["Self-loading<br/>Pistols<br/><img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/ARES_arms_munitions_classification_system/visuals/Figure2.13_SelfLoading_Pistols.png?raw=true' />"]
   Rifled_Revolvers["Revolvers<br/><img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/main/sources/ARES_arms_munitions_classification_system/visuals/Figure2.12_Revolvers.png?raw=true' width='56' height='56'/>"]
 
   LongGuns_Rifled["Which type of **rifiled long gun** best matches?"]
