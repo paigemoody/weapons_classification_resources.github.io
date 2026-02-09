@@ -5,9 +5,7 @@ flowchart TB
   SmallArms --> |Handguns| Handguns
   SmallArms --> |Long Guns| LongGuns
 
-  %% Level 2
   Handguns["Which **barrel type** best fits?<br/><img src='' width='56' height='56'/>"]
-  LongGuns["Which **barrel type** best fits?<br/><img src='' width='56' height='56'/>"]
 
   %% Bore-type breaks
   Handguns --> |Rifled| Handguns_Rifled
@@ -21,6 +19,8 @@ flowchart TB
   SmoothBore_OtherHandguns["Other handguns<br/><img src='' width='56' height='56'/>"]
 
   %% Long guns details
+  LongGuns["Which **barrel type** best fits?<br/><img src='' width='56' height='56'/>"]
+
   LongGuns --> |Rifled| LongGuns_Rifled
   LongGuns --> |Smooth Bore| LongGuns_SmoothBore
 
