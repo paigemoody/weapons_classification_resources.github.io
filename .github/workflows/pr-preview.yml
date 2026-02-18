@@ -1,54 +1,21 @@
-name: PR Preview
+name: PR Preview (smoke)
 
 on:
   push:
     branches-ignore:
       - gh-pages
-      - main
   pull_request:
     types: [opened, synchronize, reopened]
 
-permissions:
-  contents: write
-
-concurrency:
-  group: pr-preview-${{ github.event.pull_request.number }}
-  cancel-in-progress: true
-
 jobs:
-  build-preview:
+  smoke:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.13"
-
-      - name: Build preview site into dist/
+      - name: Show context
         run: |
-          mkdir -p dist
-          python src/mermaid_to_clickthrough.py \
-            --input-mmd weapons-classification-flowchart.mmd \
-            --output-html dist/classification-guide.html \
-            --app-name "[PREVIEW] Weapons Classification Guide"
-          # Make sure GitHub Pages serves it as static files
-          touch dist/.nojekyll
-
-      - name: Debug: show dist contents
-        run: |
-          ls -la dist
-          test -f dist/classification-guide.html
-
-      - name: Publish preview to gh-pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: dist
-          destination_dir: pr/${{ github.event.number }}
-          enable_jekyll: false
-          keep_files: true
+          echo "event: $GITHUB_EVENT_NAME"
+          echo "ref:   $GITHUB_REF"
+          echo "sha:   $GITHUB_SHA"
+          ls -la
