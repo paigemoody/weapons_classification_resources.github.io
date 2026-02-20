@@ -10,10 +10,23 @@ This tool guides users through a step-by-step visual taxonomy to classify an ite
 
 - `weapons-classification-flowchart.mmd`  
   Mermaid source for the decision flow (this is the file you edit).
+
+Generated outputs (kept next to the `.mmd` at the repo root):
+
 - `classification-guide.html`  
-  Generated interactive click-through guide (this is the main output).
+  Generated interactive click-through guide (the “start at the top” experience).
+- `classification-guide-hypothesis-filtering.html`  
+  Generated “start anywhere” hypothesis-filtering guide (menu-based; skip questions).
+
+Generator scripts:
+
 - `src/mermaid_to_clickthrough.py`  
-  Generator script that converts the Mermaid flowchart into the interactive HTML.
+  Generates `classification-guide.html`.
+- `src/mermaid_to_hypothesis_filtering.py`  
+  Generates `classification-guide-hypothesis-filtering.html`.
+
+Optional:
+
 - `mermaid.html`  
   A page for viewing the Mermaid diagram (if you use this in the repo).
 
@@ -81,8 +94,9 @@ When you’re done editing:
 
 After you commit, GitHub Actions will automatically:
 
-- regenerate `classification-guide.html` (at the repo root, next to the `.mmd`)
-- commit the updated HTML back to your branch
+- regenerate `classification-guide.html`
+- regenerate `classification-guide-hypothesis-filtering.html`
+- commit both updated HTML files back to your branch
 - publish a web preview for your branch
 
 You don’t have to run anything locally for this flow.
@@ -91,15 +105,20 @@ Tip: If you click the **Actions** tab on GitHub, you can watch this run and see 
 
 ---
 
-### 5) Open your preview link (see your changes on the web)
+### 5) Open your preview links (see your changes on the web)
 
 Your branch preview will be available at:
 
-`https://paigemoody.github.io/weapons_classification_resources.github.io/branch-preview/<your-branch-name>/classification-guide.html`
+- Click-through guide (start at the top):  
+  `https://paigemoody.github.io/weapons_classification_resources.github.io/branch-preview/<your-branch-name>/classification-guide.html`
+
+- Hypothesis-filtering guide (start anywhere):  
+  `https://paigemoody.github.io/weapons_classification_resources.github.io/branch-preview/<your-branch-name>/classification-guide-hypothesis-filtering.html`
 
 Example:
 
-`https://paigemoody.github.io/weapons_classification_resources.github.io/branch-preview/diagram-fixes/classification-guide.html`
+- `https://paigemoody.github.io/weapons_classification_resources.github.io/branch-preview/diagram-fixes/classification-guide.html`
+- `https://paigemoody.github.io/weapons_classification_resources.github.io/branch-preview/diagram-fixes/classification-guide-hypothesis-filtering.html`
 
 If your change was just committed, it may take a minute for GitHub Pages to show the update.
 
@@ -128,13 +147,17 @@ When you’re ready:
 
 That publishes the changes to the main site.
 
-Main site URL:
+Main site URLs:
 
-- `https://paigemoody.github.io/weapons_classification_resources.github.io/classification-guide.html`
+- Click-through guide:  
+  `https://paigemoody.github.io/weapons_classification_resources.github.io/classification-guide.html`
+
+- Hypothesis-filtering guide:  
+  `https://paigemoody.github.io/weapons_classification_resources.github.io/classification-guide-hypothesis-filtering.html`
 
 Note: because `gh-pages` is deployed from the branch, GitHub Pages may deploy twice:
 - once for the merge commit
-- once for the follow-up commit that updates `classification-guide.html`
+- once for the follow-up commit that updates the generated HTML files
 
 That’s expected with the current setup.
 
@@ -144,7 +167,7 @@ That’s expected with the current setup.
 
 If you want to iterate locally (faster feedback, easier editing), you can.
 
-### Generate the interactive HTML
+### Generate the HTML files
 
 From the repo root:
 
@@ -153,3 +176,24 @@ python3 src/mermaid_to_clickthrough.py \
   --input-mmd weapons-classification-flowchart.mmd \
   --output-html classification-guide.html \
   --app-name "[DEMO] Weapons Classification Guide"
+```
+
+```bash
+python3 src/mermaid_to_hypothesis_filtering.py \
+  --input-mmd weapons-classification-flowchart.mmd \
+  --output-html classification-guide-hypothesis-filtering.html \
+  --app-name "[DEMO] Weapons Classification Guide (Hypothesis Filtering)"
+```
+
+### Preview locally
+
+Start a simple server from the repo root:
+
+```bash
+python3 -m http.server 8000
+```
+Then you can open the html pages in any browser:
+
+http://localhost:8000/classification-guide.html
+
+http://localhost:8000/classification-guide-hypothesis-filtering.html
