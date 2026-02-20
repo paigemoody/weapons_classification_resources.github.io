@@ -1,5 +1,3 @@
-# .github/workflows/branch-preview.yml
-#
 # Branch Preview (GitHub Pages)
 # -----------------------------
 # What this workflow does:
@@ -8,7 +6,7 @@
 #     branch-preview/<branch-name>/
 #
 # Why this exists:
-# - It lets you preview changes from any branch without merging to a “main” deploy path.
+# - It lets you preview changes from any branch without merging to the “main” deploy path
 #
 # Where previews show up:
 # - Your repo’s GitHub Pages base URL + `/branch-preview/<branch-name>/`
@@ -21,7 +19,6 @@
 #
 # Heads-up about cleanup:
 # - This workflow *creates/updates* previews, but it does not delete them.
-# - Deleting previews when a PR closes/merges or a branch is deleted requires an additional workflow.
 
 name: Branch Preview
 
