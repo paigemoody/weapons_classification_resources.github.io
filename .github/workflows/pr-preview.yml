@@ -1,5 +1,4 @@
 # Branch Preview (GitHub Pages) + Auto-regenerate root HTML on specific Mermaid changes
-# -------------------------------------------------------------------------------
 # Triggers only when weapons-classification-flowchart.mmd (or the generator/workflow) changes:
 # 1) Regenerates classification-guide.html at repo root
 # 2) Commits the regenerated HTML back to the SAME branch
