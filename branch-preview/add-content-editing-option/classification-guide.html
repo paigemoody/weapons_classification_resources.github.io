@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[DEMO] Weapons Classification Guide</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useMemo, useState } = React;
+
+    const APP_NAME = "[DEMO] Weapons Classification Guide";
+    const TREE = {
+  "nodeId": "Small_Arms",
+  "questionHtml": "<h1>Which Small Arms group best fits?</h1><p></p><img src=\"\" />",
+  "questionText": "Which Small Arms group best fits?",
+  "options": [
+    {
+      "label": "Handgun",
+      "titleHtml": "Handgun",
+      "contextHtml": "<p>a firearm which is grasped by placing both the control hand and support hand around the pistol grip, and which may be readily fired with one hand (ARES p37)</p>",
+      "nextNodeId": "Handgun",
+      "imageTag": "<img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.8_2.9_2.10_Handguns.png?raw=true\" />",
+      "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.8_2.9_2.10_Handguns.png?raw=true",
+      "next": {
+        "nodeId": "Handgun",
+        "questionHtml": "<h1>Which barrel type best fits what you see?</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true\" />",
+        "questionText": "Which barrel type best fits what you see?",
+        "options": [
+          {
+            "label": "Rifled",
+            "titleHtml": "Rifled",
+            "contextHtml": "<p></p>",
+            "nextNodeId": "Rifled",
+            "imageTag": "<img src=\"\" />",
+            "imageSrc": "",
+            "next": {
+              "nodeId": "Rifled",
+              "questionHtml": "<h1>Which type of rifled handgun best matches?</h1><p></p><img src=\"\" />",
+              "questionText": "Which type of rifled handgun best matches?",
+              "options": [
+                {
+                  "label": "Revolver",
+                  "titleHtml": "Revolver",
+                  "contextHtml": "<p></p>",
+                  "nextNodeId": "Revolver",
+                  "imageTag": "<img src=\"\" />",
+                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.12_Revolvers.png?raw=true",
+                  "resultHtml": "<h1>Revolver</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.12_Revolvers.png?raw=true\" />",
+                  "resultText": "Revolver"
+                },
+                {
+                  "label": "Self-Loading Pistol",
+                  "titleHtml": "Self-Loading Pistol",
+                  "contextHtml": "<p></p>",
+                  "nextNodeId": "Self_Loading_Pistol",
+                  "imageTag": "<img src=\"\" />",
+                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.13_SelfLoading_Pistols.png?raw=true",
+                  "resultHtml": "<h1>Self-Loading Pistol</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.13_SelfLoading_Pistols.png?raw=true\" />",
+                  "resultText": "Self-Loading Pistol"
+                },
+                {
+                  "label": "Automatic Rifle",
+                  "titleHtml": "Automatic Rifle",
+                  "contextHtml": "<p></p>",
+                  "nextNodeId": "Automatic_Rifle",
+                  "imageTag": "<img src=\"\" />",
+                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true",
+                  "resultHtml": "<h1>Automatic Rifle</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true\" />",
+                  "resultText": "Automatic Rifle"
+                },
+                {
+                  "label": "Bolt-Action Rifle",
+                  "titleHtml": "Bolt-Action Rifle",
+                  "contextHtml": "<p></p>",
+                  "nextNodeId": "Bolt_Action_Rifle",
+                  "imageTag": "<img src=\"\" />",
+                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true",
+                  "resultHtml": "<h1>Bolt-Action Rifle</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true\" />",
+                  "resultText": "Bolt-Action Rifle"
+                },
+                {
+                  "label": "Break-Action Rifle",
+                  "titleHtml": "Break-Action Rifle",
+                  "contextHtml": "<p></p>",
+                  "nextNodeId": "Break_Action_Rifle",
+                  "imageTag": "<img src=\"\" />",
+                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true",
+                  "resultHtml": "<h1>Break-Action Rifle</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true\" />",
+                  "resultText": "Break-Action Rifle"
+                },
+                {
+                  "label": "Lever-Action Rifle",
+                  "titleHtml": "Lever-Action Rifle",
+                  "contextHtml": "<p></p>",
+                  "nextNodeId": "Lever_Action_Rifle",
+                  "imageTag": "<img src=\"\" />",
+                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true",
+                  "resultHtml": "<h1>Lever-Action Rifle</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true\" />",
+                  "resultText": "Lever-Action Rifle"
+                },
+                {
+                  "label": "Man-Portable Machine Gun",
+                  "titleHtml": "Man-Portable Machine Gun",
+                  "contextHtml": "<p></p>",
+                  "nextNodeId": "Man_Portable_Machine_Gun",
+                  "imageTag": "<img src=\"\" />",
+                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true",
+                  "resultHtml": "<h1>Man-Portable Machine Gun</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true\" />",
+                  "resultText": "Man-Portable Machine Gun"
+                },
+                {
+                  "label": "Other Manually Operated Rifles",
+                  "titleHtml": "Other Manually Operated Rifles",
+                  "contextHtml": "<p></p>",
+                  "nextNodeId": "Other_Manually_Operated_Rifles",
+                  "imageTag": "<img src=\"\" />",
+                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true",
+                  "resultHtml": "<h1>Other Manually Operated Rifles</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true\" />",
+                  "resultText": "Other Manually Operated Rifles"
+                },
+                {
+                  "label": "Pump-Action Rifle",
+                  "titleHtml": "Pump-Action Rifle",
+                  "contextHtml": "<p></p>",
+                  "nextNodeId": "Pump_Action_Rifle",
+                  "imageTag": "<img src=\"\" />",
+                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.8_Typical_features_of_a_pump-action_shotgun.png?raw=true",
+                  "resultHtml": "<h1>Pump-Action Rifle</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.8_Typical_features_of_a_pump-action_shotgun.png?raw=true\" />",
+                  "resultText": "Pump-Action Rifle"
+                },
+                {
+                  "label": "Semi-Automatic Rifle",
+                  "titleHtml": "Semi-Automatic Rifle",
+                  "contextHtml": "<p></p>",
+                  "nextNodeId": "Semi_Automatic_Rifle",
+                  "imageTag": "<img src=\"\" />",
+                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true",
+                  "resultHtml": "<h1>Semi-Automatic Rifle</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true\" />",
+                  "resultText": "Semi-Automatic Rifle"
+                },
+                {
+                  "label": "Sub-Machine Gun",
+                  "titleHtml": "Sub-Machine Gun",
+                  "contextHtml": "<p></p>",
+                  "nextNodeId": "Sub_Machine_Gun",
+                  "imageTag": "<img src=\"\" />",
+                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true",
+                  "resultHtml": "<h1>Sub-Machine Gun</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true\" />",
+                  "resultText": "Sub-Machine Gun"
+                }
+              ]
+            }
+          },
+          {
+            "label": "Smooth Bore",
+            "titleHtml": "Smooth Bore",
+            "contextHtml": "<p></p>",
+            "nextNodeId": "Smooth_Bore",
+            "imageTag": "<img src=\"\" />",
+            "imageSrc": "",
+            "next": {
+              "nodeId": "Smooth_Bore",
+              "questionHtml": "<h1>Which type of rifled handgun best matches?</h1><p></p><img src=\"\" />",
+              "questionText": "Which type of rifled handgun best matches?",
+              "options": [
+                {
+                  "label": "Other Handguns",
+                  "titleHtml": "Other Handguns",
+                  "contextHtml": "<p></p>",
+                  "nextNodeId": "Other_Handguns",
+                  "imageTag": "<img src=\"\" />",
+                  "imageSrc": "",
+                  "resultHtml": "<h1>Other Handguns</h1><p></p><img src=\"\" />",
+                  "resultText": "Other Handguns"
+                },
+                {
+                  "label": "Automatic Shotgun",
+                  "titleHtml": "Automatic Shotgun",
+                  "contextHtml": "<p></p>",
+                  "nextNodeId": "Automatic_Shotgun",
+                  "imageTag": "<img src=\"\" />",
+                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true",
+                  "resultHtml": "<h1>Automatic Shotgun</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true\" />",
+                  "resultText": "Automatic Shotgun"
+                },
+                {
+                  "label": "Bolt-Action Shotgun",
+                  "titleHtml": "Bolt-Action Shotgun",
+                  "contextHtml": "<p></p>",
+                  "nextNodeId": "Bolt_Action_Shotgun",
+                  "imageTag": "<img src=\"\" />",
+                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true",
+                  "resultHtml": "<h1>Bolt-Action Shotgun</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true\" />",
+                  "resultText": "Bolt-Action Shotgun"
+                },
+                {
+                  "label": "Break-Action Shotgun",
+                  "titleHtml": "Break-Action Shotgun",
+                  "contextHtml": "<p></p>",
+                  "nextNodeId": "Break_Action_Shotgun",
+                  "imageTag": "<img src=\"\" />",
+                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.7_Typical_features_of_a_break-action_shotgun.png?raw=true",
+                  "resultHtml": "<h1>Break-Action Shotgun</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.7_Typical_features_of_a_break-action_shotgun.png?raw=true\" />",
+                  "resultText": "Break-Action Shotgun"
+                },
+                {
+                  "label": "Lever-Action Shotgun",
+                  "titleHtml": "Lever-Action Shotgun",
+                  "contextHtml": "<p></p>",
+                  "nextNodeId": "Lever_Action_Shotgun",
+                  "imageTag": "<img src=\"\" />",
+                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true",
+                  "resultHtml": "<h1>Lever-Action Shotgun</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true\" />",
+                  "resultText": "Lever-Action Shotgun"
+                },
+                {
+                  "label": "Other Manually Operated Shotguns",
+                  "titleHtml": "Other Manually Operated Shotguns",
+                  "contextHtml": "<p></p>",
+                  "nextNodeId": "Other_Manually_Operated_Shotguns",
+                  "imageTag": "<img src=\"\" />",
+                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true",
+                  "resultHtml": "<h1>Other Manually Operated Shotguns</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true\" />",
+                  "resultText": "Other Manually Operated Shotguns"
+                },
+                {
+                  "label": "Other Smooth Bore Long Guns",
+                  "titleHtml": "Other Smooth Bore Long Guns",
+                  "contextHtml": "<p></p>",
+                  "nextNodeId": "Other_Smooth_Bore_Long_Guns",
+                  "imageTag": "<img src=\"\" />",
+                  "imageSrc": "",
+                  "resultHtml": "<h1>Other Smooth Bore Long Guns</h1><p></p><img src=\"\" />",
+                  "resultText": "Other Smooth Bore Long Guns"
+                },
+                {
+                  "label": "Pump-Action Shotgun",
+                  "titleHtml": "Pump-Action Shotgun",
+                  "contextHtml": "<p></p>",
+                  "nextNodeId": "Pump_Action_Shotgun",
+                  "imageTag": "<img src=\"\" />",
+                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.8_Typical_features_of_a_pump-action_shotgun.png?raw=true",
+                  "resultHtml": "<h1>Pump-Action Shotgun</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.8_Typical_features_of_a_pump-action_shotgun.png?raw=true\" />",
+                  "resultText": "Pump-Action Shotgun"
+                },
+                {
+                  "label": "Semi-Automatic Shotgun",
+                  "titleHtml": "Semi-Automatic Shotgun",
+                  "contextHtml": "<p></p>",
+                  "nextNodeId": "Semi_Automatic_Shotgun",
+                  "imageTag": "<img src=\"\" />",
+                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.20_Compare_Barrel_Types_Shotgun.png?raw=true",
+                  "resultHtml": "<h1>Semi-Automatic Shotgun</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.20_Compare_Barrel_Types_Shotgun.png?raw=true\" />",
+                  "resultText": "Semi-Automatic Shotgun"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "Long Gun",
+      "titleHtml": "Long Gun",
+      "contextHtml": "<p>A firearm which is grasped by placing the control hand and support hand in different locations, and which is typically fitted with a buttstock intended to be braced against the user's shoulder when fired.</p>",
+      "nextNodeId": "Long_Gun",
+      "imageTag": "<img src=\"\" />",
+      "imageSrc": "",
+      "resultHtml": "<h1>Which barrel type best fits?</h1><p></p><img src=\"\" />",
+      "resultText": "Which barrel type best fits?"
+    }
+  ]
+};
+
+    function ClassificationGuide() {
+      const [path, setPath] = useState([]); // each item: { optionIndex, optionLabel, nodeQuestionText }
+      const [result, setResult] = useState(null); // { text, html }
+
+      const getCurrentNode = () => {
+        let node = TREE;
+        for (const step of path) {
+          const opt = node?.options?.[step.optionIndex];
+          if (!opt) return node;
+          if (opt.next) node = opt.next;
+          else return node;
+        }
+        return node;
+      };
+
+      const currentNode = result ? null : getCurrentNode();
+
+      const choose = (idx) => {
+        const node = getCurrentNode();
+        if (!node) return;
+        const opt = node.options?.[idx];
+        if (!opt) return;
+
+        const nextPath = [
+          ...path,
+          {
+            optionIndex: idx,
+            optionLabel: opt.label || "Option",
+            nodeQuestionText: node.questionText || "Step"
+          }
+        ];
+
+        if (opt.resultHtml || opt.resultText) {
+          setPath(nextPath);
+          setResult({
+            text: opt.resultText || "",
+            html: opt.resultHtml || opt.resultText || ""
+          });
+        } else if (opt.next) {
+          setPath(nextPath);
+        }
+      };
+
+      const goToStep = (stepIndex) => {
+        if (stepIndex < 0) {
+          setPath([]);
+          setResult(null);
+          return;
+        }
+
+        const newPath = path.slice(0, stepIndex + 1);
+        setResult(null);
+        setPath(newPath);
+      };
+
+      const backOne = () => {
+        if (result) {
+          setResult(null);
+          return;
+        }
+        if (path.length > 0) {
+          setPath(path.slice(0, -1));
+        }
+      };
+
+      const reset = () => {
+        setPath([]);
+        setResult(null);
+      };
+
+      const breadcrumbItems = useMemo(() => {
+        return path.map((p, i) => ({
+          label: p.optionLabel,
+          stepIndex: i
+        }));
+      }, [path]);
+
+      return (
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white rounded-lg shadow-lg p-8">
+              <h1 className="text-3xl font-bold text-slate-800 mb-4 text-center">{APP_NAME}</h1>
+
+              <div className="mb-6">
+                <div className="text-xs uppercase tracking-wide text-slate-500 mb-2">Path</div>
+                <div className="flex flex-wrap items-center gap-2 text-sm">
+                  <button
+                    onClick={() => goToStep(-1)}
+                    className="px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 text-slate-700"
+                  >
+                    Start
+                  </button>
+                  {breadcrumbItems.map((b, i) => (
+                    <React.Fragment key={i}>
+                      <span className="text-slate-400">→</span>
+                      <button
+                        onClick={() => goToStep(i)}
+                        className="px-2 py-1 rounded bg-blue-50 hover:bg-blue-100 text-blue-800"
+                        title={`Go back to step ${i + 1}`}
+                      >
+                        {b.label}
+                      </button>
+                    </React.Fragment>
+                  ))}
+                </div>
+              </div>
+
+              {result && (
+                <div className="text-center">
+                  <h2 className="text-xl font-semibold text-slate-700 mb-4">Classification Complete</h2>
+                  <div
+                    className="inline-block bg-blue-100 text-blue-900 px-5 py-4 rounded-lg text-lg font-semibold"
+                    dangerouslySetInnerHTML={{ __html: result.html }}
+                  />
+                  <div className="mt-8 flex gap-3 justify-center">
+                    <button
+                      onClick={backOne}
+                      className="px-4 py-2 text-slate-700 hover:text-slate-900"
+                    >
+                      ← Back
+                    </button>
+                    <button
+                      onClick={reset}
+                      className="px-4 py-2 rounded bg-slate-700 text-white hover:bg-slate-800"
+                    >
+                      Start Over
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {!result && currentNode && (
+                <div>
+                  <h2
+                    className="text-xl font-semibold text-slate-800 mb-6 text-center"
+                    dangerouslySetInnerHTML={{ __html: currentNode.questionHtml }}
+                  />
+
+                  <div className="space-y-3">
+                    {currentNode.options.map((opt, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => choose(idx)}
+                        className="w-full bg-white border-2 border-slate-300 rounded-lg p-4 hover:border-blue-500 hover:bg-blue-50 transition-all text-left"
+                      >
+                        <div className="flex items-start gap-4">
+                          <div className="w-24 h-24 bg-slate-100 rounded flex-shrink-0 flex items-center justify-center overflow-hidden">
+                            {opt.imageSrc ? (
+                              <img
+                                src={opt.imageSrc}
+                                alt={opt.label}
+                                className="w-full h-full object-contain"
+                              />
+                            ) : opt.imageTag ? (
+                              <span
+                                className="w-full h-full flex items-center justify-center"
+                                dangerouslySetInnerHTML={{ __html: opt.imageTag }}
+                              />
+                            ) : (
+                              <span className="text-slate-400 text-xs">No image</span>
+                            )}
+                          </div>
+
+                          <div className="min-w-0">
+                            <div
+                              className="text-lg font-semibold text-slate-800"
+                              dangerouslySetInnerHTML={{ __html: opt.titleHtml || opt.label }}
+                            />
+                            {opt.contextHtml && (
+                              <div
+                                className="mt-1 text-sm text-slate-600"
+                                dangerouslySetInnerHTML={{ __html: opt.contextHtml }}
+                              />
+                            )}
+                          </div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="mt-8 flex gap-3">
+                    <button
+                      onClick={backOne}
+                      disabled={path.length === 0}
+                      className={`px-4 py-2 ${path.length === 0 ? "text-slate-300 cursor-not-allowed" : "text-slate-700 hover:text-slate-900"}`}
+                    >
+                      ← Back
+                    </button>
+                    <button
+                      onClick={reset}
+                      className="ml-auto px-4 py-2 text-slate-700 hover:text-slate-900"
+                    >
+                      Start Over
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {!result && !currentNode && (
+                <div className="text-center">
+                  <div className="text-red-600 mb-4">
+                    Could not render this step.
+                  </div>
+                  <div className="flex gap-3 justify-center">
+                    <button onClick={backOne} className="px-4 py-2 text-slate-700 hover:text-slate-900">
+                      ← Back
+                    </button>
+                    <button onClick={reset} className="px-4 py-2 rounded bg-slate-700 text-white hover:bg-slate-800">
+                      Start Over
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<ClassificationGuide />);
+  </script>
+</body>
+</html>
