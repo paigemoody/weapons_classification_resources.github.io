@@ -24,337 +24,292 @@
     const APP_NAME = "[DEMO] Weapons Classification Guide (Hypothesis Filtering)";
     const MODEL = {
   "roots": [
-    "SmallArms"
+    "small_arms"
   ],
   "questions": [
     {
-      "nodeId": "SmallArms",
-      "questionHtml": "<h1>Which Small Arms group best fits?</h1><p></p><img src='' />",
-      "questionText": "Which Small Arms group best fits?",
+      "nodeId": "small_arms",
+      "questionHtml": "Small Arms",
+      "questionText": "Small Arms",
       "options": [
         {
-          "optionId": "SmallArms__TO__Handguns_BarrelType",
-          "dstNodeId": "Handguns_BarrelType",
+          "optionId": "small_arms__TO__small_arms_handgun",
+          "dstNodeId": "small_arms_handgun",
           "titleHtml": "Handgun",
-          "contextHtml": "<p>a firearm which is grasped by placing both the control hand and support hand around the pistol grip, and which may be readily fired with one hand (ARES p37)</p>",
+          "contextHtml": "",
           "plainLabel": "Handgun",
-          "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.8_2.9_2.10_Handguns.png?raw=true"
+          "imageSrc": ""
         },
         {
-          "optionId": "SmallArms__TO__LongGuns",
-          "dstNodeId": "LongGuns",
+          "optionId": "small_arms__TO__small_arms_long_gun",
+          "dstNodeId": "small_arms_long_gun",
           "titleHtml": "Long Gun",
-          "contextHtml": "<p>A firearm which is grasped by placing the control hand and support hand in different locations, and which is typically fitted with a buttstock intended to be braced against the user’s shoulder when fired.</p>",
+          "contextHtml": "",
           "plainLabel": "Long Gun",
           "imageSrc": ""
         }
       ]
     },
     {
-      "nodeId": "Handguns_BarrelType",
-      "questionHtml": "<h1>Which barrel type best fits what you see?</h1><p></p><img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true' />",
-      "questionText": "Which barrel type best fits what you see?",
+      "nodeId": "small_arms_handgun",
+      "questionHtml": "Handgun",
+      "questionText": "Handgun",
       "options": [
         {
-          "optionId": "Handguns_BarrelType__TO__Handguns_Rifled",
-          "dstNodeId": "Handguns_Rifled",
+          "optionId": "small_arms_handgun__TO__small_arms_handgun_rifled",
+          "dstNodeId": "small_arms_handgun_rifled",
           "titleHtml": "Rifled",
-          "contextHtml": "<p></p>",
+          "contextHtml": "",
           "plainLabel": "Rifled",
           "imageSrc": ""
         },
         {
-          "optionId": "Handguns_BarrelType__TO__SmoothBore_OtherHandguns",
-          "dstNodeId": "SmoothBore_OtherHandguns",
+          "optionId": "small_arms_handgun__TO__small_arms_handgun_smooth_bore",
+          "dstNodeId": "small_arms_handgun_smooth_bore",
           "titleHtml": "Smooth Bore",
-          "contextHtml": "<p></p>",
+          "contextHtml": "",
           "plainLabel": "Smooth Bore",
           "imageSrc": ""
         }
       ]
     },
     {
-      "nodeId": "LongGuns",
-      "questionHtml": "<h1>Which barrel type best fits?</h1><p></p><img src='' />",
-      "questionText": "Which barrel type best fits?",
+      "nodeId": "small_arms_handgun_rifled",
+      "questionHtml": "Rifled",
+      "questionText": "Rifled",
       "options": [
         {
-          "optionId": "LongGuns__TO__LongGuns_Rifled",
-          "dstNodeId": "LongGuns_Rifled",
-          "titleHtml": "Rifled",
-          "contextHtml": "<p></p>",
-          "plainLabel": "Rifled",
+          "optionId": "small_arms_handgun_rifled__TO__small_arms_handgun_rifled_revolver",
+          "dstNodeId": "small_arms_handgun_rifled_revolver",
+          "titleHtml": "Revolver",
+          "contextHtml": "",
+          "plainLabel": "Revolver",
           "imageSrc": ""
         },
         {
-          "optionId": "LongGuns__TO__LongGuns_SmoothBore",
-          "dstNodeId": "LongGuns_SmoothBore",
-          "titleHtml": "Smooth Bore",
-          "contextHtml": "<p></p>",
-          "plainLabel": "Smooth Bore",
+          "optionId": "small_arms_handgun_rifled__TO__small_arms_handgun_rifled_self_loading_pistol",
+          "dstNodeId": "small_arms_handgun_rifled_self_loading_pistol",
+          "titleHtml": "Self-Loading Pistol",
+          "contextHtml": "",
+          "plainLabel": "Self-Loading Pistol",
           "imageSrc": ""
         }
       ]
     },
     {
-      "nodeId": "Handguns_Rifled",
-      "questionHtml": "<h1>Which type of rifiled handgun best matches?</h1><p></p><img src='' />",
-      "questionText": "Which type of rifiled handgun best matches?",
+      "nodeId": "small_arms_handgun_smooth_bore",
+      "questionHtml": "Smooth Bore",
+      "questionText": "Smooth Bore",
       "options": [
         {
-          "optionId": "Handguns_Rifled__TO__Rifled_SelfLoadingPistols",
-          "dstNodeId": "Rifled_SelfLoadingPistols",
-          "titleHtml": "Self Loading Pistols",
-          "contextHtml": "<p></p>",
-          "plainLabel": "Self Loading Pistols",
-          "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.13_SelfLoading_Pistols.png?raw=true"
-        },
-        {
-          "optionId": "Handguns_Rifled__TO__Rifled_Revolvers",
-          "dstNodeId": "Rifled_Revolvers",
-          "titleHtml": "Revolvers",
-          "contextHtml": "<p></p>",
-          "plainLabel": "Revolvers",
-          "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.12_Revolvers.png?raw=true"
-        }
-      ]
-    },
-    {
-      "nodeId": "LongGuns_Rifled",
-      "questionHtml": "<h1>Which type of rifiled long gun best matches?</h1><p></p><img src='' />",
-      "questionText": "Which type of rifiled long gun best matches?",
-      "options": [
-        {
-          "optionId": "LongGuns_Rifled__TO__Rifled_SubMachineGuns",
-          "dstNodeId": "Rifled_SubMachineGuns",
-          "titleHtml": "Sub-machine Guns",
-          "contextHtml": "<p></p>",
-          "plainLabel": "Sub-machine Guns",
-          "imageSrc": ""
-        },
-        {
-          "optionId": "LongGuns_Rifled__TO__Rifled_ManPortableMachineGuns",
-          "dstNodeId": "Rifled_ManPortableMachineGuns",
-          "titleHtml": "Man-portable Machine Guns",
-          "contextHtml": "<p></p>",
-          "plainLabel": "Man-portable Machine Guns",
-          "imageSrc": ""
-        },
-        {
-          "optionId": "LongGuns_Rifled__TO__Rifles",
-          "dstNodeId": "Rifles",
+          "optionId": "small_arms_handgun_smooth_bore__TO__small_arms_handgun_smooth_bore_other",
+          "dstNodeId": "small_arms_handgun_smooth_bore_other",
           "titleHtml": "Other",
-          "contextHtml": "<p></p>",
+          "contextHtml": "",
           "plainLabel": "Other",
           "imageSrc": ""
         }
       ]
     },
     {
-      "nodeId": "LongGuns_SmoothBore",
-      "questionHtml": "<h1>Smooth-bore</h1><p></p><img src='' />",
-      "questionText": "Smooth-bore",
+      "nodeId": "small_arms_long_gun",
+      "questionHtml": "Long Gun",
+      "questionText": "Long Gun",
       "options": [
         {
-          "optionId": "LongGuns_SmoothBore__TO__Shotguns",
-          "dstNodeId": "Shotguns",
-          "titleHtml": "Shotguns",
-          "contextHtml": "<p></p>",
-          "plainLabel": "Shotguns",
+          "optionId": "small_arms_long_gun__TO__small_arms_long_gun_rifle",
+          "dstNodeId": "small_arms_long_gun_rifle",
+          "titleHtml": "Rifle",
+          "contextHtml": "",
+          "plainLabel": "Rifle",
           "imageSrc": ""
         },
         {
-          "optionId": "LongGuns_SmoothBore__TO__OtherSmoothBoreLongGuns",
-          "dstNodeId": "OtherSmoothBoreLongGuns",
-          "titleHtml": "Other Smooth Bore Long Guns",
-          "contextHtml": "<p></p>",
-          "plainLabel": "Other Smooth Bore Long Guns",
+          "optionId": "small_arms_long_gun__TO__small_arms_long_gun_rifled",
+          "dstNodeId": "small_arms_long_gun_rifled",
+          "titleHtml": "Rifled",
+          "contextHtml": "",
+          "plainLabel": "Rifled",
+          "imageSrc": ""
+        },
+        {
+          "optionId": "small_arms_long_gun__TO__small_arms_long_gun_shotgun",
+          "dstNodeId": "small_arms_long_gun_shotgun",
+          "titleHtml": "Shotgun",
+          "contextHtml": "",
+          "plainLabel": "Shotgun",
+          "imageSrc": ""
+        },
+        {
+          "optionId": "small_arms_long_gun__TO__small_arms_long_gun_smooth_bore",
+          "dstNodeId": "small_arms_long_gun_smooth_bore",
+          "titleHtml": "Smooth Bore",
+          "contextHtml": "",
+          "plainLabel": "Smooth Bore",
           "imageSrc": ""
         }
       ]
     },
     {
-      "nodeId": "Rifles",
-      "questionHtml": "<h1>Rifles: Which sub-type of rifled long guns matches best?</h1><p></p><img src='' />",
-      "questionText": "Rifles: Which sub-type of rifled long guns matches best?",
+      "nodeId": "small_arms_long_gun_rifled",
+      "questionHtml": "Rifled",
+      "questionText": "Rifled",
       "options": [
         {
-          "optionId": "Rifles__TO__SelfLoadingRifles",
-          "dstNodeId": "SelfLoadingRifles",
-          "titleHtml": "Self-Loading",
-          "contextHtml": "<p></p>",
-          "plainLabel": "Self-Loading",
+          "optionId": "small_arms_long_gun_rifled__TO__small_arms_long_gun_rifled_man_portable_machine_gun",
+          "dstNodeId": "small_arms_long_gun_rifled_man_portable_machine_gun",
+          "titleHtml": "Man-Portable Machine Gun",
+          "contextHtml": "",
+          "plainLabel": "Man-Portable Machine Gun",
           "imageSrc": ""
         },
         {
-          "optionId": "Rifles__TO__ManuallyOperatedRifles",
-          "dstNodeId": "ManuallyOperatedRifles",
-          "titleHtml": "Manually-Loaded",
-          "contextHtml": "<p></p>",
-          "plainLabel": "Manually-Loaded",
+          "optionId": "small_arms_long_gun_rifled__TO__small_arms_long_gun_rifled_sub_machine_gun",
+          "dstNodeId": "small_arms_long_gun_rifled_sub_machine_gun",
+          "titleHtml": "Sub-Machine Gun",
+          "contextHtml": "",
+          "plainLabel": "Sub-Machine Gun",
           "imageSrc": ""
         }
       ]
     },
     {
-      "nodeId": "Shotguns",
-      "questionHtml": "<h1>How is amunition loaded into the shotgun?</h1><p></p><img src='' />",
-      "questionText": "How is amunition loaded into the shotgun?",
+      "nodeId": "small_arms_long_gun_rifle",
+      "questionHtml": "Rifle",
+      "questionText": "Rifle",
       "options": [
         {
-          "optionId": "Shotguns__TO__SelfLoadingShotguns",
-          "dstNodeId": "SelfLoadingShotguns",
-          "titleHtml": "Self-Loading",
-          "contextHtml": "<p></p>",
-          "plainLabel": "Self-Loading",
+          "optionId": "small_arms_long_gun_rifle__TO__small_arms_long_gun_rifle_automatic_rifle",
+          "dstNodeId": "small_arms_long_gun_rifle_automatic_rifle",
+          "titleHtml": "Automatic Rifle",
+          "contextHtml": "",
+          "plainLabel": "Automatic Rifle",
           "imageSrc": ""
         },
         {
-          "optionId": "Shotguns__TO__ManuallyOperatedShotguns",
-          "dstNodeId": "ManuallyOperatedShotguns",
-          "titleHtml": "Manually",
-          "contextHtml": "<p></p>",
-          "plainLabel": "Manually",
+          "optionId": "small_arms_long_gun_rifle__TO__small_arms_long_gun_rifle_bolt_action_rifle",
+          "dstNodeId": "small_arms_long_gun_rifle_bolt_action_rifle",
+          "titleHtml": "Bolt-Action Rifle",
+          "contextHtml": "",
+          "plainLabel": "Bolt-Action Rifle",
+          "imageSrc": ""
+        },
+        {
+          "optionId": "small_arms_long_gun_rifle__TO__small_arms_long_gun_rifle_break_action_rifle",
+          "dstNodeId": "small_arms_long_gun_rifle_break_action_rifle",
+          "titleHtml": "Break-Action Rifle",
+          "contextHtml": "",
+          "plainLabel": "Break-Action Rifle",
+          "imageSrc": ""
+        },
+        {
+          "optionId": "small_arms_long_gun_rifle__TO__small_arms_long_gun_rifle_lever_action_rifle",
+          "dstNodeId": "small_arms_long_gun_rifle_lever_action_rifle",
+          "titleHtml": "Lever-Action Rifle",
+          "contextHtml": "",
+          "plainLabel": "Lever-Action Rifle",
+          "imageSrc": ""
+        },
+        {
+          "optionId": "small_arms_long_gun_rifle__TO__small_arms_long_gun_rifle_other_manually_operated_rifle",
+          "dstNodeId": "small_arms_long_gun_rifle_other_manually_operated_rifle",
+          "titleHtml": "Other Manually Operated Rifle",
+          "contextHtml": "",
+          "plainLabel": "Other Manually Operated Rifle",
+          "imageSrc": ""
+        },
+        {
+          "optionId": "small_arms_long_gun_rifle__TO__small_arms_long_gun_rifle_pump_action_rifle",
+          "dstNodeId": "small_arms_long_gun_rifle_pump_action_rifle",
+          "titleHtml": "Pump-Action Rifle",
+          "contextHtml": "",
+          "plainLabel": "Pump-Action Rifle",
+          "imageSrc": ""
+        },
+        {
+          "optionId": "small_arms_long_gun_rifle__TO__small_arms_long_gun_rifle_semi_automatic_rifle",
+          "dstNodeId": "small_arms_long_gun_rifle_semi_automatic_rifle",
+          "titleHtml": "Semi-Automatic Rifle",
+          "contextHtml": "",
+          "plainLabel": "Semi-Automatic Rifle",
           "imageSrc": ""
         }
       ]
     },
     {
-      "nodeId": "SelfLoadingRifles",
-      "questionHtml": "<h1>Which operation method of self-loading rifled long gun best fits?</h1><p></p><img src='' />",
-      "questionText": "Which operation method of self-loading rifled long gun best fits?",
+      "nodeId": "small_arms_long_gun_shotgun",
+      "questionHtml": "Shotgun",
+      "questionText": "Shotgun",
       "options": [
         {
-          "optionId": "SelfLoadingRifles__TO__AutomaticRifles",
-          "dstNodeId": "AutomaticRifles",
-          "titleHtml": "Automatic Rifles",
-          "contextHtml": "<p></p>",
-          "plainLabel": "Automatic Rifles",
+          "optionId": "small_arms_long_gun_shotgun__TO__small_arms_long_gun_shotgun_automatic_shotgun",
+          "dstNodeId": "small_arms_long_gun_shotgun_automatic_shotgun",
+          "titleHtml": "Automatic Shotgun",
+          "contextHtml": "",
+          "plainLabel": "Automatic Shotgun",
           "imageSrc": ""
         },
         {
-          "optionId": "SelfLoadingRifles__TO__SemiAutomaticRifles",
-          "dstNodeId": "SemiAutomaticRifles",
-          "titleHtml": "Semi-Automatic Rifles",
-          "contextHtml": "<p></p>",
-          "plainLabel": "Semi-Automatic Rifles",
+          "optionId": "small_arms_long_gun_shotgun__TO__small_arms_long_gun_shotgun_bolt_action_shotgun",
+          "dstNodeId": "small_arms_long_gun_shotgun_bolt_action_shotgun",
+          "titleHtml": "Bolt-Action Shotgun",
+          "contextHtml": "",
+          "plainLabel": "Bolt-Action Shotgun",
+          "imageSrc": ""
+        },
+        {
+          "optionId": "small_arms_long_gun_shotgun__TO__small_arms_long_gun_shotgun_break_action_shotgun",
+          "dstNodeId": "small_arms_long_gun_shotgun_break_action_shotgun",
+          "titleHtml": "Break-Action Shotgun",
+          "contextHtml": "",
+          "plainLabel": "Break-Action Shotgun",
+          "imageSrc": ""
+        },
+        {
+          "optionId": "small_arms_long_gun_shotgun__TO__small_arms_long_gun_shotgun_lever_action_shotgun",
+          "dstNodeId": "small_arms_long_gun_shotgun_lever_action_shotgun",
+          "titleHtml": "Lever-Action Shotgun",
+          "contextHtml": "",
+          "plainLabel": "Lever-Action Shotgun",
+          "imageSrc": ""
+        },
+        {
+          "optionId": "small_arms_long_gun_shotgun__TO__small_arms_long_gun_shotgun_other_manually_operated_shotgun",
+          "dstNodeId": "small_arms_long_gun_shotgun_other_manually_operated_shotgun",
+          "titleHtml": "Other Manually Operated Shotgun",
+          "contextHtml": "",
+          "plainLabel": "Other Manually Operated Shotgun",
+          "imageSrc": ""
+        },
+        {
+          "optionId": "small_arms_long_gun_shotgun__TO__small_arms_long_gun_shotgun_pump_action_shotgun",
+          "dstNodeId": "small_arms_long_gun_shotgun_pump_action_shotgun",
+          "titleHtml": "Pump-Action Shotgun",
+          "contextHtml": "",
+          "plainLabel": "Pump-Action Shotgun",
+          "imageSrc": ""
+        },
+        {
+          "optionId": "small_arms_long_gun_shotgun__TO__small_arms_long_gun_shotgun_semi_automatic_shotgun",
+          "dstNodeId": "small_arms_long_gun_shotgun_semi_automatic_shotgun",
+          "titleHtml": "Semi-Automatic Shotgun",
+          "contextHtml": "",
+          "plainLabel": "Semi-Automatic Shotgun",
           "imageSrc": ""
         }
       ]
     },
     {
-      "nodeId": "ManuallyOperatedRifles",
-      "questionHtml": "<h1>Which operation method manually-loading rifled long gun best fits?</h1><p></p><img src='' />",
-      "questionText": "Which operation method manually-loading rifled long gun best fits?",
+      "nodeId": "small_arms_long_gun_smooth_bore",
+      "questionHtml": "Smooth Bore",
+      "questionText": "Smooth Bore",
       "options": [
         {
-          "optionId": "ManuallyOperatedRifles__TO__BreakActionRifles",
-          "dstNodeId": "BreakActionRifles",
-          "titleHtml": "Break Action Rifles",
-          "contextHtml": "<p></p>",
-          "plainLabel": "Break Action Rifles",
-          "imageSrc": ""
-        },
-        {
-          "optionId": "ManuallyOperatedRifles__TO__BoltActionRifles",
-          "dstNodeId": "BoltActionRifles",
-          "titleHtml": "Bolt Action Rifles",
-          "contextHtml": "<p></p>",
-          "plainLabel": "Bolt Action Rifles",
-          "imageSrc": ""
-        },
-        {
-          "optionId": "ManuallyOperatedRifles__TO__LeverActionRifles",
-          "dstNodeId": "LeverActionRifles",
-          "titleHtml": "Lever Action Rifles",
-          "contextHtml": "<p></p>",
-          "plainLabel": "Lever Action Rifles",
-          "imageSrc": ""
-        },
-        {
-          "optionId": "ManuallyOperatedRifles__TO__PumpActionRifles",
-          "dstNodeId": "PumpActionRifles",
-          "titleHtml": "Pump Action Rifles",
-          "contextHtml": "<p></p>",
-          "plainLabel": "Pump Action Rifles",
-          "imageSrc": ""
-        },
-        {
-          "optionId": "ManuallyOperatedRifles__TO__OtherManuallyOperatedRifles",
-          "dstNodeId": "OtherManuallyOperatedRifles",
-          "titleHtml": "Other Manually Operated Rifles",
-          "contextHtml": "<p></p>",
-          "plainLabel": "Other Manually Operated Rifles",
-          "imageSrc": ""
-        }
-      ]
-    },
-    {
-      "nodeId": "SelfLoadingShotguns",
-      "questionHtml": "<h1>Which self-loading shotgun matches best?</h1><p></p><img src='' />",
-      "questionText": "Which self-loading shotgun matches best?",
-      "options": [
-        {
-          "optionId": "SelfLoadingShotguns__TO__AutomaticShotguns",
-          "dstNodeId": "AutomaticShotguns",
-          "titleHtml": "Automatic Shotguns",
-          "contextHtml": "<p></p>",
-          "plainLabel": "Automatic Shotguns",
-          "imageSrc": ""
-        },
-        {
-          "optionId": "SelfLoadingShotguns__TO__SemiAutomaticShotguns",
-          "dstNodeId": "SemiAutomaticShotguns",
-          "titleHtml": "Semi-Automatic Shotguns",
-          "contextHtml": "<p></p>",
-          "plainLabel": "Semi-Automatic Shotguns",
-          "imageSrc": ""
-        }
-      ]
-    },
-    {
-      "nodeId": "ManuallyOperatedShotguns",
-      "questionHtml": "<h1>Which manually operated shotguns matches best?</h1><p></p><img src='' />",
-      "questionText": "Which manually operated shotguns matches best?",
-      "options": [
-        {
-          "optionId": "ManuallyOperatedShotguns__TO__BreakActionShotguns",
-          "dstNodeId": "BreakActionShotguns",
-          "titleHtml": "Break Action Shotguns",
-          "contextHtml": "<p></p>",
-          "plainLabel": "Break Action Shotguns",
-          "imageSrc": ""
-        },
-        {
-          "optionId": "ManuallyOperatedShotguns__TO__BoltActionShotguns",
-          "dstNodeId": "BoltActionShotguns",
-          "titleHtml": "Bolt Action Shotguns",
-          "contextHtml": "<p></p>",
-          "plainLabel": "Bolt Action Shotguns",
-          "imageSrc": ""
-        },
-        {
-          "optionId": "ManuallyOperatedShotguns__TO__LeverActionShotguns",
-          "dstNodeId": "LeverActionShotguns",
-          "titleHtml": "Lever Action Shotguns",
-          "contextHtml": "<p></p>",
-          "plainLabel": "Lever Action Shotguns",
-          "imageSrc": ""
-        },
-        {
-          "optionId": "ManuallyOperatedShotguns__TO__PumpActionShotguns",
-          "dstNodeId": "PumpActionShotguns",
-          "titleHtml": "Pump Action Shotguns",
-          "contextHtml": "<p></p>",
-          "plainLabel": "Pump Action Shotguns",
-          "imageSrc": ""
-        },
-        {
-          "optionId": "ManuallyOperatedShotguns__TO__OtherManuallyOperatedShotguns",
-          "dstNodeId": "OtherManuallyOperatedShotguns",
-          "titleHtml": "Other Manually Operated Shotguns",
-          "contextHtml": "<p></p>",
-          "plainLabel": "Other Manually Operated Shotguns",
+          "optionId": "small_arms_long_gun_smooth_bore__TO__small_arms_long_gun_smooth_bore_other",
+          "dstNodeId": "small_arms_long_gun_smooth_bore_other",
+          "titleHtml": "Other",
+          "contextHtml": "",
+          "plainLabel": "Other",
           "imageSrc": ""
         }
       ]
@@ -362,298 +317,265 @@
   ],
   "leaves": [
     {
-      "leafId": "SmoothBore_OtherHandguns",
-      "leafHtml": "<h1>Other handguns</h1><p></p><img src='' />",
-      "leafText": "Other handguns",
-      "depth": 2
-    },
-    {
-      "leafId": "Rifled_SelfLoadingPistols",
-      "leafHtml": "<h1>Self-loading Pistols</h1><p></p><img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.13_SelfLoading_Pistols.png?raw=true' />",
-      "leafText": "Self-loading Pistols",
+      "leafId": "small_arms_handgun_rifled_self_loading_pistol",
+      "leafHtml": "Self-Loading Pistol",
+      "leafText": "Self-Loading Pistol",
       "depth": 3
     },
     {
-      "leafId": "Rifled_Revolvers",
-      "leafHtml": "<h1>Revolvers</h1><p></p><img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.12_Revolvers.png?raw=true' />",
-      "leafText": "Revolvers",
+      "leafId": "small_arms_handgun_rifled_revolver",
+      "leafHtml": "Revolver",
+      "leafText": "Revolver",
       "depth": 3
     },
     {
-      "leafId": "Rifled_SubMachineGuns",
-      "leafHtml": "<h1>Sub-machine guns</h1><p></p><img src='' />",
-      "leafText": "Sub-machine guns",
+      "leafId": "small_arms_handgun_smooth_bore_other",
+      "leafHtml": "Other",
+      "leafText": "Other",
       "depth": 3
     },
     {
-      "leafId": "Rifled_ManPortableMachineGuns",
-      "leafHtml": "<h1>Man-portable machine guns</h1><p></p><img src='' />",
-      "leafText": "Man-portable machine guns",
+      "leafId": "small_arms_long_gun_rifled_sub_machine_gun",
+      "leafHtml": "Sub-Machine Gun",
+      "leafText": "Sub-Machine Gun",
       "depth": 3
     },
     {
-      "leafId": "OtherSmoothBoreLongGuns",
-      "leafHtml": "<h1>Other smooth-bore long guns</h1><p></p><img src='' />",
-      "leafText": "Other smooth-bore long guns",
+      "leafId": "small_arms_long_gun_rifled_man_portable_machine_gun",
+      "leafHtml": "Man-Portable Machine Gun",
+      "leafText": "Man-Portable Machine Gun",
       "depth": 3
     },
     {
-      "leafId": "AutomaticRifles",
-      "leafHtml": "<h1>Automatic Rifles</h1><p></p><img src='' />",
-      "leafText": "Automatic Rifles",
-      "depth": 5
+      "leafId": "small_arms_long_gun_rifle_automatic_rifle",
+      "leafHtml": "Automatic Rifle",
+      "leafText": "Automatic Rifle",
+      "depth": 3
     },
     {
-      "leafId": "SemiAutomaticRifles",
-      "leafHtml": "<h1>Semi-Automatic Rifles</h1><p></p><img src='' />",
-      "leafText": "Semi-Automatic Rifles",
-      "depth": 5
+      "leafId": "small_arms_long_gun_rifle_semi_automatic_rifle",
+      "leafHtml": "Semi-Automatic Rifle",
+      "leafText": "Semi-Automatic Rifle",
+      "depth": 3
     },
     {
-      "leafId": "BreakActionRifles",
-      "leafHtml": "<h1>Break-action Rifles</h1><p></p><img src='' />",
-      "leafText": "Break-action Rifles",
-      "depth": 5
+      "leafId": "small_arms_long_gun_rifle_break_action_rifle",
+      "leafHtml": "Break-Action Rifle",
+      "leafText": "Break-Action Rifle",
+      "depth": 3
     },
     {
-      "leafId": "BoltActionRifles",
-      "leafHtml": "<h1>Bolt-action Rifles</h1><p></p><img src='' />",
-      "leafText": "Bolt-action Rifles",
-      "depth": 5
+      "leafId": "small_arms_long_gun_rifle_bolt_action_rifle",
+      "leafHtml": "Bolt-Action Rifle",
+      "leafText": "Bolt-Action Rifle",
+      "depth": 3
     },
     {
-      "leafId": "LeverActionRifles",
-      "leafHtml": "<h1>Lever-action Rifles</h1><p></p><img src='' />",
-      "leafText": "Lever-action Rifles",
-      "depth": 5
+      "leafId": "small_arms_long_gun_rifle_lever_action_rifle",
+      "leafHtml": "Lever-Action Rifle",
+      "leafText": "Lever-Action Rifle",
+      "depth": 3
     },
     {
-      "leafId": "PumpActionRifles",
-      "leafHtml": "<h1>Pump-action Rifles</h1><p></p><img src='' />",
-      "leafText": "Pump-action Rifles",
-      "depth": 5
+      "leafId": "small_arms_long_gun_rifle_pump_action_rifle",
+      "leafHtml": "Pump-Action Rifle",
+      "leafText": "Pump-Action Rifle",
+      "depth": 3
     },
     {
-      "leafId": "OtherManuallyOperatedRifles",
-      "leafHtml": "<h1>Other Manually Operated Rifles</h1><p></p><img src='' />",
-      "leafText": "Other Manually Operated Rifles",
-      "depth": 5
+      "leafId": "small_arms_long_gun_rifle_other_manually_operated_rifle",
+      "leafHtml": "Other Manually Operated Rifle",
+      "leafText": "Other Manually Operated Rifle",
+      "depth": 3
     },
     {
-      "leafId": "AutomaticShotguns",
-      "leafHtml": "<h1>Automatic Shotguns</h1><p></p><img src='' />",
-      "leafText": "Automatic Shotguns",
-      "depth": 5
+      "leafId": "small_arms_long_gun_shotgun_automatic_shotgun",
+      "leafHtml": "Automatic Shotgun",
+      "leafText": "Automatic Shotgun",
+      "depth": 3
     },
     {
-      "leafId": "SemiAutomaticShotguns",
-      "leafHtml": "<h1>Semi-Automatic Shotguns</h1><p></p><img src='' />",
-      "leafText": "Semi-Automatic Shotguns",
-      "depth": 5
+      "leafId": "small_arms_long_gun_shotgun_semi_automatic_shotgun",
+      "leafHtml": "Semi-Automatic Shotgun",
+      "leafText": "Semi-Automatic Shotgun",
+      "depth": 3
     },
     {
-      "leafId": "BreakActionShotguns",
-      "leafHtml": "<h1>Break Action Shotguns</h1><p></p><img src='' />",
-      "leafText": "Break Action Shotguns",
-      "depth": 5
+      "leafId": "small_arms_long_gun_shotgun_break_action_shotgun",
+      "leafHtml": "Break-Action Shotgun",
+      "leafText": "Break-Action Shotgun",
+      "depth": 3
     },
     {
-      "leafId": "BoltActionShotguns",
-      "leafHtml": "<h1>Bolt Action Shotguns</h1><p></p><img src='' />",
-      "leafText": "Bolt Action Shotguns",
-      "depth": 5
+      "leafId": "small_arms_long_gun_shotgun_bolt_action_shotgun",
+      "leafHtml": "Bolt-Action Shotgun",
+      "leafText": "Bolt-Action Shotgun",
+      "depth": 3
     },
     {
-      "leafId": "LeverActionShotguns",
-      "leafHtml": "<h1>Lever Action Shotguns</h1><p></p><img src='' />",
-      "leafText": "Lever Action Shotguns",
-      "depth": 5
+      "leafId": "small_arms_long_gun_shotgun_lever_action_shotgun",
+      "leafHtml": "Lever-Action Shotgun",
+      "leafText": "Lever-Action Shotgun",
+      "depth": 3
     },
     {
-      "leafId": "PumpActionShotguns",
-      "leafHtml": "<h1>Pump Action Shotguns</h1><p></p><img src='' />",
-      "leafText": "Pump Action Shotguns",
-      "depth": 5
+      "leafId": "small_arms_long_gun_shotgun_pump_action_shotgun",
+      "leafHtml": "Pump-Action Shotgun",
+      "leafText": "Pump-Action Shotgun",
+      "depth": 3
     },
     {
-      "leafId": "OtherManuallyOperatedShotguns",
-      "leafHtml": "<h1>Other Manually Operated Shotguns</h1><p></p><img src='' />",
-      "leafText": "Other Manually Operated Shotguns",
-      "depth": 5
+      "leafId": "small_arms_long_gun_shotgun_other_manually_operated_shotgun",
+      "leafHtml": "Other Manually Operated Shotgun",
+      "leafText": "Other Manually Operated Shotgun",
+      "depth": 3
+    },
+    {
+      "leafId": "small_arms_long_gun_smooth_bore_other",
+      "leafHtml": "Other",
+      "leafText": "Other",
+      "depth": 3
     }
   ],
   "optionToLeafIds": {
-    "SmallArms__TO__Handguns_BarrelType": [
-      "Rifled_Revolvers",
-      "Rifled_SelfLoadingPistols",
-      "SmoothBore_OtherHandguns"
+    "small_arms__TO__small_arms_handgun": [
+      "small_arms_handgun_rifled_revolver",
+      "small_arms_handgun_rifled_self_loading_pistol",
+      "small_arms_handgun_smooth_bore_other"
     ],
-    "SmallArms__TO__LongGuns": [
-      "AutomaticRifles",
-      "AutomaticShotguns",
-      "BoltActionRifles",
-      "BoltActionShotguns",
-      "BreakActionRifles",
-      "BreakActionShotguns",
-      "LeverActionRifles",
-      "LeverActionShotguns",
-      "OtherManuallyOperatedRifles",
-      "OtherManuallyOperatedShotguns",
-      "OtherSmoothBoreLongGuns",
-      "PumpActionRifles",
-      "PumpActionShotguns",
-      "Rifled_ManPortableMachineGuns",
-      "Rifled_SubMachineGuns",
-      "SemiAutomaticRifles",
-      "SemiAutomaticShotguns"
+    "small_arms__TO__small_arms_long_gun": [
+      "small_arms_long_gun_rifle_automatic_rifle",
+      "small_arms_long_gun_rifle_bolt_action_rifle",
+      "small_arms_long_gun_rifle_break_action_rifle",
+      "small_arms_long_gun_rifle_lever_action_rifle",
+      "small_arms_long_gun_rifle_other_manually_operated_rifle",
+      "small_arms_long_gun_rifle_pump_action_rifle",
+      "small_arms_long_gun_rifle_semi_automatic_rifle",
+      "small_arms_long_gun_rifled_man_portable_machine_gun",
+      "small_arms_long_gun_rifled_sub_machine_gun",
+      "small_arms_long_gun_shotgun_automatic_shotgun",
+      "small_arms_long_gun_shotgun_bolt_action_shotgun",
+      "small_arms_long_gun_shotgun_break_action_shotgun",
+      "small_arms_long_gun_shotgun_lever_action_shotgun",
+      "small_arms_long_gun_shotgun_other_manually_operated_shotgun",
+      "small_arms_long_gun_shotgun_pump_action_shotgun",
+      "small_arms_long_gun_shotgun_semi_automatic_shotgun",
+      "small_arms_long_gun_smooth_bore_other"
     ],
-    "Handguns_BarrelType__TO__Handguns_Rifled": [
-      "Rifled_Revolvers",
-      "Rifled_SelfLoadingPistols"
+    "small_arms_handgun__TO__small_arms_handgun_rifled": [
+      "small_arms_handgun_rifled_revolver",
+      "small_arms_handgun_rifled_self_loading_pistol"
     ],
-    "Handguns_BarrelType__TO__SmoothBore_OtherHandguns": [
-      "SmoothBore_OtherHandguns"
+    "small_arms_handgun__TO__small_arms_handgun_smooth_bore": [
+      "small_arms_handgun_smooth_bore_other"
     ],
-    "LongGuns__TO__LongGuns_Rifled": [
-      "AutomaticRifles",
-      "BoltActionRifles",
-      "BreakActionRifles",
-      "LeverActionRifles",
-      "OtherManuallyOperatedRifles",
-      "PumpActionRifles",
-      "Rifled_ManPortableMachineGuns",
-      "Rifled_SubMachineGuns",
-      "SemiAutomaticRifles"
+    "small_arms_handgun_rifled__TO__small_arms_handgun_rifled_revolver": [
+      "small_arms_handgun_rifled_revolver"
     ],
-    "LongGuns__TO__LongGuns_SmoothBore": [
-      "AutomaticShotguns",
-      "BoltActionShotguns",
-      "BreakActionShotguns",
-      "LeverActionShotguns",
-      "OtherManuallyOperatedShotguns",
-      "OtherSmoothBoreLongGuns",
-      "PumpActionShotguns",
-      "SemiAutomaticShotguns"
+    "small_arms_handgun_rifled__TO__small_arms_handgun_rifled_self_loading_pistol": [
+      "small_arms_handgun_rifled_self_loading_pistol"
     ],
-    "Handguns_Rifled__TO__Rifled_SelfLoadingPistols": [
-      "Rifled_SelfLoadingPistols"
+    "small_arms_handgun_smooth_bore__TO__small_arms_handgun_smooth_bore_other": [
+      "small_arms_handgun_smooth_bore_other"
     ],
-    "Handguns_Rifled__TO__Rifled_Revolvers": [
-      "Rifled_Revolvers"
+    "small_arms_long_gun__TO__small_arms_long_gun_rifle": [
+      "small_arms_long_gun_rifle_automatic_rifle",
+      "small_arms_long_gun_rifle_bolt_action_rifle",
+      "small_arms_long_gun_rifle_break_action_rifle",
+      "small_arms_long_gun_rifle_lever_action_rifle",
+      "small_arms_long_gun_rifle_other_manually_operated_rifle",
+      "small_arms_long_gun_rifle_pump_action_rifle",
+      "small_arms_long_gun_rifle_semi_automatic_rifle"
     ],
-    "LongGuns_Rifled__TO__Rifled_SubMachineGuns": [
-      "Rifled_SubMachineGuns"
+    "small_arms_long_gun__TO__small_arms_long_gun_rifled": [
+      "small_arms_long_gun_rifled_man_portable_machine_gun",
+      "small_arms_long_gun_rifled_sub_machine_gun"
     ],
-    "LongGuns_Rifled__TO__Rifled_ManPortableMachineGuns": [
-      "Rifled_ManPortableMachineGuns"
+    "small_arms_long_gun__TO__small_arms_long_gun_shotgun": [
+      "small_arms_long_gun_shotgun_automatic_shotgun",
+      "small_arms_long_gun_shotgun_bolt_action_shotgun",
+      "small_arms_long_gun_shotgun_break_action_shotgun",
+      "small_arms_long_gun_shotgun_lever_action_shotgun",
+      "small_arms_long_gun_shotgun_other_manually_operated_shotgun",
+      "small_arms_long_gun_shotgun_pump_action_shotgun",
+      "small_arms_long_gun_shotgun_semi_automatic_shotgun"
     ],
-    "LongGuns_Rifled__TO__Rifles": [
-      "AutomaticRifles",
-      "BoltActionRifles",
-      "BreakActionRifles",
-      "LeverActionRifles",
-      "OtherManuallyOperatedRifles",
-      "PumpActionRifles",
-      "SemiAutomaticRifles"
+    "small_arms_long_gun__TO__small_arms_long_gun_smooth_bore": [
+      "small_arms_long_gun_smooth_bore_other"
     ],
-    "LongGuns_SmoothBore__TO__Shotguns": [
-      "AutomaticShotguns",
-      "BoltActionShotguns",
-      "BreakActionShotguns",
-      "LeverActionShotguns",
-      "OtherManuallyOperatedShotguns",
-      "PumpActionShotguns",
-      "SemiAutomaticShotguns"
+    "small_arms_long_gun_rifled__TO__small_arms_long_gun_rifled_man_portable_machine_gun": [
+      "small_arms_long_gun_rifled_man_portable_machine_gun"
     ],
-    "LongGuns_SmoothBore__TO__OtherSmoothBoreLongGuns": [
-      "OtherSmoothBoreLongGuns"
+    "small_arms_long_gun_rifled__TO__small_arms_long_gun_rifled_sub_machine_gun": [
+      "small_arms_long_gun_rifled_sub_machine_gun"
     ],
-    "Rifles__TO__SelfLoadingRifles": [
-      "AutomaticRifles",
-      "SemiAutomaticRifles"
+    "small_arms_long_gun_rifle__TO__small_arms_long_gun_rifle_automatic_rifle": [
+      "small_arms_long_gun_rifle_automatic_rifle"
     ],
-    "Rifles__TO__ManuallyOperatedRifles": [
-      "BoltActionRifles",
-      "BreakActionRifles",
-      "LeverActionRifles",
-      "OtherManuallyOperatedRifles",
-      "PumpActionRifles"
+    "small_arms_long_gun_rifle__TO__small_arms_long_gun_rifle_bolt_action_rifle": [
+      "small_arms_long_gun_rifle_bolt_action_rifle"
     ],
-    "Shotguns__TO__SelfLoadingShotguns": [
-      "AutomaticShotguns",
-      "SemiAutomaticShotguns"
+    "small_arms_long_gun_rifle__TO__small_arms_long_gun_rifle_break_action_rifle": [
+      "small_arms_long_gun_rifle_break_action_rifle"
     ],
-    "Shotguns__TO__ManuallyOperatedShotguns": [
-      "BoltActionShotguns",
-      "BreakActionShotguns",
-      "LeverActionShotguns",
-      "OtherManuallyOperatedShotguns",
-      "PumpActionShotguns"
+    "small_arms_long_gun_rifle__TO__small_arms_long_gun_rifle_lever_action_rifle": [
+      "small_arms_long_gun_rifle_lever_action_rifle"
     ],
-    "SelfLoadingRifles__TO__AutomaticRifles": [
-      "AutomaticRifles"
+    "small_arms_long_gun_rifle__TO__small_arms_long_gun_rifle_other_manually_operated_rifle": [
+      "small_arms_long_gun_rifle_other_manually_operated_rifle"
     ],
-    "SelfLoadingRifles__TO__SemiAutomaticRifles": [
-      "SemiAutomaticRifles"
+    "small_arms_long_gun_rifle__TO__small_arms_long_gun_rifle_pump_action_rifle": [
+      "small_arms_long_gun_rifle_pump_action_rifle"
     ],
-    "ManuallyOperatedRifles__TO__BreakActionRifles": [
-      "BreakActionRifles"
+    "small_arms_long_gun_rifle__TO__small_arms_long_gun_rifle_semi_automatic_rifle": [
+      "small_arms_long_gun_rifle_semi_automatic_rifle"
     ],
-    "ManuallyOperatedRifles__TO__BoltActionRifles": [
-      "BoltActionRifles"
+    "small_arms_long_gun_shotgun__TO__small_arms_long_gun_shotgun_automatic_shotgun": [
+      "small_arms_long_gun_shotgun_automatic_shotgun"
     ],
-    "ManuallyOperatedRifles__TO__LeverActionRifles": [
-      "LeverActionRifles"
+    "small_arms_long_gun_shotgun__TO__small_arms_long_gun_shotgun_bolt_action_shotgun": [
+      "small_arms_long_gun_shotgun_bolt_action_shotgun"
     ],
-    "ManuallyOperatedRifles__TO__PumpActionRifles": [
-      "PumpActionRifles"
+    "small_arms_long_gun_shotgun__TO__small_arms_long_gun_shotgun_break_action_shotgun": [
+      "small_arms_long_gun_shotgun_break_action_shotgun"
     ],
-    "ManuallyOperatedRifles__TO__OtherManuallyOperatedRifles": [
-      "OtherManuallyOperatedRifles"
+    "small_arms_long_gun_shotgun__TO__small_arms_long_gun_shotgun_lever_action_shotgun": [
+      "small_arms_long_gun_shotgun_lever_action_shotgun"
     ],
-    "SelfLoadingShotguns__TO__AutomaticShotguns": [
-      "AutomaticShotguns"
+    "small_arms_long_gun_shotgun__TO__small_arms_long_gun_shotgun_other_manually_operated_shotgun": [
+      "small_arms_long_gun_shotgun_other_manually_operated_shotgun"
     ],
-    "SelfLoadingShotguns__TO__SemiAutomaticShotguns": [
-      "SemiAutomaticShotguns"
+    "small_arms_long_gun_shotgun__TO__small_arms_long_gun_shotgun_pump_action_shotgun": [
+      "small_arms_long_gun_shotgun_pump_action_shotgun"
     ],
-    "ManuallyOperatedShotguns__TO__BreakActionShotguns": [
-      "BreakActionShotguns"
+    "small_arms_long_gun_shotgun__TO__small_arms_long_gun_shotgun_semi_automatic_shotgun": [
+      "small_arms_long_gun_shotgun_semi_automatic_shotgun"
     ],
-    "ManuallyOperatedShotguns__TO__BoltActionShotguns": [
-      "BoltActionShotguns"
-    ],
-    "ManuallyOperatedShotguns__TO__LeverActionShotguns": [
-      "LeverActionShotguns"
-    ],
-    "ManuallyOperatedShotguns__TO__PumpActionShotguns": [
-      "PumpActionShotguns"
-    ],
-    "ManuallyOperatedShotguns__TO__OtherManuallyOperatedShotguns": [
-      "OtherManuallyOperatedShotguns"
+    "small_arms_long_gun_smooth_bore__TO__small_arms_long_gun_smooth_bore_other": [
+      "small_arms_long_gun_smooth_bore_other"
     ]
   },
   "initialCandidates": [
-    "AutomaticRifles",
-    "AutomaticShotguns",
-    "BoltActionRifles",
-    "BoltActionShotguns",
-    "BreakActionRifles",
-    "BreakActionShotguns",
-    "LeverActionRifles",
-    "LeverActionShotguns",
-    "OtherManuallyOperatedRifles",
-    "OtherManuallyOperatedShotguns",
-    "OtherSmoothBoreLongGuns",
-    "PumpActionRifles",
-    "PumpActionShotguns",
-    "Rifled_ManPortableMachineGuns",
-    "Rifled_Revolvers",
-    "Rifled_SelfLoadingPistols",
-    "Rifled_SubMachineGuns",
-    "SemiAutomaticRifles",
-    "SemiAutomaticShotguns",
-    "SmoothBore_OtherHandguns"
+    "small_arms_handgun_rifled_revolver",
+    "small_arms_handgun_rifled_self_loading_pistol",
+    "small_arms_handgun_smooth_bore_other",
+    "small_arms_long_gun_rifle_automatic_rifle",
+    "small_arms_long_gun_rifle_bolt_action_rifle",
+    "small_arms_long_gun_rifle_break_action_rifle",
+    "small_arms_long_gun_rifle_lever_action_rifle",
+    "small_arms_long_gun_rifle_other_manually_operated_rifle",
+    "small_arms_long_gun_rifle_pump_action_rifle",
+    "small_arms_long_gun_rifle_semi_automatic_rifle",
+    "small_arms_long_gun_rifled_man_portable_machine_gun",
+    "small_arms_long_gun_rifled_sub_machine_gun",
+    "small_arms_long_gun_shotgun_automatic_shotgun",
+    "small_arms_long_gun_shotgun_bolt_action_shotgun",
+    "small_arms_long_gun_shotgun_break_action_shotgun",
+    "small_arms_long_gun_shotgun_lever_action_shotgun",
+    "small_arms_long_gun_shotgun_other_manually_operated_shotgun",
+    "small_arms_long_gun_shotgun_pump_action_shotgun",
+    "small_arms_long_gun_shotgun_semi_automatic_shotgun",
+    "small_arms_long_gun_smooth_bore_other"
   ]
 };
 
