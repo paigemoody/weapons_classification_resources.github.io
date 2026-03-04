@@ -15,8 +15,6 @@ This project uses a **GitHub-first** workflow with automatic HTML generation via
 Edit Mermaid → Commit to branch → Preview on web → Create PR → Merge to main
 ```
 
-
-
 ## Project files
 
 - `weapons-classification-flowchart.mmd`  
@@ -35,12 +33,6 @@ Generator scripts:
   Generates `classification-guide.html`.
 - `src/mermaid_to_hypothesis_filtering.py`  
   Generates `classification-guide-hypothesis-filtering.html`.
-
-Optional:
-
-- `mermaid.html`  
-  A page for viewing the Mermaid diagram (if you use this in the repo).
-
 
 
 ## GitHub-first editing and previews (no local setup required)
@@ -81,11 +73,10 @@ You are now "on your branch." Anything you do next will only affect your branch.
 3. Make your edits in the editor.
 
 **Optional (nicer editing experience): Mermaid Live**
-1. Go to `https://mermaid.live/edit`
+1. Go to https://mermaid.live/edit
 2. Copy/paste the contents of `weapons-classification-flowchart.mmd` into Mermaid Live.
 3. Edit and validate the diagram.
 4. Copy the updated Mermaid text back into GitHub.
-
 
 
 ### 3) Click "Commit changes" (this saves your edits)
@@ -288,13 +279,6 @@ flowchart TD
 - Edge labels: after `-->` as `|"..."|` with optional HTML
 - Both node and edge labels support: `<h1>`, `<p>`, `<img>`, `<br />`, etc.
 
-**Example with images:**
-
-```mermaid
-QuestionNode["<h1>Which barrel type?</h1><p>Look at the grooves</p><img src='url' />"]
-QuestionNode --> |"<h1>Rifled</h1>"| RifledNode
-```
-
 ## Troubleshooting
 
 ### GitHub Actions workflow failed
@@ -320,12 +304,3 @@ QuestionNode --> |"<h1>Rifled</h1>"| RifledNode
 - Ensure Python 3 is installed: `python3 --version`
 - Check file paths are correct (run commands from repo root)
 - Verify `.mmd` file is valid Mermaid syntax
-
-## Contributing
-
-1. Create a branch for your changes
-2. Edit [`weapons-classification-flowchart.mmd`](weapons-classification-flowchart.mmd)
-3. Commit and push to your branch
-4. Preview the changes on your branch preview links
-5. Create a Pull Request
-6. Get feedback and merge when ready
