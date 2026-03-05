@@ -1194,12 +1194,9 @@
                       const isUnknown = !!unknowns[q.nodeId];
                       const meta = questionMeta.get(q.nodeId) || { canNarrow: true, isRelevant: true };
                       const isActive = q.nodeId === activeQuestionId;
-                      const badgeStyle = isAnswered
-                        ? "bg-emerald-100 text-emerald-800"
-                        : isUnknown
-                        ? "bg-amber-100 text-amber-800"
-                        : "bg-slate-100 text-slate-700";
-                      const badgeLabel = isAnswered ? "Answered" : isUnknown ? "Unknown" : "Unanswered";
+                      const selectedOption = isAnswered
+                        ? q.options.find(o => o.optionId === answers[q.nodeId])
+                        : null;
                       return (
                         <div
                           key={q.nodeId}
@@ -1216,12 +1213,20 @@
                                 {q.questionText || q.nodeId}
                               </div>
                               <div className="mt-1 flex items-center gap-2">
-                                <span className={`text-xs px-2 py-0.5 rounded-full ${badgeStyle}`}>
-                                  {badgeLabel}
-                                </span>
-                                <span className={`text-xs px-2 py-0.5 rounded-full ${meta.canNarrow ? "bg-blue-100 text-blue-800" : "bg-slate-100 text-slate-600"}`}>
-                                  {meta.canNarrow ? "Can narrow" : "Won't narrow"}
-                                </span>
+                                {isAnswered ? (
+                                  <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 truncate max-w-[16rem]">
+                                    {selectedOption?.plainLabel || "Answered"}
+                                  </span>
+                                ) : (
+                                  <>
+                                    <span className={`text-xs px-2 py-0.5 rounded-full ${isUnknown ? "bg-amber-100 text-amber-800" : "bg-slate-100 text-slate-700"}`}>
+                                      {isUnknown ? "Unknown" : "Unanswered"}
+                                    </span>
+                                    <span className={`text-xs px-2 py-0.5 rounded-full ${meta.canNarrow ? "bg-blue-100 text-blue-800" : "bg-slate-100 text-slate-600"}`}>
+                                      {meta.canNarrow ? "Can narrow" : "Won't narrow"}
+                                    </span>
+                                  </>
+                                )}
                               </div>
                             </div>
                             {(isAnswered || isUnknown) && (
@@ -1229,7 +1234,7 @@
                                 className="text-xs text-slate-600 hover:text-slate-900"
                                 onClick={(e) => { e.stopPropagation(); removeAnswer(q.nodeId); }}
                               >
-                                Remove
+                                Reset
                               </button>
                             )}
                           </div>

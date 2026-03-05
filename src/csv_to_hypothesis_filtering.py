@@ -444,7 +444,7 @@ def make_html(model: dict, app_name: str) -> str:
                                 className="text-xs text-slate-600 hover:text-slate-900"
                                 onClick={(e) => { e.stopPropagation(); removeAnswer(q.nodeId); }}
                               >
-                                Remove
+                                Reset
                               </button>
                             )}
                           </div>
