@@ -17,264 +17,344 @@
 
     const APP_NAME = "[DEMO] Weapons Classification Guide";
     const TREE = {
-  "nodeId": "Small_Arms",
-  "questionHtml": "<h1>Which Small Arms group best fits?</h1><p></p><img src=\"\" />",
-  "questionText": "Which Small Arms group best fits?",
+  "nodeId": "SmallArms",
+  "questionHtml": "<h1>How would you hold this weapon to operate it?</h1><p></p><img src='' />",
+  "questionText": "How would you hold this weapon to operate it?",
   "options": [
     {
-      "label": "Handgun",
-      "titleHtml": "Handgun",
-      "contextHtml": "<p>a firearm which is grasped by placing both the control hand and support hand around the pistol grip, and which may be readily fired with one hand (ARES p37)</p>",
-      "nextNodeId": "Handgun",
-      "imageTag": "<img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.8_2.9_2.10_Handguns.png?raw=true\" />",
+      "label": "One hand — no shoulder stock",
+      "titleHtml": "One hand — no shoulder stock",
+      "contextHtml": "<p>A firearm held and operated with one or both hands on the grip; no shoulder stock is used. (ARCS Group: Handguns)</p>",
+      "nextNodeId": "Handguns",
+      "imageTag": "<img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.8_2.9_2.10_Handguns.png?raw=true' />",
       "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.8_2.9_2.10_Handguns.png?raw=true",
       "next": {
-        "nodeId": "Handgun",
-        "questionHtml": "<h1>Which barrel type best fits what you see?</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true\" />",
-        "questionText": "Which barrel type best fits what you see?",
+        "nodeId": "Handguns",
+        "questionHtml": "<h1>Does the handgun have a rotating cylinder?</h1><p></p><img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true' />",
+        "questionText": "Does the handgun have a rotating cylinder?",
         "options": [
           {
-            "label": "Rifled",
-            "titleHtml": "Rifled",
-            "contextHtml": "<p></p>",
-            "nextNodeId": "Rifled",
-            "imageTag": "<img src=\"\" />",
+            "label": "No — magazine-fed with sliding action",
+            "titleHtml": "No — magazine-fed with sliding action",
+            "contextHtml": "<p>A pistol that automatically chambers the next round after firing using a sliding action. (ARCS Type: Self-loading Pistols)</p>",
+            "nextNodeId": "SelfLoadingPistols",
+            "imageTag": "<img src='' />",
+            "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.13_SelfLoading_Pistols.png?raw=true",
+            "resultHtml": "<h1>Self-loading Pistols</h1><p>A self-loading pistol with a rifled barrel that fires one round per trigger pull and automatically cycles the action.</p><img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.13_SelfLoading_Pistols.png?raw=true' />",
+            "resultText": "Self-loading PistolsA self-loading pistol with a rifled barrel that fires one round per trigger pull and automatically cycles the action."
+          },
+          {
+            "label": "Yes — rotating cylinder",
+            "titleHtml": "Yes — rotating cylinder",
+            "contextHtml": "<p>(ARCS Type: Revolvers)</p>",
+            "nextNodeId": "Revolvers",
+            "imageTag": "<img src='' />",
+            "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.12_Revolvers.png?raw=true",
+            "resultHtml": "<h1>Revolvers</h1><p>A handgun with a rifled barrel and a rotating cylinder that holds multiple cartridges.</p><img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.12_Revolvers.png?raw=true' />",
+            "resultText": "RevolversA handgun with a rifled barrel and a rotating cylinder that holds multiple cartridges."
+          },
+          {
+            "label": "A handgun — but not a self-loading pistol or revolver",
+            "titleHtml": "A handgun — but not a self-loading pistol or revolver",
+            "contextHtml": "<p>(ARCS Type: Other Handguns)</p>",
+            "nextNodeId": "OtherHandguns",
+            "imageTag": "<img src='' />",
+            "imageSrc": "",
+            "resultHtml": "<h1>Other Handguns</h1><p></p><img src='' />",
+            "resultText": "Other Handguns"
+          }
+        ]
+      }
+    },
+    {
+      "label": "Two hands — braced against the shoulder",
+      "titleHtml": "Two hands — braced against the shoulder",
+      "contextHtml": "<p>A firearm requiring both hands in separate positions and typically braced against the shoulder with a buttstock. (ARCS Group: Long Guns)</p>",
+      "nextNodeId": "LongGuns",
+      "imageTag": "<img src='' />",
+      "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true",
+      "next": {
+        "nodeId": "LongGuns",
+        "questionHtml": "<h1>What is the bore type of the long gun?</h1><p></p><img src='https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true' />",
+        "questionText": "What is the bore type of the long gun?",
+        "options": [
+          {
+            "label": "Smooth bore",
+            "titleHtml": "Smooth bore",
+            "contextHtml": "<p>(ARCS Type: Shotguns)</p>",
+            "nextNodeId": "Shotguns",
+            "imageTag": "<img src='' />",
             "imageSrc": "",
             "next": {
-              "nodeId": "Rifled",
-              "questionHtml": "<h1>Which type of rifled handgun best matches?</h1><p></p><img src=\"\" />",
-              "questionText": "Which type of rifled handgun best matches?",
+              "nodeId": "Shotguns",
+              "questionHtml": "<h1>How does the shotgun load the next round after firing?</h1><p></p><img src='' />",
+              "questionText": "How does the shotgun load the next round after firing?",
               "options": [
                 {
-                  "label": "Revolver",
-                  "titleHtml": "Revolver",
-                  "contextHtml": "<p></p>",
-                  "nextNodeId": "Revolver",
-                  "imageTag": "<img src=\"\" />",
-                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.12_Revolvers.png?raw=true",
-                  "resultHtml": "<h1>Revolver</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.12_Revolvers.png?raw=true\" />",
-                  "resultText": "Revolver"
+                  "label": "Automatically — action cycles by itself after each shot",
+                  "titleHtml": "Automatically — action cycles by itself after each shot",
+                  "contextHtml": "<p>(ARCS Sub-type: Self-loading Shotguns)</p>",
+                  "nextNodeId": "SelfLoadingShotguns",
+                  "imageTag": "<img src='' />",
+                  "imageSrc": "",
+                  "next": {
+                    "nodeId": "SelfLoadingShotguns",
+                    "questionHtml": "<h1>How many rounds does the shotgun fire per trigger pull?</h1><p></p><img src='' />",
+                    "questionText": "How many rounds does the shotgun fire per trigger pull?",
+                    "options": [
+                      {
+                        "label": "Multiple rounds — continues firing while trigger is held",
+                        "titleHtml": "Multiple rounds — continues firing while trigger is held",
+                        "contextHtml": "<p>(ARCS Method of Operation: Automatic Shotguns)</p>",
+                        "nextNodeId": "AutomaticShotguns",
+                        "imageTag": "<img src='' />",
+                        "imageSrc": "",
+                        "resultHtml": "<h1>Automatic Shotguns</h1><p></p><img src='' />",
+                        "resultText": "Automatic Shotguns"
+                      },
+                      {
+                        "label": "One round per trigger pull",
+                        "titleHtml": "One round per trigger pull",
+                        "contextHtml": "<p>(ARCS Method of Operation: Semi-automatic Shotguns)</p>",
+                        "nextNodeId": "SemiAutomaticShotguns",
+                        "imageTag": "<img src='' />",
+                        "imageSrc": "",
+                        "resultHtml": "<h1>Semi-automatic Shotguns</h1><p></p><img src='' />",
+                        "resultText": "Semi-automatic Shotguns"
+                      }
+                    ]
+                  }
                 },
                 {
-                  "label": "Self-Loading Pistol",
-                  "titleHtml": "Self-Loading Pistol",
-                  "contextHtml": "<p></p>",
-                  "nextNodeId": "Self_Loading_Pistol",
-                  "imageTag": "<img src=\"\" />",
-                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.13_SelfLoading_Pistols.png?raw=true",
-                  "resultHtml": "<h1>Self-Loading Pistol</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.13_SelfLoading_Pistols.png?raw=true\" />",
-                  "resultText": "Self-Loading Pistol"
-                },
-                {
-                  "label": "Automatic Rifle",
-                  "titleHtml": "Automatic Rifle",
-                  "contextHtml": "<p></p>",
-                  "nextNodeId": "Automatic_Rifle",
-                  "imageTag": "<img src=\"\" />",
-                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true",
-                  "resultHtml": "<h1>Automatic Rifle</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true\" />",
-                  "resultText": "Automatic Rifle"
-                },
-                {
-                  "label": "Bolt-Action Rifle",
-                  "titleHtml": "Bolt-Action Rifle",
-                  "contextHtml": "<p></p>",
-                  "nextNodeId": "Bolt_Action_Rifle",
-                  "imageTag": "<img src=\"\" />",
-                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true",
-                  "resultHtml": "<h1>Bolt-Action Rifle</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true\" />",
-                  "resultText": "Bolt-Action Rifle"
-                },
-                {
-                  "label": "Break-Action Rifle",
-                  "titleHtml": "Break-Action Rifle",
-                  "contextHtml": "<p></p>",
-                  "nextNodeId": "Break_Action_Rifle",
-                  "imageTag": "<img src=\"\" />",
-                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true",
-                  "resultHtml": "<h1>Break-Action Rifle</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true\" />",
-                  "resultText": "Break-Action Rifle"
-                },
-                {
-                  "label": "Lever-Action Rifle",
-                  "titleHtml": "Lever-Action Rifle",
-                  "contextHtml": "<p></p>",
-                  "nextNodeId": "Lever_Action_Rifle",
-                  "imageTag": "<img src=\"\" />",
-                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true",
-                  "resultHtml": "<h1>Lever-Action Rifle</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true\" />",
-                  "resultText": "Lever-Action Rifle"
-                },
-                {
-                  "label": "Man-Portable Machine Gun",
-                  "titleHtml": "Man-Portable Machine Gun",
-                  "contextHtml": "<p></p>",
-                  "nextNodeId": "Man_Portable_Machine_Gun",
-                  "imageTag": "<img src=\"\" />",
-                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true",
-                  "resultHtml": "<h1>Man-Portable Machine Gun</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true\" />",
-                  "resultText": "Man-Portable Machine Gun"
-                },
-                {
-                  "label": "Other Manually Operated Rifles",
-                  "titleHtml": "Other Manually Operated Rifles",
-                  "contextHtml": "<p></p>",
-                  "nextNodeId": "Other_Manually_Operated_Rifles",
-                  "imageTag": "<img src=\"\" />",
-                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true",
-                  "resultHtml": "<h1>Other Manually Operated Rifles</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true\" />",
-                  "resultText": "Other Manually Operated Rifles"
-                },
-                {
-                  "label": "Pump-Action Rifle",
-                  "titleHtml": "Pump-Action Rifle",
-                  "contextHtml": "<p></p>",
-                  "nextNodeId": "Pump_Action_Rifle",
-                  "imageTag": "<img src=\"\" />",
-                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.8_Typical_features_of_a_pump-action_shotgun.png?raw=true",
-                  "resultHtml": "<h1>Pump-Action Rifle</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.8_Typical_features_of_a_pump-action_shotgun.png?raw=true\" />",
-                  "resultText": "Pump-Action Rifle"
-                },
-                {
-                  "label": "Semi-Automatic Rifle",
-                  "titleHtml": "Semi-Automatic Rifle",
-                  "contextHtml": "<p></p>",
-                  "nextNodeId": "Semi_Automatic_Rifle",
-                  "imageTag": "<img src=\"\" />",
-                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true",
-                  "resultHtml": "<h1>Semi-Automatic Rifle</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true\" />",
-                  "resultText": "Semi-Automatic Rifle"
-                },
-                {
-                  "label": "Sub-Machine Gun",
-                  "titleHtml": "Sub-Machine Gun",
-                  "contextHtml": "<p></p>",
-                  "nextNodeId": "Sub_Machine_Gun",
-                  "imageTag": "<img src=\"\" />",
-                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true",
-                  "resultHtml": "<h1>Sub-Machine Gun</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.1_Typical_features_of_a_modern_military_rifle.png?raw=true\" />",
-                  "resultText": "Sub-Machine Gun"
+                  "label": "Manually — must be cycled by hand between shots",
+                  "titleHtml": "Manually — must be cycled by hand between shots",
+                  "contextHtml": "<p>(ARCS Sub-type: Manually Operated Shotguns)</p>",
+                  "nextNodeId": "ManuallyOperatedShotguns",
+                  "imageTag": "<img src='' />",
+                  "imageSrc": "",
+                  "next": {
+                    "nodeId": "ManuallyOperatedShotguns",
+                    "questionHtml": "<h1>What action mechanism does the shotgun use?</h1><p></p><img src='' />",
+                    "questionText": "What action mechanism does the shotgun use?",
+                    "options": [
+                      {
+                        "label": "Break-action — barrel hinges open to load",
+                        "titleHtml": "Break-action — barrel hinges open to load",
+                        "contextHtml": "<p>(ARCS Method of Operation: Break-action Shotguns)</p>",
+                        "nextNodeId": "BreakActionShotguns",
+                        "imageTag": "<img src='' />",
+                        "imageSrc": "",
+                        "resultHtml": "<h1>Break-action Shotguns</h1><p></p><img src='' />",
+                        "resultText": "Break-action Shotguns"
+                      },
+                      {
+                        "label": "Bolt-action — handle on the side of the receiver",
+                        "titleHtml": "Bolt-action — handle on the side of the receiver",
+                        "contextHtml": "<p>(ARCS Method of Operation: Bolt-action Shotguns)</p>",
+                        "nextNodeId": "BoltActionShotguns",
+                        "imageTag": "<img src='' />",
+                        "imageSrc": "",
+                        "resultHtml": "<h1>Bolt-action Shotguns</h1><p></p><img src='' />",
+                        "resultText": "Bolt-action Shotguns"
+                      },
+                      {
+                        "label": "Lever-action — lever below the receiver",
+                        "titleHtml": "Lever-action — lever below the receiver",
+                        "contextHtml": "<p>(ARCS Method of Operation: Lever-action Shotguns)</p>",
+                        "nextNodeId": "LeverActionShotguns",
+                        "imageTag": "<img src='' />",
+                        "imageSrc": "",
+                        "resultHtml": "<h1>Lever-action Shotguns</h1><p></p><img src='' />",
+                        "resultText": "Lever-action Shotguns"
+                      },
+                      {
+                        "label": "Pump-action — fore-end slides back and forth",
+                        "titleHtml": "Pump-action — fore-end slides back and forth",
+                        "contextHtml": "<p>(ARCS Method of Operation: Pump-action Shotguns)</p>",
+                        "nextNodeId": "PumpActionShotguns",
+                        "imageTag": "<img src='' />",
+                        "imageSrc": "",
+                        "resultHtml": "<h1>Pump-action Shotguns</h1><p></p><img src='' />",
+                        "resultText": "Pump-action Shotguns"
+                      },
+                      {
+                        "label": "A manually operated shotgun — but none of the action types above",
+                        "titleHtml": "A manually operated shotgun — but none of the action types above",
+                        "contextHtml": "<p>(ARCS Method of Operation: Other Manually Operated Shotguns)</p>",
+                        "nextNodeId": "OtherManuallyOperatedShotguns",
+                        "imageTag": "<img src='' />",
+                        "imageSrc": "",
+                        "resultHtml": "<h1>Other Manually Operated Shotguns</h1><p></p><img src='' />",
+                        "resultText": "Other Manually Operated Shotguns"
+                      }
+                    ]
+                  }
                 }
               ]
             }
           },
           {
-            "label": "Smooth Bore",
-            "titleHtml": "Smooth Bore",
-            "contextHtml": "<p></p>",
-            "nextNodeId": "Smooth_Bore",
-            "imageTag": "<img src=\"\" />",
+            "label": "Rifled bore",
+            "titleHtml": "Rifled bore",
+            "contextHtml": "<p>A long gun with a rifled barrel.</p>",
+            "nextNodeId": "RifledLongGuns",
+            "imageTag": "<img src='' />",
             "imageSrc": "",
             "next": {
-              "nodeId": "Smooth_Bore",
-              "questionHtml": "<h1>Which type of rifled handgun best matches?</h1><p></p><img src=\"\" />",
-              "questionText": "Which type of rifled handgun best matches?",
+              "nodeId": "RifledLongGuns",
+              "questionHtml": "<h1>What type of rifled long gun best matches?</h1><p></p><img src='' />",
+              "questionText": "What type of rifled long gun best matches?",
               "options": [
                 {
-                  "label": "Other Handguns",
-                  "titleHtml": "Other Handguns",
-                  "contextHtml": "<p></p>",
-                  "nextNodeId": "Other_Handguns",
-                  "imageTag": "<img src=\"\" />",
+                  "label": "Rifled bore — fires pistol-calibre ammunition — self-loading",
+                  "titleHtml": "Rifled bore — fires pistol-calibre ammunition — self-loading",
+                  "contextHtml": "<p>A self-loading long gun chambered for pistol-calibre ammunition; typically compact. (ARCS Type: Sub-machine Guns)</p>",
+                  "nextNodeId": "SubMachineGuns",
+                  "imageTag": "<img src='' />",
                   "imageSrc": "",
-                  "resultHtml": "<h1>Other Handguns</h1><p></p><img src=\"\" />",
-                  "resultText": "Other Handguns"
+                  "resultHtml": "<h1>Sub-machine Guns</h1><p></p><img src='' />",
+                  "resultText": "Sub-machine Guns"
                 },
                 {
-                  "label": "Automatic Shotgun",
-                  "titleHtml": "Automatic Shotgun",
-                  "contextHtml": "<p></p>",
-                  "nextNodeId": "Automatic_Shotgun",
-                  "imageTag": "<img src=\"\" />",
-                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true",
-                  "resultHtml": "<h1>Automatic Shotgun</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true\" />",
-                  "resultText": "Automatic Shotgun"
-                },
-                {
-                  "label": "Bolt-Action Shotgun",
-                  "titleHtml": "Bolt-Action Shotgun",
-                  "contextHtml": "<p></p>",
-                  "nextNodeId": "Bolt_Action_Shotgun",
-                  "imageTag": "<img src=\"\" />",
-                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true",
-                  "resultHtml": "<h1>Bolt-Action Shotgun</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true\" />",
-                  "resultText": "Bolt-Action Shotgun"
-                },
-                {
-                  "label": "Break-Action Shotgun",
-                  "titleHtml": "Break-Action Shotgun",
-                  "contextHtml": "<p></p>",
-                  "nextNodeId": "Break_Action_Shotgun",
-                  "imageTag": "<img src=\"\" />",
-                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.7_Typical_features_of_a_break-action_shotgun.png?raw=true",
-                  "resultHtml": "<h1>Break-Action Shotgun</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.7_Typical_features_of_a_break-action_shotgun.png?raw=true\" />",
-                  "resultText": "Break-Action Shotgun"
-                },
-                {
-                  "label": "Lever-Action Shotgun",
-                  "titleHtml": "Lever-Action Shotgun",
-                  "contextHtml": "<p></p>",
-                  "nextNodeId": "Lever_Action_Shotgun",
-                  "imageTag": "<img src=\"\" />",
-                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true",
-                  "resultHtml": "<h1>Lever-Action Shotgun</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true\" />",
-                  "resultText": "Lever-Action Shotgun"
-                },
-                {
-                  "label": "Other Manually Operated Shotguns",
-                  "titleHtml": "Other Manually Operated Shotguns",
-                  "contextHtml": "<p></p>",
-                  "nextNodeId": "Other_Manually_Operated_Shotguns",
-                  "imageTag": "<img src=\"\" />",
-                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true",
-                  "resultHtml": "<h1>Other Manually Operated Shotguns</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.4_Rifled_and_smooth-bore_barrels.png?raw=true\" />",
-                  "resultText": "Other Manually Operated Shotguns"
-                },
-                {
-                  "label": "Other Smooth Bore Long Guns",
-                  "titleHtml": "Other Smooth Bore Long Guns",
-                  "contextHtml": "<p></p>",
-                  "nextNodeId": "Other_Smooth_Bore_Long_Guns",
-                  "imageTag": "<img src=\"\" />",
+                  "label": "Capable of sustained automatic fire — belt or large-capacity magazine",
+                  "titleHtml": "Capable of sustained automatic fire — belt or large-capacity magazine",
+                  "contextHtml": "<p>A fully automatic long gun designed to be carried and operated by an individual or small crew. (ARCS Type: Man-portable Machine Guns)</p>",
+                  "nextNodeId": "ManPortableMachineGuns",
+                  "imageTag": "<img src='' />",
                   "imageSrc": "",
-                  "resultHtml": "<h1>Other Smooth Bore Long Guns</h1><p></p><img src=\"\" />",
-                  "resultText": "Other Smooth Bore Long Guns"
+                  "resultHtml": "<h1>Man-portable Machine Guns</h1><p></p><img src='' />",
+                  "resultText": "Man-portable Machine Guns"
                 },
                 {
-                  "label": "Pump-Action Shotgun",
-                  "titleHtml": "Pump-Action Shotgun",
-                  "contextHtml": "<p></p>",
-                  "nextNodeId": "Pump_Action_Shotgun",
-                  "imageTag": "<img src=\"\" />",
-                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.8_Typical_features_of_a_pump-action_shotgun.png?raw=true",
-                  "resultHtml": "<h1>Pump-Action Shotgun</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/small_arms_survey/visuals/Figure_3.8_Typical_features_of_a_pump-action_shotgun.png?raw=true\" />",
-                  "resultText": "Pump-Action Shotgun"
+                  "label": "Rifled bore — fires rifle-calibre ammunition",
+                  "titleHtml": "Rifled bore — fires rifle-calibre ammunition",
+                  "contextHtml": "<p>(ARCS Type: Rifles)</p>",
+                  "nextNodeId": "Rifles",
+                  "imageTag": "<img src='' />",
+                  "imageSrc": "",
+                  "next": {
+                    "nodeId": "Rifles",
+                    "questionHtml": "<h1>How does the rifle load the next round after firing?</h1><p></p><img src='' />",
+                    "questionText": "How does the rifle load the next round after firing?",
+                    "options": [
+                      {
+                        "label": "Automatically — action cycles by itself after each shot",
+                        "titleHtml": "Automatically — action cycles by itself after each shot",
+                        "contextHtml": "<p>(ARCS Sub-type: Self-loading Rifles)</p>",
+                        "nextNodeId": "SelfLoadingRifles",
+                        "imageTag": "<img src='' />",
+                        "imageSrc": "",
+                        "next": {
+                          "nodeId": "SelfLoadingRifles",
+                          "questionHtml": "<h1>How many rounds does the rifle fire per trigger pull?</h1><p></p><img src='' />",
+                          "questionText": "How many rounds does the rifle fire per trigger pull?",
+                          "options": [
+                            {
+                              "label": "Multiple rounds — continues firing while trigger is held",
+                              "titleHtml": "Multiple rounds — continues firing while trigger is held",
+                              "contextHtml": "<p>(ARCS Method of Operation: Automatic Rifles)</p>",
+                              "nextNodeId": "AutomaticRifles",
+                              "imageTag": "<img src='' />",
+                              "imageSrc": "",
+                              "resultHtml": "<h1>Automatic Rifles</h1><p></p><img src='' />",
+                              "resultText": "Automatic Rifles"
+                            },
+                            {
+                              "label": "One round per trigger pull",
+                              "titleHtml": "One round per trigger pull",
+                              "contextHtml": "<p>(ARCS Method of Operation: Semi-automatic Rifles)</p>",
+                              "nextNodeId": "SemiAutomaticRifles",
+                              "imageTag": "<img src='' />",
+                              "imageSrc": "",
+                              "resultHtml": "<h1>Semi-automatic Rifles</h1><p></p><img src='' />",
+                              "resultText": "Semi-automatic Rifles"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "label": "Manually — must be cycled by hand between shots",
+                        "titleHtml": "Manually — must be cycled by hand between shots",
+                        "contextHtml": "<p>(ARCS Sub-type: Manually Operated Rifles)</p>",
+                        "nextNodeId": "ManuallyOperatedRifles",
+                        "imageTag": "<img src='' />",
+                        "imageSrc": "",
+                        "next": {
+                          "nodeId": "ManuallyOperatedRifles",
+                          "questionHtml": "<h1>What action mechanism does the rifle use?</h1><p></p><img src='' />",
+                          "questionText": "What action mechanism does the rifle use?",
+                          "options": [
+                            {
+                              "label": "Break-action — barrel hinges open to load",
+                              "titleHtml": "Break-action — barrel hinges open to load",
+                              "contextHtml": "<p>(ARCS Method of Operation: Break-action Rifles)</p>",
+                              "nextNodeId": "BreakActionRifles",
+                              "imageTag": "<img src='' />",
+                              "imageSrc": "",
+                              "resultHtml": "<h1>Break-action Rifles</h1><p></p><img src='' />",
+                              "resultText": "Break-action Rifles"
+                            },
+                            {
+                              "label": "Bolt-action — handle on the side of the receiver",
+                              "titleHtml": "Bolt-action — handle on the side of the receiver",
+                              "contextHtml": "<p>(ARCS Method of Operation: Bolt-action Rifles)</p>",
+                              "nextNodeId": "BoltActionRifles",
+                              "imageTag": "<img src='' />",
+                              "imageSrc": "",
+                              "resultHtml": "<h1>Bolt-action Rifles</h1><p></p><img src='' />",
+                              "resultText": "Bolt-action Rifles"
+                            },
+                            {
+                              "label": "Lever-action — lever below the receiver",
+                              "titleHtml": "Lever-action — lever below the receiver",
+                              "contextHtml": "<p>(ARCS Method of Operation: Lever-action Rifles)</p>",
+                              "nextNodeId": "LeverActionRifles",
+                              "imageTag": "<img src='' />",
+                              "imageSrc": "",
+                              "resultHtml": "<h1>Lever-action Rifles</h1><p></p><img src='' />",
+                              "resultText": "Lever-action Rifles"
+                            },
+                            {
+                              "label": "Pump-action — fore-end slides back and forth",
+                              "titleHtml": "Pump-action — fore-end slides back and forth",
+                              "contextHtml": "<p>(ARCS Method of Operation: Pump-action Rifles)</p>",
+                              "nextNodeId": "PumpActionRifles",
+                              "imageTag": "<img src='' />",
+                              "imageSrc": "",
+                              "resultHtml": "<h1>Pump-action Rifles</h1><p></p><img src='' />",
+                              "resultText": "Pump-action Rifles"
+                            },
+                            {
+                              "label": "A manually operated rifle — but none of the action types above",
+                              "titleHtml": "A manually operated rifle — but none of the action types above",
+                              "contextHtml": "<p>(ARCS Method of Operation: Other Manually Operated Rifles)</p>",
+                              "nextNodeId": "OtherManuallyOperatedRifles",
+                              "imageTag": "<img src='' />",
+                              "imageSrc": "",
+                              "resultHtml": "<h1>Other Manually Operated Rifles</h1><p></p><img src='' />",
+                              "resultText": "Other Manually Operated Rifles"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
                 },
                 {
-                  "label": "Semi-Automatic Shotgun",
-                  "titleHtml": "Semi-Automatic Shotgun",
-                  "contextHtml": "<p></p>",
-                  "nextNodeId": "Semi_Automatic_Shotgun",
-                  "imageTag": "<img src=\"\" />",
-                  "imageSrc": "https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.20_Compare_Barrel_Types_Shotgun.png?raw=true",
-                  "resultHtml": "<h1>Semi-Automatic Shotgun</h1><p></p><img src=\"https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.20_Compare_Barrel_Types_Shotgun.png?raw=true\" />",
-                  "resultText": "Semi-Automatic Shotgun"
+                  "label": "A long gun — but not a sub-machine gun",
+                  "titleHtml": "A long gun — but not a sub-machine gun",
+                  "contextHtml": "<p>machine gun</p>",
+                  "nextNodeId": "OtherLongGuns",
+                  "imageTag": "<img src='rifle' />",
+                  "imageSrc": "rifle",
+                  "resultHtml": "<h1>Other Long Guns</h1><p></p><img src='' />",
+                  "resultText": "Other Long Guns"
                 }
               ]
             }
           }
         ]
       }
-    },
-    {
-      "label": "Long Gun",
-      "titleHtml": "Long Gun",
-      "contextHtml": "<p>A firearm which is grasped by placing the control hand and support hand in different locations, and which is typically fitted with a buttstock intended to be braced against the user's shoulder when fired.</p>",
-      "nextNodeId": "Long_Gun",
-      "imageTag": "<img src=\"\" />",
-      "imageSrc": "",
-      "resultHtml": "<h1>Which barrel type best fits?</h1><p></p><img src=\"\" />",
-      "resultText": "Which barrel type best fits?"
     }
   ]
 };
