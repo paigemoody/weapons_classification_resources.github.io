@@ -302,17 +302,12 @@ def make_html(model: dict, app_name: str) -> str:
       const questionMeta = useMemo(() => {
         const meta = new Map();
         for (const q of MODEL.questions) {
-          const seen = new Set();
-          for (const opt of q.options) {
-            for (const id of intersect(candidates, MODEL.optionToLeafIds[opt.optionId] || [])) {
-              seen.add(id);
-            }
-          }
-          const union = [...seen];
-          meta.set(q.nodeId, {
-            canNarrow: union.length > 0 && union.length < candidates.length,
-            isRelevant: union.length > 0,
-          });
+          const optionCounts = q.options.map(opt =>
+            intersect(candidates, MODEL.optionToLeafIds[opt.optionId] || []).length
+          );
+          const isRelevant = optionCounts.some(c => c > 0);
+          const canNarrow = optionCounts.some(c => c > 0 && c < candidates.length);
+          meta.set(q.nodeId, { canNarrow, isRelevant });
         }
         return meta;
       }, [candidates]);
@@ -396,7 +391,7 @@ def make_html(model: dict, app_name: str) -> str:
                 <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
                   <div className="px-4 py-3 border-b border-slate-200 flex items-center justify-between">
                     <div className="font-semibold text-slate-800">Questions</div>
-                    <button onClick={resetAll} className="text-sm text-slate-600 hover:text-slate-900">Reset</button>
+                    <button onClick={resetAll} className="text-sm text-slate-600 hover:text-slate-900">Reset All</button>
                   </div>
                   <div className="max-h-[70vh] overflow-auto">
                     {MODEL.questions.map((q) => {
