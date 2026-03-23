@@ -118,7 +118,7 @@ export function ResultsPanel({ possibleMatches, totalClassifications }: ResultsP
                           rel="noopener noreferrer"
                           className="flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700"
                         >
-                          <span>View in ARES Guide (Page {weapon.pdfPages!.join(', ')})</span>
+                          <span>View in ARES Guide (Page {(weapon.rawPdfPages ?? weapon.pdfPages)!.join(', ')})</span>
                           <ExternalLink size={14} />
                         </a>
                       </div>

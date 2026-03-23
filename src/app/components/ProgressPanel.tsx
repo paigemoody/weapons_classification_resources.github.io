@@ -108,7 +108,7 @@ export function ProgressPanel({
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1 text-xs text-neutral-darkest hover:text-accent transition-colors"
                     >
-                      <span>View in ARES Guide (p. {weapon.pdfPages[0]})</span>
+                      <span>View in ARES Guide (p. {(weapon.rawPdfPages ?? weapon.pdfPages)[0]})</span>
                       <ExternalLink size={10} />
                     </a>
                   )}

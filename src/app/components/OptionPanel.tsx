@@ -1,5 +1,5 @@
 import { X, ChevronDown, ChevronUp } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; // useEffect resets expansion on characteristic change
 import { Characteristic, WEAPON_CLASSIFICATIONS } from '../data/weaponData';
 import { PdfViewer } from './PdfViewer';
 
@@ -20,12 +20,21 @@ export function OptionPanel({
   availableOptionIds,
   currentSelections = {}
 }: OptionPanelProps) {
-  const [expandedOptionId, setExpandedOptionId] = useState<string | null>(null);
+  const [expandedOptionIds, setExpandedOptionIds] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    setExpandedOptionIds(new Set());
+  }, [characteristic?.id]);
 
   if (!characteristic) return null;
 
   const toggleExpand = (optionId: string) => {
-    setExpandedOptionId(expandedOptionId === optionId ? null : optionId);
+    setExpandedOptionIds(prev => {
+      const next = new Set(prev);
+      if (next.has(optionId)) next.delete(optionId);
+      else next.add(optionId);
+      return next;
+    });
   };
 
   const getFilteredClassifications = (optionId: string) => {
@@ -70,7 +79,7 @@ export function OptionPanel({
       <div className="space-y-3">
         {characteristic.options.map((option) => {
           const isSelected = selectedOptionId === option.id;
-          const isExpanded = expandedOptionId === option.id;
+          const isExpanded = expandedOptionIds.has(option.id);
           const hasPdfPages = option.pdfPages && option.pdfPages.length > 0;
           const isAvailable = !availableOptionIds || availableOptionIds.has(option.id);
           const classificationsWithOption = getFilteredClassifications(option.id);
@@ -128,7 +137,7 @@ export function OptionPanel({
                   )}
                   
                   {hasPdfPages && (
-                    <PdfViewer pages={option.pdfPages!} title={option.name} />
+                    <PdfViewer pages={option.pdfPages!} displayPages={option.rawPdfPages} title={option.name} />
                   )}
                 </div>
               )}

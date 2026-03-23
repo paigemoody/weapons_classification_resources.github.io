@@ -1,5 +1,5 @@
 // Fetches the latest CSV data from the public Google Sheet and writes
-// each tab to src/imports/. Run with: npm run fetch-data
+// each tab to src/imports_new/. Run with: npm run fetch-data
 // Requires Node 18+ (uses built-in fetch).
 
 import { writeFileSync } from 'fs';
@@ -9,24 +9,28 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const SHEET_ID = '1owsUDceWy-sG258SE8Z-gwTDLOQwIqAr6ADdfOln-2E';
-const IMPORTS_DIR = join(__dirname, '..', 'src', 'imports');
+const IMPORTS_DIR = join(__dirname, '..', 'src', 'imports_new');
 
 const SHEETS = [
   {
     tab: 'classification_options',
-    filename: 'Weapons_Classifications__Small_Arms_classifications.csv',
+    filename: 'Weapons_Classifications__Small_Arms_classification_options.csv',
   },
   {
     tab: 'classification_definitions',
-    filename: 'Weapons_Classifications__Small_Arms_classification_level_definitions.csv',
+    filename: 'Weapons_Classifications__Small_Arms_classification_definitions.csv',
   },
   {
     tab: 'characteristic_definitions',
-    filename: 'Weapons_Classifications__Small_Arms_characteristic_values.csv',
+    filename: 'Weapons_Classifications__Small_Arms_characteristic_definitions.csv',
   },
   {
     tab: 'characteristic_options',
     filename: 'Weapons_Classifications__Small_Arms_characteristic_options.csv',
+  },
+  {
+    tab: 'sources',
+    filename: 'Weapons_Classifications__Small_Arms_sources.csv',
   },
 ];
 

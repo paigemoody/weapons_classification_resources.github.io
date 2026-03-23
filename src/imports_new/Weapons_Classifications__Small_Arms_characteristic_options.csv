@@ -7,7 +7,7 @@ bore_type,rifled,The inside of the barrel contains spiral grooves designed to sp
 bore_type,smooth_bore,"The inside of the barrel is a smooth tube, primarily intended to fire multiple projectiles (shot)",ares_guide,50,,
 bore_type,rifled_or_smoothbore,Used for niche or hybrid designs that may employ either barrel type or a combination of both,ares_guide,,,
 loading,cycles_automatically,"Uses the chemical energy from a fired cartridge to extract, eject, and chamber the next round (Self-loading)",ares_guide,40 56 64,,
-loading,must_be_cycled_manually,Relies entirely on the user's physical manipulation to cycle the action between shots,ares_guide,54 71,,
+loading,cycled_manually,Relies entirely on the user's physical manipulation to cycle the action between shots,ares_guide,54 71,,
 method_of_operation,fully_automatic,A self-loading action capable of firing multiple shots with a single trigger pull,ares_guide,76,,
 method_of_operation,semi_automatic,A self-loading action capable of firing only one shot per trigger pull,ares_guide,75,,
 method_of_operation,rotating_cylinder,A wheel-like part with multiple holes behind the barrel,ares_guide,73,,

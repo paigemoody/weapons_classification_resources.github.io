@@ -10,10 +10,10 @@ import {
 } from './data/weaponData';
 
 const CHARACTERISTIC_ICONS = {
-  'how held': Hand,
+  'how_held': Hand,
   'bore_type': Circle,
   'loading': Package,
-  'action mechanism': Settings
+  'method_of_operation': Settings
 };
 
 export default function App() {
@@ -52,10 +52,10 @@ export default function App() {
 
   const getAvailableOptions = useMemo(() => {
     const availableByCharacteristic: Record<CharacteristicType, Set<string>> = {
-      'how held': new Set(),
+      'how_held': new Set(),
       'bore_type': new Set(),
       'loading': new Set(),
-      'action mechanism': new Set()
+      'method_of_operation': new Set()
     };
 
     possibleMatches.forEach((weapon) => {
@@ -76,7 +76,7 @@ export default function App() {
   const getSelectedOptionName = (charId: CharacteristicType) => {
     const optionId = selections[charId];
     if (!optionId) return undefined;
-    
+    if (optionId === 'unknown') return 'unknown';
     const char = CHARACTERISTICS.find((c) => c.id === charId);
     const option = char?.options.find((o) => o.id === optionId);
     return option?.name;
@@ -99,7 +99,7 @@ export default function App() {
         {/* Main Content */}
         <div className="flex-1 overflow-hidden">
           <div className="h-full max-w-[1800px] mx-auto p-6">
-            <div className="h-full grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="h-full grid grid-cols-1 lg:grid-cols-[1fr_2fr_1fr] gap-6">
               {/* Left Column - Characteristics */}
               <div className="flex flex-col min-h-0">
                 <div className="flex-1 overflow-y-auto space-y-4">

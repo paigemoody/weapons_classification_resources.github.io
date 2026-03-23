@@ -4,12 +4,14 @@ import { PDF_URL } from '../data/weaponData';
 
 interface PdfViewerProps {
   pages: number[];
+  displayPages?: number[];  // raw page numbers to show in labels (no offset)
   title: string;
 }
 
-export function PdfViewer({ pages, title }: PdfViewerProps) {
+export function PdfViewer({ pages, displayPages, title }: PdfViewerProps) {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const currentPage = pages[currentPageIndex];
+  const displayPage = (displayPages ?? pages)[currentPageIndex];
 
   const handlePrevious = () => {
     setCurrentPageIndex((prev) => Math.max(0, prev - 1));
@@ -26,7 +28,7 @@ export function PdfViewer({ pages, title }: PdfViewerProps) {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <span className="text-sm font-medium text-foreground">
-              ARES Guide - Page {currentPage}
+              ARES Guide - Page {displayPage}
             </span>
             {pages.length > 1 && (
               <div className="flex items-center gap-1">
@@ -69,7 +71,7 @@ export function PdfViewer({ pages, title }: PdfViewerProps) {
         <iframe
           src={`${PDF_URL}#page=${currentPage}&view=FitH&toolbar=0&navpanes=0`}
           className="w-full h-full"
-          title={`${title} - Page ${currentPage}`}
+          title={`${title} - Page ${displayPage}`}
         />
       </div>
     </div>

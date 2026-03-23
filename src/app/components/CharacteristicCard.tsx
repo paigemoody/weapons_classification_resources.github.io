@@ -60,8 +60,7 @@ export function CharacteristicCard({
         
         <div className="flex-1 min-w-0">
           <h3 className="mb-1">{name}</h3>
-          <p className="text-sm text-muted-foreground mb-2">{description}</p>
-          
+
           {selectedOption && selectedOption !== 'unknown' && (
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-accent/20 border border-accent/30 rounded-full">
               <span className="text-sm font-medium text-neutral-darkest">{selectedOption}</span>
