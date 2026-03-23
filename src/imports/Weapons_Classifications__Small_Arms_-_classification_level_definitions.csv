@@ -1,22 +1,22 @@
-"level","term","definition","reference_source_id
-","source_reference_page_number","image_source","source_image_page_number"
-"class","small_arms","Firearms of less than 20 mm in calibre that are typically man-portable by a single individual","","","",""
-"group","handguns","Firearms designed to be gripped in one location (the pistol grip) and readily fired with one hand","","","",""
-"group","long_guns","Firearms designed to be gripped in two different locations and typically fitted with a buttstock to be braced against the shoulder","","","",""
-"type","revolvers","Manually operated handguns with a fixed barrel and a rotating cylinder containing multiple chambers","","","",""
-"type","self_loading_pistols","Handguns that use the energy from a fired cartridge to cycle the action and chamber a new round","","","",""
-"type","other_handguns","Includes niche designs like break-open derringers, ""pepperbox"" multi-barrel designs, and bolt-action or lever-action handguns","","","",""
-"type","shotguns","Typically smoothbore long guns intended to fire multiple projectiles (shot)","","","",""
-"type","rifles","Long guns with a rifled bore intended to fire individual bullets","","","",""
-"type","sub_machine_guns","Self-loading long guns chambered for handgun cartridges and capable of automatic fire","","","",""
-"type","man_portable_machine_guns","Self-loading long guns chambered for rifle cartridges, primarily intended for automatic fire from a bipod or mount","","","",""
-"type","other_long_guns","Includes designs that do not fit the other types, such as certain ""pistol-calibre carbines"" or specialized smoothbore weapons that are not shotguns","","","",""
-"sub_type","self_loading_rifles","Rifles that utilize the chemical energy stored within a cartridge to cycle the action. This process includes automatically extracting and ejecting the fired cartridge case immediately after firing and chambering a new round from the magazine","","","",""
-"sub_type","manually_operated_rifles","These rifles feature an operating system that relies on the user to extract, eject, and load cartridges, rather than using the energy from the cartridge itself. While increasingly rare in military use, they remain common in civilian hands for sporting and hunting.","","","",""
-"sub_type","self_loading_shotguns","Similar to rifles, these shotguns use the chemical energy of a cartridge to cycle the weapon's action, performing the extraction, ejection, and chambering of a new cartridge automatically.","","","",""
-"sub_type","manually_operated_shotguns","Shotguns whose operating systems rely entirely on the user's physical manipulation to cycle the action. They are often identified by external features like a pump-grip, top lever, or under-lever","","","",""
-"sub_type","break_action_shotgun","A manual action where the barrel or barrels are unlocked and pivoted out of alignment with the receiver to allow for reloading","","","",""
-"sub_type","bolt_action_shotgun","A manually operated design identified by a bolt handle (usually with a knob) that the shooter must manipulate—typically by lifting, pulling back, and pushing forward—to cycle the weapon between shots.","","","",""
-"sub_type","lever_action_shotgun","Identified by a pivoting lever located behind the trigger, which is often an enlarged trigger guard. Rotating the lever forward and back removes the empty case and chambers a new round","","","",""
-"sub_type","pump_action_shotgun","Also referred to as ""slide-action,"" this system uses a sliding handgrip on the fore-end that the user cycles linearly to extract the empty case and load a new cartridge.","","","",""
-"sub_type","other","A catch-all for niche or hybrid designs that do not fit standard categories. Examples include combination firearms (like the ""Drilling"" with mixed rifled and smoothbore barrels), multi-barrel pepperbox designs, and specialized vocational tools such as powerheads.","","","",""
+id,name,class,group,type,sub_type,how_held,bore_type,loading,method_of_operation,description,"reference_source_id
+",source_reference_page_number,image_source,source_image_page_number
+self_loading_pistols,Self-loading Pistols,small_arms,handguns,self_loading_pistols,none,one_hand,rifled,cycles_automatically,semi_automatic,A self-loading pistol with a rifled barrel that fires one round per trigger pull and automatically cycles the action.,ares_guide,40,ares_guide,41
+revolvers,Revolvers,small_arms,handguns,revolvers,none,one_hand,rifled,cycled_manually,rotating_cylinder,A handgun with a rifled barrel and a rotating cylinder that holds multiple cartridges.,ares_guide,38,ares_guide,38
+other_handguns,Other Handguns,small_arms,handguns,other_handguns,none,one_hand,rifled_or_smoothbore,none,,,ares_guide,36,,
+sub_machine_guns,Sub-machine Guns,small_arms,long_guns,sub_machine_guns,none,two_hands,rifled,cycles_automatically,,,ares_guide,66,ares_guide,66
+man_portable_machine_guns,Man-portable Machine Guns,small_arms,long_guns,man_portable_machine_guns,none,bipod_or_mount_supported,rifled,cycles_automatically,fully_automatic,,ares_guide,68,ares_guide,68
+other_long_guns,Other Long Guns,small_arms,long_guns,other_long_guns,none,two_hands,rifled_or_smoothbore,,,,ares_guide,50,,
+automatic_rifles,Automatic Rifles,small_arms,long_guns,rifles,self_loading,two_hands,rifled,cycles_automatically,fully_automatic,,ares_guide,76,,
+semi_automatic_rifles,Semi-automatic Rifles,small_arms,long_guns,rifles,self_loading,two_hands,rifled,cycles_automatically,semi_automatic,,ares_guide,75,,
+break_action_rifles,Break-action Rifles,small_arms,long_guns,rifles,manually_operated,two_hands,rifled,cycled_manually,break_action,,ares_guide,71,ares_guide,71
+bolt_action_rifles,Bolt-action Rifles,small_arms,long_guns,rifles,manually_operated,two_hands,rifled,cycled_manually,bolt_action,,ares_guide,72,ares_guide,72
+lever_action_rifles,Lever-action Rifles,small_arms,long_guns,rifles,manually_operated,two_hands,rifled,cycled_manually,lever_action,,ares_guide,72,ares_guide,72
+pump_action_rifles,Pump-action Rifles,small_arms,long_guns,rifles,manually_operated,two_hands,rifled,cycled_manually,pump_action,,ares_guide,72,ares_guide,72
+other_manually_operated_rifles,Other Manually Operated Rifles,small_arms,long_guns,rifles,manually_operated,two_hands,rifled,cycled_manually,other_manual_action,,ares_guide,62,ares_guide,62
+automatic_shotguns,Automatic Shotguns,small_arms,long_guns,shotguns,self_loading,two_hands,smooth_bore,cycles_automatically,fully_automatic,,ares_guide,56,ares_guide,56
+semi_automatic_shotguns,Semi-automatic Shotguns,small_arms,long_guns,shotguns,self_loading,two_hands,smooth_bore,cycles_automatically,semi_automatic,,ares_guide,56,ares_guide,56
+break_action_shotguns,Break-action Shotguns,small_arms,long_guns,shotguns,manually_operated,two_hands,smooth_bore,cycled_manually,break_action,,ares_guide,71,ares_guide,71
+bolt_action_shotguns,Bolt-action Shotguns,small_arms,long_guns,shotguns,manually_operated,two_hands,smooth_bore,cycled_manually,bolt_action,,ares_guide,72,ares_guide,72
+lever_action_shotguns,Lever-action Shotguns,small_arms,long_guns,shotguns,manually_operated,two_hands,smooth_bore,cycled_manually,lever_action,,ares_guide,72,ares_guide,72
+pump_action_shotguns,Pump-action Shotguns,small_arms,long_guns,shotguns,manually_operated,two_hands,smooth_bore,cycled_manually,pump_action,,ares_guide,72,ares_guide,72
+other_manually_operated_shotguns,Other Manually Operated Shotguns,small_arms,long_guns,shotguns,manually_operated,two_hands,smooth_bore,cycled_manually,,,ares_guide,71,ares_guide,71

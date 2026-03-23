@@ -31,7 +31,7 @@ const SHEETS = [
 ];
 
 async function fetchSheet({ tab, filename }) {
-  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(tab)}`;
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&sheet=${encodeURIComponent(tab)}`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Failed to fetch tab "${tab}": ${res.status} ${res.statusText}`);
   const csv = await res.text();
