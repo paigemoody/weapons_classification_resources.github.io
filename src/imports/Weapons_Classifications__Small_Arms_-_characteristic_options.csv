@@ -1,16 +1,18 @@
-characteristic,option,description,ARES_guide_image_page_number,ARES_guide_image_page_number_manually_verified,ARES_guide_page_number,ARES_guide_page_number_manually_verified
-how held,one hand,Designed to be gripped in one location (the grip) and readily fired with one hand,24,yes,,
-how held,two hands,Longer weapons designed to be gripped in two locations and typically fitted with a buttstock to be braced against the shoulder,25,yes,,
-how held,bipod or mount supported,Typically features two hand locations and a buttstock but requires a bipod or mechanical mount for effective sustained fire,68,yes,,
-bore_type,rifled,The inside of the barrel contains spiral grooves designed to spin a single projectile for accuracy,58,,,
-bore_type,smooth bore,"The inside of the barrel is a smooth tube, primarily intended to fire multiple projectiles (shot)",50,yes,,
-bore_type,rifled or smoothbore (rare),Used for niche or hybrid designs that may employ either barrel type or a combination of both,,,,
-loading,cycles automatically,"Uses the chemical energy from a fired cartridge to extract, eject, and chamber the next round (Self-loading)","40,56,64",yes,,
-loading,must be cycled manually,Relies entirely on the user's physical manipulation to cycle the action between shots,"54,71",yes,,
-action mechanism,semi-automatic,A self-loading action capable of firing only one shot per trigger pull,75,yes,,
-action mechanism,fully automatic,A self-loading action capable of firing multiple shots with a single trigger pull,76,yes,,
-action mechanism,rotating cylinder,A wheel-like part with multiple holes behind the barrel,73,yes,,
-action mechanism,break-action,"A hinge or ""top lever"" that allows the barrel to pivot away from the frame for loading",71,yes,,
-action mechanism,bolt-action,A lever with a knob that moves back and forth,72,yes,,
-action mechanism,lever-action,A pivoting metal loop behind the trigger,72,yes,,
-action mechanism,pump-action,A sliding grip on the front furniture (the wood or plastic parts of the gun). A sliding handle on the front is a giveaway for pump-action.,72,yes,,
+"characteristic","option","description","reference_source_id
+","source_reference_page_number","image_source","source_image_page_number"
+"how_held","one_hand","Designed to be gripped in one location (the grip) and readily fired with one hand","ares_guide","24","",""
+"how_held","two_hands","Longer weapons designed to be gripped in two locations and typically fitted with a buttstock to be braced against the shoulder","ares_guide","25","",""
+"how_held","bipod_or_mount_supported","Typically features two hand locations and a buttstock but requires a bipod or mechanical mount for effective sustained fire","ares_guide","68","",""
+"bore_type","rifled","The inside of the barrel contains spiral grooves designed to spin a single projectile for accuracy","ares_guide","50","",""
+"bore_type","smooth_bore","The inside of the barrel is a smooth tube, primarily intended to fire multiple projectiles (shot)","ares_guide","50","",""
+"bore_type","rifled_or_smoothbore","Used for niche or hybrid designs that may employ either barrel type or a combination of both","ares_guide","","",""
+"loading","cycles_automatically","Uses the chemical energy from a fired cartridge to extract, eject, and chamber the next round (Self-loading)","ares_guide","","",""
+"loading","must_be_cycled_manually","Relies entirely on the user's physical manipulation to cycle the action between shots","ares_guide","","",""
+"method_of_operation","fully_automatic","A self-loading action capable of firing multiple shots with a single trigger pull","ares_guide","76","",""
+"method_of_operation","semi_automatic","A self-loading action capable of firing only one shot per trigger pull","ares_guide","75","",""
+"method_of_operation","rotating_cylinder","A wheel-like part with multiple holes behind the barrel","ares_guide","73","",""
+"method_of_operation","break_action","A hinge or ""top lever"" that allows the barrel to pivot away from the frame for loading","ares_guide","71","",""
+"method_of_operation","bolt_action","A lever with a knob that moves back and forth","ares_guide","72","",""
+"method_of_operation","lever_action","A pivoting metal loop behind the trigger","ares_guide","72","",""
+"method_of_operation","pump_action","A sliding grip on the front furniture (the wood or plastic parts of the gun). A sliding handle on the front is a giveaway for pump-action.","ares_guide","72","",""
+"method_of_operation","muzzle_loading","Arms that do not use self-contained cartridges and must be loaded from the front of the barrel","ares_guide","","",""

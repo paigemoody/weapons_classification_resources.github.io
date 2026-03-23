@@ -18,23 +18,50 @@ Select observable physical characteristics of a weapon (how it's held, bore type
 
 ```bash
 npm install
+npm run fetch-data  # pull latest CSVs from Google Sheets
 npm run dev
 ```
 
 Then open `http://localhost:5173`.
 
+### Updating data during development
+
+The dev server uses the CSV snapshots in `src/imports/`. To pick up changes made in the Google Sheet, run:
+
+```bash
+npm run fetch-data
+```
+
+The dev server will hot-reload automatically after the files are updated.
+
 ---
 
 ## Editing content
 
-All data lives in `src/imports/` as CSV files. These can be edited in Excel, Google Sheets, or any spreadsheet tool.
+All data is managed in the public Google Sheet:
 
-| File | Purpose |
+**[Weapons_Classifications__Small_Arms](https://docs.google.com/spreadsheets/d/1owsUDceWy-sG258SE8Z-gwTDLOQwIqAr6ADdfOln-2E/edit)**
+
+| Sheet tab | Purpose |
 |---|---|
-| `Weapons_Classifications__Small_Arms_-_classifications.csv` | Weapon classification records (ARCS taxonomy levels, characteristics, descriptions, ARES page refs) |
-| `Weapons_Classifications__Small_Arms_-_characteristic_options.csv` | Available options for each characteristic |
-| `Weapons_Classifications__Small_Arms_-_characteristic_values.csv` | Guidance text for identifying each characteristic visually |
-| `Weapons_Classifications__Small_Arms_-_classification_level_definitions.csv` | ARCS taxonomy level definitions (Class → Group → Type → Sub-type) |
+| `classification_options` | Weapon classification records (ARCS taxonomy levels, characteristics, descriptions, ARES page refs) |
+| `characteristic_options` | Available options for each characteristic |
+| `characteristic_definitions` | Guidance text for identifying each characteristic visually |
+| `classification_definitions` | ARCS taxonomy level definitions (Class → Group → Type → Sub-type) |
+
+### How changes get published
+
+1. Edit the Google Sheet
+2. Push any change to a branch — CI automatically pulls the latest sheet data before building
+3. Open a PR to `gh-pages` to publish to production
+
+### Pulling data locally
+
+To update your local CSV snapshots in `src/imports/`:
+
+```bash
+npm run fetch-data
+```
 
 ---
 
