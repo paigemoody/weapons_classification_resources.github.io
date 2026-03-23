@@ -1,7 +1,7 @@
 import Papa from 'papaparse';
-import characteristicOptionsCsv from '../../imports/Weapons_Classifications__Small_Arms_-_characteristic_options.csv?raw';
-import characteristicValuesCsv from '../../imports/Weapons_Classifications__Small_Arms_-_characteristic_values.csv?raw';
-import classificationsCsv from '../../imports/Weapons_Classifications__Small_Arms_-_classifications.csv?raw';
+import characteristicOptionsCsv from '../../imports/Weapons_Classifications__Small_Arms_characteristic_options.csv?raw';
+import characteristicValuesCsv from '../../imports/Weapons_Classifications__Small_Arms_characteristic_values.csv?raw';
+import classificationsCsv from '../../imports/Weapons_Classifications__Small_Arms_classifications.csv?raw';
 
 export type CharacteristicType = 'how held' | 'bore_type' | 'loading' | 'action mechanism';
 

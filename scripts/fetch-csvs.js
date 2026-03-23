@@ -14,19 +14,19 @@ const IMPORTS_DIR = join(__dirname, '..', 'src', 'imports');
 const SHEETS = [
   {
     tab: 'classification_options',
-    filename: 'Weapons_Classifications__Small_Arms_-_classifications.csv',
+    filename: 'Weapons_Classifications__Small_Arms_classifications.csv',
   },
   {
     tab: 'classification_definitions',
-    filename: 'Weapons_Classifications__Small_Arms_-_classification_level_definitions.csv',
+    filename: 'Weapons_Classifications__Small_Arms_classification_level_definitions.csv',
   },
   {
     tab: 'characteristic_definitions',
-    filename: 'Weapons_Classifications__Small_Arms_-_characteristic_values.csv',
+    filename: 'Weapons_Classifications__Small_Arms_characteristic_values.csv',
   },
   {
     tab: 'characteristic_options',
-    filename: 'Weapons_Classifications__Small_Arms_-_characteristic_options.csv',
+    filename: 'Weapons_Classifications__Small_Arms_characteristic_options.csv',
   },
 ];
 
