@@ -1,46 +1,41 @@
-# Regenerate HTML outputs when source files change, and publish branch previews
-# -------------------------------------------------------------------------
-# Repo layout (repo root):
-# - taxonomy-structure.mmd                                               (source — developer)
-# - content/questions.csv                                                (source — content editor)
-# - content/options.csv                                                  (source — content editor)
-# - content/classifications.csv                                          (source — content editor)
-# - weapons-classification-flowchart.mmd                                 (generated from above)
-# - classification-guide.html                                            (generated output #1)
-# - classification-guide-hypothesis-filtering.html                       (generated output #2)
-# - classification-guide-faceted.html                                    (generated output #3)
+# Build and deploy the Vite/React app
+# ---------------------------------------------------------------
+# Repo layout:
+# - src/                         React source
+# - src/imports/                 CSV data files
+# - index.html                   Vite entry template
+# - package.json / vite.config.ts
 #
 # Goals:
 # 1) Any time source files change on ANY branch:
-#    - regenerate weapons-classification-flowchart.mmd via build_content_mmd.py
-#    - regenerate classification-guide.html via mermaid_to_clickthrough.py
-#    - regenerate classification-guide-hypothesis-filtering.html via csv_to_hypothesis_filtering.py
-#    - regenerate classification-guide-faceted.html via csv_to_faceted_filtering.py
-#    - commit the regenerated files back to that SAME branch
-# 2) For non-gh-pages branches:
-#    - also publish a branch preview to gh-pages under:
-#        branch-preview/<branch-name>/
-# 3) For gh-pages itself:
-#    - do NOT publish a preview folder
-#    - just keep the source + generated HTML side-by-side at the root
+#    - npm ci && npx vite build (with correct --base for deployment path)
+# 2) For the gh-pages branch:
+#    - Deploy dist/ via actions/deploy-pages to production
+#    - Production URL: https://paigemoody.github.io/weapons_classification_resources.github.io/
+# 3) For non-gh-pages branches:
+#    - Publish dist/ to branch-preview/<branch-name>/ on gh-pages via peaceiris
+#    - Preview URL: https://paigemoody.github.io/weapons_classification_resources.github.io/branch-preview/<branch-name>/
+#
+# NOTE: For production deploys to work, GitHub Pages source must be set to
+# "GitHub Actions" in repo Settings → Pages.
 
 name: Branch Preview
 
 on:
   push:
     paths:
-      - "taxonomy-structure.mmd"
-      - "content/questions.csv"
-      - "content/options.csv"
-      - "content/classifications.csv"
-      - "src/build_content_mmd.py"
-      - "src/mermaid_to_clickthrough.py"
-      - "src/csv_to_hypothesis_filtering.py"
-      - "src/csv_to_faceted_filtering.py"
+      - "src/**"
+      - "index.html"
+      - "package.json"
+      - "package-lock.json"
+      - "vite.config.ts"
+      - "postcss.config.mjs"
       - ".github/workflows/pr-preview.yml"
 
 permissions:
-  contents: write
+  contents: write       # peaceiris preview push to gh-pages
+  pages: write          # actions/deploy-pages production deploy
+  id-token: write       # actions/deploy-pages OIDC token
   pull-requests: read
 
 concurrency:
@@ -50,7 +45,7 @@ concurrency:
 jobs:
   check-pr-status:
     runs-on: ubuntu-latest
-    # Extra loop guard: if the actor is GitHub Actions (from our own commit), don't run.
+    # Loop guard: don't re-run when the bot itself pushes (e.g. preview deploys)
     if: ${{ github.actor != 'github-actions[bot]' }}
     outputs:
       is_draft: ${{ steps.check.outputs.is_draft }}
@@ -62,86 +57,50 @@ jobs:
           IS_DRAFT=$(gh pr view "${{ github.ref_name }}" --repo "${{ github.repository }}" --json isDraft -q '.isDraft' 2>/dev/null || echo "false")
           echo "is_draft=$IS_DRAFT" >> $GITHUB_OUTPUT
 
-  build-commit-and-maybe-publish-preview:
+  build-and-deploy:
     needs: check-pr-status
     runs-on: ubuntu-latest
     if: ${{ needs.check-pr-status.outputs.is_draft != 'true' }}
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
         with:
-          fetch-depth: 0
-          persist-credentials: true
+          node-version: "20"
+          cache: "npm"
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.13"
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Generate weapons-classification-flowchart.mmd from structure + CSVs
-        run: |
-          python3 src/build_content_mmd.py \
-            --structure taxonomy-structure.mmd \
-            --questions content/questions.csv \
-            --options content/options.csv \
-            --classifications content/classifications.csv \
-            --output weapons-classification-flowchart.mmd
+      # Build with base path matching the deployment location so asset URLs are correct
 
-      - name: Regenerate classification-guide.html
-        run: |
-          python3 src/mermaid_to_clickthrough.py \
-            --input-mmd weapons-classification-flowchart.mmd \
-            --output-html classification-guide.html \
-            --app-name "[DEMO] Weapons Classification Guide"
+      - name: Build (production — gh-pages branch)
+        if: ${{ github.ref_name == 'gh-pages' }}
+        run: npx vite build --base=/weapons_classification_resources.github.io/
 
-      - name: Regenerate classification-guide-hypothesis-filtering.html
-        run: |
-          python3 src/csv_to_hypothesis_filtering.py \
-            --questions content/questions.csv \
-            --options content/options.csv \
-            --classifications content/classifications.csv \
-            --output classification-guide-hypothesis-filtering.html \
-            --app-name "[DEMO] Weapons Classification Guide (Hypothesis Filtering)"
-
-      - name: Regenerate classification-guide-faceted.html
-        run: |
-          python3 src/csv_to_faceted_filtering.py \
-            --classifications content/classifications.csv \
-            --output classification-guide-faceted.html \
-            --app-name "[DEMO] Weapons Classification Guide (Faceted Filtering)"
-
-      - name: Commit regenerated files back to the same branch
-        env:
-          BRANCH_NAME: ${{ github.ref_name }}
-        run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          git add weapons-classification-flowchart.mmd \
-                  classification-guide.html \
-                  classification-guide-hypothesis-filtering.html \
-                  classification-guide-faceted.html
-
-          if git diff --cached --quiet; then
-            echo "No generated file changes to commit."
-            exit 0
-          fi
-
-          git commit -m "Auto-regenerate Mermaid and HTML outputs [skip ci]"
-          git push origin "HEAD:${BRANCH_NAME}"
-
-      # Everything below is ONLY for preview branches (not gh-pages itself)
-      - name: Prepare dist/ payload for branch preview publish
+      - name: Build (preview — feature branch)
         if: ${{ github.ref_name != 'gh-pages' }}
-        run: |
-          mkdir -p dist
-          cp classification-guide.html dist/classification-guide.html
-          cp classification-guide-hypothesis-filtering.html dist/classification-guide-hypothesis-filtering.html
-          cp classification-guide-faceted.html dist/classification-guide-faceted.html
-          touch dist/.nojekyll
+        run: npx vite build --base=/weapons_classification_resources.github.io/branch-preview/${{ github.ref_name }}/
 
-      - name: Publish preview to gh-pages under branch-preview/<branch-name>/
+      # --- Production deploy (gh-pages branch only) ---
+
+      - name: Upload Pages artifact
+        if: ${{ github.ref_name == 'gh-pages' }}
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/
+
+      - name: Deploy to GitHub Pages
+        if: ${{ github.ref_name == 'gh-pages' }}
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      # --- Preview deploy (all other branches) ---
+
+      - name: Deploy preview to gh-pages
         if: ${{ github.ref_name != 'gh-pages' }}
         uses: peaceiris/actions-gh-pages@v4
         with:

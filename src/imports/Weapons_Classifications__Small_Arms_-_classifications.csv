@@ -1,0 +1,21 @@
+id,Name,ARES_guide_page_number,ARES_guide_page_number_manually_verified,ARES_guide_image_page_number,ARES_guide_image_page_number_manually_verified,Class,Group,Type,Sub-type,How held (grip / bracing),Bore type,Loading,Action mechanism,Description,Image URL,Image Preview,Image Caption
+SelfLoadingPistols,Self-loading Pistols,40,yes,41,yes,Small Arms,Handguns,Self-loading Pistols,,One hand,Rifled,Cycles automatically,Semi-automatic,A self-loading pistol with a rifled barrel that fires one round per trigger pull and automatically cycles the action.,https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.13_SelfLoading_Pistols.png?raw=true,,Self-Loading Pistols
+Revolvers,Revolvers,38,yes,38,yes,Small Arms,Handguns,Revolvers,,One hand,Rifled,Must be cycled manually,Rotating cylinder,A handgun with a rifled barrel and a rotating cylinder that holds multiple cartridges.,https://github.com/paigemoody/weapons_classification_resources.github.io/blob/gh-pages/sources/ARES_arms_munitions_classification_system/visuals/Figure2.12_Revolvers.png?raw=true,,Revolvers
+OtherHandguns,Other Handguns,36,yes,NA,NA,Small Arms,Handguns,Other Handguns,,One hand,Rifled or Smoothbore (rare),,,,,,
+SubMachineGuns,Sub-machine Guns,66,yes,"66,67",yes,Small Arms,Long Guns,Sub-machine Guns,,Two hands,Rifled,Cycles automatically,,,,,
+ManPortableMachineGuns,Man-portable Machine Guns,68,yes,"68,69",yes,Small Arms,Long Guns,Man-portable Machine Guns,,bipod or mount supported,Rifled,Cycles automatically,Fully automatic,,,,
+OtherLongGuns,Other Long Guns,50,yes,NA,NA,Small Arms,Long Guns,Other Long Guns,,Two hands,Rifled or Smoothbore (rare),,,,,,
+AutomaticRifles,Automatic Rifles,76,,,,Small Arms,Long Guns,Rifles,Self-loading,Two hands,Rifled,Cycles automatically,Fully automatic,,,,
+SemiAutomaticRifles,Semi-automatic Rifles,75,,,,Small Arms,Long Guns,Rifles,Self-loading,Two hands,Rifled,Cycles automatically,Semi-automatic,,,,
+BreakActionRifles,Break-action Rifles,71,yes,71,yes,Small Arms,Long Guns,Rifles,Manually Operated,Two hands,Rifled,Must be cycled manually,Break-action,,,,
+BoltActionRifles,Bolt-action Rifles,72,yes,72,yes,Small Arms,Long Guns,Rifles,Manually Operated,Two hands,Rifled,Must be cycled manually,Bolt-action,,,,
+LeverActionRifles,Lever-action Rifles,72,yes,72,yes,Small Arms,Long Guns,Rifles,Manually Operated,Two hands,Rifled,Must be cycled manually,Lever-action,,,,
+PumpActionRifles,Pump-action Rifles,72,yes,72,yes,Small Arms,Long Guns,Rifles,Manually Operated,Two hands,Rifled,Must be cycled manually,Pump-action,,,,
+OtherManuallyOperatedRifles,Other Manually Operated Rifles,62,yes,62,yes,Small Arms,Long Guns,Rifles,Self-loading,Two hands,Rifled,Must be cycled manually,,,,,
+AutomaticShotguns,Automatic Shotguns,56,yes,56,yes,Small Arms,Long Guns,Shotguns,Self-loading,Two hands,Smooth bore,Cycles automatically,Fully automatic,,,,
+SemiAutomaticShotguns,Semi-automatic Shotguns,56,yes,56,yes,Small Arms,Long Guns,Shotguns,Self-loading,Two hands,Smooth bore,Cycles automatically,Semi-automatic,,,,
+BreakActionShotguns,Break-action Shotguns,71,yes,71,yes,Small Arms,Long Guns,Shotguns,Manually Operated,Two hands,Smooth bore,Must be cycled manually,Break-action,,,,
+BoltActionShotguns,Bolt-action Shotguns,72,yes,72,yes,Small Arms,Long Guns,Shotguns,Manually Operated,Two hands,Smooth bore,Must be cycled manually,Bolt-action,,,,
+LeverActionShotguns,Lever-action Shotguns,72,yes,72,yes,Small Arms,Long Guns,Shotguns,Manually Operated,Two hands,Smooth bore,Must be cycled manually,Lever-action,,,,
+PumpActionShotguns,Pump-action Shotguns,72,yes,72,yes,Small Arms,Long Guns,Shotguns,Manually Operated,Two hands,Smooth bore,Must be cycled manually,Pump-action,,,,
+OtherManuallyOperatedShotguns,Other Manually Operated Shotguns,71,yes,71,yes,Small Arms,Long Guns,Shotguns,Manually Operated,Two hands,Smooth bore,Must be cycled manually,,,,,

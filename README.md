@@ -2,104 +2,77 @@
 
 An interactive tool for classifying small arms based on the **ARES Arms & Munitions Classification System (ARCS)** and the **SAS Weapons Identification Guide**.
 
-Two guides are generated from the same source data:
+Select observable physical characteristics of a weapon (how it's held, bore type, loading mechanism, action) and matching weapon classifications are filtered in real time.
 
-- **`classification-guide.html`** — click-through guide: start at the top and answer questions in sequence
-- **`classification-guide-hypothesis-filtering.html`** — hypothesis-filtering guide: see all possible classifications and filter by observable characteristics
-
----
-
-## How it works
-
-The tool has two kinds of source files:
-
-| What | File(s) | Who edits it |
-|---|---|---|
-| Taxonomy structure (which nodes exist and how they connect) | `taxonomy-structure.mmd` | Developer |
-| Content (question prompts, option names/descriptions, classification names/descriptions, images) | `content/questions.csv`, `content/options.csv`, `content/classifications.csv` | Content editor |
-
-The HTML guides are generated from these sources. They are **not edited directly**.
+**Live site**: https://paigemoody.github.io/weapons_classification_resources.github.io/
 
 ---
 
-## For content editors
+## Prerequisites
 
-All content lives in three CSV files under `content/`. You can edit them in Excel, Google Sheets, or any spreadsheet tool.
-
-See **[docs/CONTENT_EDITING_GUIDE.md](docs/CONTENT_EDITING_GUIDE.md)** for a step-by-step guide to editing content and previewing changes.
+- Node.js v20+
 
 ---
 
-## For developers
-
-### Local setup
-
-The project runs in a dev container with Python 3 pre-installed. No additional dependencies are required.
-
-### Generate the HTML files locally
+## Local setup
 
 ```bash
-make
+npm install
+npm run dev
 ```
 
-This runs the full pipeline:
-1. `src/build_content_mmd.py` — merges `taxonomy-structure.mmd` + content CSVs → `weapons-classification-flowchart.mmd`
-2. `src/mermaid_to_clickthrough.py` — generates `classification-guide.html`
-3. `src/csv_to_hypothesis_filtering.py` — generates `classification-guide-hypothesis-filtering.html`
+Then open `http://localhost:5173`.
 
-`make` only rebuilds what is out of date. Run `make clean` to remove all generated files.
+---
 
-### Preview locally
+## Editing content
 
-```bash
-python3 -m http.server 8000
-```
+All data lives in `src/imports/` as CSV files. These can be edited in Excel, Google Sheets, or any spreadsheet tool.
 
-Then open:
-- `http://localhost:8000/classification-guide.html`
-- `http://localhost:8000/classification-guide-hypothesis-filtering.html`
+| File | Purpose |
+|---|---|
+| `Weapons_Classifications__Small_Arms_-_classifications.csv` | Weapon classification records (ARCS taxonomy levels, characteristics, descriptions, ARES page refs) |
+| `Weapons_Classifications__Small_Arms_-_characteristic_options.csv` | Available options for each characteristic |
+| `Weapons_Classifications__Small_Arms_-_characteristic_values.csv` | Guidance text for identifying each characteristic visually |
+| `Weapons_Classifications__Small_Arms_-_classification_level_definitions.csv` | ARCS taxonomy level definitions (Class → Group → Type → Sub-type) |
 
-### Pipeline overview
+---
 
-```
-taxonomy-structure.mmd  ─┐
-content/questions.csv    ├─→ build_content_mmd.py → weapons-classification-flowchart.mmd → mermaid_to_clickthrough.py → classification-guide.html
-content/options.csv      │
-content/classifications.csv ─→ csv_to_hypothesis_filtering.py → classification-guide-hypothesis-filtering.html
-```
+## Deployment
 
-The hypothesis-filtering guide reads structure directly from `questions.csv` (the Option columns encode parent-child relationships) and does not need the intermediate Mermaid file.
+GitHub Pages is configured to use **GitHub Actions** as its source (repo Settings → Pages). The workflow builds the app and deploys it — files are never served directly from the branch.
 
-### Taxonomy structure
+### Production (`gh-pages` branch)
+Pushing to `gh-pages` triggers a build and deploys to the live site.
 
-The taxonomy mirrors the ARCS classification levels 1–4 (Class → Group → Type → Sub-type). `taxonomy-structure.mmd` is the authoritative source for which nodes exist and how they connect. Content editors do not need to touch it.
-
-See **[docs/NOTES.md](docs/NOTES.md)** for the reasoning behind structural and content decisions.
-
-### CI/CD
-
-GitHub Actions (`.github/workflows/pr-preview.yml`) automatically regenerates the HTML files and commits them back to the branch whenever source files change. For non-`gh-pages` branches it also publishes a preview at:
+### Branch previews (any other branch)
+Pushing to a feature branch builds the app and publishes it to a subfolder on the `gh-pages` branch:
 
 ```
-https://paigemoody.github.io/weapons_classification_resources.github.io/branch-preview/<branch-name>/classification-guide.html
-https://paigemoody.github.io/weapons_classification_resources.github.io/branch-preview/<branch-name>/classification-guide-hypothesis-filtering.html
+https://paigemoody.github.io/weapons_classification_resources.github.io/branch-preview/<branch-name>/
 ```
+
+When a PR is closed or a branch is deleted, the preview folder is automatically removed via a cleanup workflow.
+
+### The `gh-pages` branch
+`gh-pages` serves two roles: it holds the React source code (your main branch) and also stores the `branch-preview/` subfolders for feature branch previews.
 
 ---
 
 ## File reference
 
-| File | Purpose |
+| File/Directory | Purpose |
 |---|---|
-| `taxonomy-structure.mmd` | Taxonomy structure — developer maintained |
-| `content/questions.csv` | Decision node prompts and options |
-| `content/options.csv` | Option names, descriptions, images, characteristics |
-| `content/classifications.csv` | Leaf node names, ARCS levels, descriptions, images |
-| `src/build_content_mmd.py` | Merges structure + CSVs → enriched Mermaid |
-| `src/mermaid_to_clickthrough.py` | Enriched Mermaid → click-through HTML |
-| `src/csv_to_hypothesis_filtering.py` | CSVs → hypothesis-filtering HTML |
-| `weapons-classification-flowchart.mmd` | Generated — do not edit directly |
-| `classification-guide.html` | Generated — do not edit directly |
-| `classification-guide-hypothesis-filtering.html` | Generated — do not edit directly |
-| `docs/NOTES.md` | Architecture decisions and rationale |
-| `docs/CONTENT_EDITING_GUIDE.md` | Guide for content editors |
+| `src/app/App.tsx` | Main app component and filtering logic |
+| `src/app/data/weaponData.ts` | CSV parsing (PapaParse) and typed data layer |
+| `src/app/components/` | UI components (CharacteristicCard, OptionPanel, ResultsPanel, etc.) |
+| `src/imports/` | Source data (CSV files) |
+| `src/styles/` | Tailwind / theme styles |
+| `CLAUDE.md` | Claude Code guidelines |
+
+
+### Attributions
+
+Includes components from [shadcn/ui](https://ui.shadcn.com/) used under [MIT license](https://github.com/shadcn-ui/ui/blob/main/LICENSE.md).
+
+Includes photos from [Unsplash](https://unsplash.com) used under [license](https://unsplash.com/license).
