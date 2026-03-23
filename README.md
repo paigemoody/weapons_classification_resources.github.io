@@ -10,7 +10,7 @@ Select observable physical characteristics of a weapon (how it's held, bore type
 
 ## Prerequisites
 
-- Node.js v20+
+- Node.js v24+
 
 ---
 
