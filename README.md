@@ -18,21 +18,12 @@ Select observable physical characteristics of a weapon (how it's held, bore type
 
 ```bash
 npm install
-npm run fetch-data  # pull latest CSVs from Google Sheets
+npm run fetch-data      # pull latest CSVs from Google Sheets
+npm run validate-data   # confirm the downloaded data is valid
 npm run dev
 ```
 
 Then open `http://localhost:5173`.
-
-### Updating data during development
-
-The dev server uses the CSV snapshots in `src/imports/`. To pick up changes made in the Google Sheet, run:
-
-```bash
-npm run fetch-data
-```
-
-The dev server will hot-reload automatically after the files are updated.
 
 ---
 
@@ -40,28 +31,49 @@ The dev server will hot-reload automatically after the files are updated.
 
 All data is managed in the public Google Sheet:
 
-**[Weapons_Classifications__Small_Arms](https://docs.google.com/spreadsheets/d/1owsUDceWy-sG258SE8Z-gwTDLOQwIqAr6ADdfOln-2E/edit)**
+**[Weapons_Classifications__Small_Arms](https://docs.google.com/spreadsheets/d/1owsUDceWy-sG258SE8Z-gwTDLOQwIqAr6ADdfOln-2E/edit?gid=0#gid=0)**
 
 | Sheet tab | Purpose |
 |---|---|
-| `classification_options` | Weapon classification records (ARCS taxonomy levels, characteristics, descriptions, ARES page refs) |
-| `characteristic_options` | Available options for each characteristic |
-| `characteristic_definitions` | Guidance text for identifying each characteristic visually |
+| `classification_options` | Weapon records — ARCS taxonomy levels, characteristic values, descriptions, and source page refs |
+| `characteristic_options` | Available options for each characteristic (e.g. `one_hand`, `rifled`) |
+| `characteristic_definitions` | Guidance text for visually identifying each characteristic |
 | `classification_definitions` | ARCS taxonomy level definitions (Class → Group → Type → Sub-type) |
+| `sources` | Reference sources and their PDF page offsets |
 
 ### How changes get published
 
 1. Edit the Google Sheet
-2. Push any change to a branch — CI automatically pulls the latest sheet data before building
-3. Open a PR to `gh-pages` to publish to production
+2. Push any change to a branch — CI fetches the latest sheet data, validates it, then builds
+3. A branch preview is automatically deployed to:
+   ```
+   https://paigemoody.github.io/weapons_classification_resources.github.io/branch-preview/<branch-name>/
+   ```
+4. Open a PR to `gh-pages` to publish to production
 
-### Pulling data locally
+If the fetched data fails validation, the CI build is aborted — nothing broken can be deployed.
 
-To update your local CSV snapshots in `src/imports/`:
+### Updating data during local development
+
+After editing the Google Sheet, pull the latest data and verify it locally before pushing:
 
 ```bash
-npm run fetch-data
+npm run fetch-data      # overwrites src/imports_new/ with latest sheet data
+npm run validate-data   # exits with an error if anything looks wrong
 ```
+
+The dev server hot-reloads automatically after the CSV files are updated.
+
+---
+
+## CI pipeline
+
+Every push runs these steps in order — each must pass before the next runs:
+
+1. **Fetch** — `npm run fetch-data` pulls all sheet tabs from Google Sheets
+2. **Validate** — `npm run validate-data` checks structure and cross-references
+3. **Build** — `vite build` bundles the app with the correct base path
+4. **Deploy** — production (`gh-pages` branch) or branch preview (all other branches)
 
 ---
 
@@ -70,19 +82,12 @@ npm run fetch-data
 GitHub Pages is configured to use **GitHub Actions** as its source (repo Settings → Pages). The workflow builds the app and deploys it — files are never served directly from the branch.
 
 ### Production (`gh-pages` branch)
-Pushing to `gh-pages` triggers a build and deploys to the live site.
+Pushing to `gh-pages` triggers the full pipeline and deploys to the live site.
 
 ### Branch previews (any other branch)
-Pushing to a feature branch builds the app and publishes it to a subfolder on the `gh-pages` branch:
-
-```
-https://paigemoody.github.io/weapons_classification_resources.github.io/branch-preview/<branch-name>/
-```
+Pushing to a feature branch deploys the built app to a subfolder on the `gh-pages` branch. Only that subfolder is modified — the production root is never touched.
 
 When a PR is closed or a branch is deleted, the preview folder is automatically removed via a cleanup workflow.
-
-### The `gh-pages` branch
-`gh-pages` serves two roles: it holds the React source code (your main branch) and also stores the `branch-preview/` subfolders for feature branch previews.
 
 ---
 
@@ -93,10 +98,12 @@ When a PR is closed or a branch is deleted, the preview folder is automatically 
 | `src/app/App.tsx` | Main app component and filtering logic |
 | `src/app/data/weaponData.ts` | CSV parsing (PapaParse) and typed data layer |
 | `src/app/components/` | UI components (CharacteristicCard, OptionPanel, ResultsPanel, etc.) |
-| `src/imports/` | Source data (CSV files) |
+| `src/imports_new/` | CSV data files (fetched from Google Sheets) |
 | `src/styles/` | Tailwind / theme styles |
-| `CLAUDE.md` | Claude Code guidelines |
+| `scripts/fetch-csvs.js` | Fetches sheet tabs from Google Sheets into `src/imports_new/` |
+| `scripts/validate-csvs.js` | Validates CSV structure and cross-references |
 
+---
 
 ### Attributions
 

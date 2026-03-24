@@ -21,7 +21,7 @@ export function ProgressPanel({
       <div className="p-6 border-b border-border flex-shrink-0">
         <h2 className="mb-2">Narrowing Results</h2>
         <p className="text-sm text-muted-foreground mb-4">
-          Watch as your selections narrow down the possibilities
+          Watch as your selections narrow down the possibile classifications. The more characteristics you select, the shorter the list of possible weapon classification.
         </p>
 
         {/* Progress Bar */}
