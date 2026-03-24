@@ -17,7 +17,7 @@ const CHARACTERISTIC_ICONS = {
 };
 
 export default function App() {
-  const [selectedCharacteristic, setSelectedCharacteristic] = useState<CharacteristicType | null>(null);
+  const [selectedCharacteristic, setSelectedCharacteristic] = useState<CharacteristicType | null>('how_held');
   const [selections, setSelections] = useState<Partial<Record<CharacteristicType, string>>>({});
 
   const handleSelectOption = (characteristicId: CharacteristicType, optionId: string) => {
@@ -88,7 +88,7 @@ export default function App() {
         {/* Header */}
         <div className="bg-card border-b border-border px-6 py-8">
           <div className="max-w-7xl mx-auto">
-            <h1 className="mb-2">Weapon Classification Assistant</h1>
+            <h1 className="mb-2 text-4xl font-bold">Weapon Classification Assistant</h1>
             <p className="text-muted-foreground">
               This tool assists in narrowing down possible weapon classifications to help focus your research. 
               Based on the ARES Arms & Munitions Classification System (ARCS) and Small Arms Survey Handbook.
@@ -103,10 +103,12 @@ export default function App() {
               {/* Left Column - Characteristics */}
               <div className="flex flex-col min-h-0">
                 <div className="flex-1 overflow-y-auto space-y-4">
+                  <h2 className="text-base font-semibold px-1">Step 1: Select a Characteristic to Review</h2>
+
                   {/* Controls */}
                   <div className="flex items-center justify-between px-1">
                     <p className="text-sm text-muted-foreground">
-                      {Object.keys(selections).length} of {CHARACTERISTICS.length} selected
+                      {Object.keys(selections).length} of {CHARACTERISTICS.length} reviewed
                     </p>
                     {Object.keys(selections).length > 0 && (
                       <button
@@ -139,26 +141,29 @@ export default function App() {
               </div>
 
               {/* Middle Column - Options */}
-              <div className="hidden lg:block min-h-0">
-                {currentCharacteristic ? (
-                  <OptionPanel
-                    characteristic={currentCharacteristic}
-                    selectedOptionId={selections[selectedCharacteristic!]}
-                    onSelectOption={(optionId) =>
-                      handleSelectOption(selectedCharacteristic!, optionId)
-                    }
-                    onClose={() => setSelectedCharacteristic(null)}
-                    availableOptionIds={getAvailableOptions[selectedCharacteristic!]}
-                    currentSelections={selections}
-                  />
-                ) : (
-                  <div className="bg-card border border-border rounded-lg p-6 h-full flex items-center justify-center">
-                    <div className="text-center text-muted-foreground">
-                      <Package size={48} className="mx-auto mb-3 opacity-30" />
-                      <p className="text-sm">Select a characteristic to view options</p>
+              <div className="hidden lg:flex flex-col min-h-0 gap-4">
+                <h2 className="text-base font-semibold px-1 flex-shrink-0">Step 2: Determine which Option fits best</h2>
+                <div className="flex-1 min-h-0">
+                  {currentCharacteristic ? (
+                    <OptionPanel
+                      characteristic={currentCharacteristic}
+                      selectedOptionId={selections[selectedCharacteristic!]}
+                      onSelectOption={(optionId) =>
+                        handleSelectOption(selectedCharacteristic!, optionId)
+                      }
+                      onClose={() => setSelectedCharacteristic(null)}
+                      availableOptionIds={getAvailableOptions[selectedCharacteristic!]}
+                      currentSelections={selections}
+                    />
+                  ) : (
+                    <div className="bg-card border border-border rounded-lg p-6 h-full flex items-center justify-center">
+                      <div className="text-center text-muted-foreground">
+                        <Package size={48} className="mx-auto mb-3 opacity-30" />
+                        <p className="text-sm">Select a characteristic to view options</p>
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
 
               {/* Right Column - Progress/Results */}
