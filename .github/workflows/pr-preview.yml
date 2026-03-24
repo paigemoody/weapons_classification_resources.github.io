@@ -105,14 +105,37 @@ jobs:
         uses: actions/deploy-pages@v4
 
       # --- Preview deploy (all other branches) ---
+      # Surgically write only branch-preview/<branch>/ on gh-pages.
+      # Using plain git instead of peaceiris so nothing outside that
+      # subdirectory is ever staged or committed.
 
       - name: Deploy preview to gh-pages
         if: ${{ github.ref_name != 'gh-pages' }}
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: dist
-          destination_dir: branch-preview/${{ github.ref_name }}
-          enable_jekyll: false
-          keep_files: true
+        run: |
+          # Save the build output before switching branches
+          cp -r dist/ /tmp/preview-dist/
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git fetch origin gh-pages
+          git checkout gh-pages
+
+          PREVIEW_PATH="branch-preview/${{ github.ref_name }}"
+          rm -rf "$PREVIEW_PATH"
+          mkdir -p "$PREVIEW_PATH"
+          cp -r /tmp/preview-dist/. "$PREVIEW_PATH/"
+
+          # Stage ONLY the preview subdirectory — nothing else
+          git add "$PREVIEW_PATH"
+
+          if git diff --cached --quiet; then
+            echo "No changes — skipping commit"
+          else
+            git commit -m "Preview deploy: ${{ github.ref_name }}"
+            # Retry push with rebase to handle concurrent branch deploys
+            for i in 1 2 3; do
+              git push origin gh-pages && break
+              git pull --rebase origin gh-pages
+            done
+          fi
