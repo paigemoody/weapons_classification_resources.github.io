@@ -6,7 +6,8 @@
   "scripts": {
     "build": "vite build",
     "dev": "vite",
-    "fetch-data": "node scripts/fetch-csvs.js"
+    "fetch-data": "node scripts/fetch-csvs.js",
+    "validate-data": "node scripts/validate-csvs.js"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",

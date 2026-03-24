@@ -1,4 +1,5 @@
-id,name,class,group,type,sub_type,how_held,bore_type,loading,method_of_operation,description,reference_source_id,source_reference_page_number,image_source,source_image_page_number
+id,name,class,group,type,sub_type,how_held,bore_type,loading,method_of_operation,description,"reference_source_id
+",source_reference_page_number,image_source,source_image_page_number
 self_loading_pistols,Self-loading Pistols,small_arms,handguns,self_loading_pistols,none,one_hand,rifled,cycles_automatically,semi_automatic,A self-loading pistol with a rifled barrel that fires one round per trigger pull and automatically cycles the action.,ares_guide,40,ares_guide,41
 revolvers,Revolvers,small_arms,handguns,revolvers,none,one_hand,rifled,cycled_manually,rotating_cylinder,A handgun with a rifled barrel and a rotating cylinder that holds multiple cartridges.,ares_guide,38,ares_guide,38
 other_handguns,Other Handguns,small_arms,handguns,other_handguns,none,one_hand,rifled_or_smoothbore,none,,,ares_guide,36,,

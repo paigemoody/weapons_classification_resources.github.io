@@ -25,6 +25,7 @@ on:
   push:
     paths:
       - "src/**"
+      - "scripts/**"
       - "index.html"
       - "package.json"
       - "package-lock.json"
@@ -77,6 +78,12 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Fetch latest CSV data from Google Sheets
+        run: npm run fetch-data
+
+      - name: Validate CSV data
+        run: npm run validate-data
 
       # Build with base path matching the deployment location so asset URLs are correct
 

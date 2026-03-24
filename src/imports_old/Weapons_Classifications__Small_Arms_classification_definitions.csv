@@ -1,4 +1,5 @@
-level,term,definition,reference_source_id,source_reference_page_number,image_source,source_image_page_number
+level,term,definition,"reference_source_id
+",source_reference_page_number,image_source,source_image_page_number
 class,small_arms,Firearms of less than 20 mm in calibre that are typically man-portable by a single individual,,,,
 group,handguns,Firearms designed to be gripped in one location (the pistol grip) and readily fired with one hand,,,,
 group,long_guns,Firearms designed to be gripped in two different locations and typically fitted with a buttstock to be braced against the shoulder,,,,
